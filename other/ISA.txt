@@ -1,0 +1,33 @@
+Arithmetic:
+
+00 add RA RB
+01 sub RA RB
+02 inc RA
+03 dec RA
+04 neg RA
+05 not RA
+06 and RA RB
+07 or  RA RB
+
+Memory:
+
+08 lod addr RA
+09 lod IDR  RA
+09 str RA 	addr
+10 lod addr RB
+11 lod IDR 	RB
+12 str RB	addr
+13 lod addr RC
+14 lod IDR 	RC
+15 str RC	addr
+16 lod ACR 	RA
+17 str ACR  addr
+
+Instruction change:
+
+18 jmp  addr
+19 jmp 	cnst 
+20 jmpz addr
+21 jmpn addr
+22 jmp0 addr
+23 hlt
