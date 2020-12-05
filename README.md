@@ -41,8 +41,7 @@
 	Instruction change:
 
 	18 jmp  addr
-	19 jmp 	cnst 
-	20 jmpz addr
-	21 jmpn addr
-	22 jmp0 addr
-	23 hlt
+	19 jmpz addr
+	20 jmpn addr
+	21 jmp0 addr
+	22 hlt
