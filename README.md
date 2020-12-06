@@ -16,9 +16,9 @@
 	Arithmetic:
 
 	00 add RA RB
-    	01 add RA X
+	01 add RA X
 	02 sub RA RB
-    	03 sub RA X
+	03 sub RA X
 	04 inc RA
 	05 dec RA
 	06 neg RA
