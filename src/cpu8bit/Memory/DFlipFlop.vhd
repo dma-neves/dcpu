@@ -17,7 +17,7 @@ begin
 	process (D, En, R) begin
 	 if(R = '1') then
 		Q <= '0';
-	 elsif (En = '1') then
+	 elsif (En'event and En = '1') then
 		Q <= D;
 	 end if;
 	end process; 
