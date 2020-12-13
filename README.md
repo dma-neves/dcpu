@@ -43,9 +43,4 @@
 	19 jmpz X
 	20 jmpn X
 	21 jmpO X
-
-	22 rjmp  X
-	23 rjmpz X
-	24 rjmpn X
-	25 rjmpO X
-	26 hlt
+	22 hlt
