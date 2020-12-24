@@ -34,6 +34,14 @@ Port(
 );
 end component;
 
+component Mux2
+Port(
+	I0, I1 : in STD_LOGIC_VECTOR(7 downto 0);
+	sel : in STD_LOGIC;
+	o : out STD_LOGIC_VECTOR(7 downto 0)
+);
+end component;
+
 signal l_sel : STD_LOGIC_VECTOR(3 downto 0);
 signal M0_d, M1_d : STD_LOGIC_VECTOR(7 downto 0);
 
@@ -47,7 +55,7 @@ l_sel(3) <= sel(3);
 M16_0: Mux16 port map (l_sel, I0, I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15, M0_d);
 M16_1: Mux16 port map (l_sel, I16, I17, I18, I19, I20, I21, I22, I23, I24, I25, I26, I27, I28, I29, I30, I31, M1_d);
 
-d <= (M0_d and sel(4)) or (M1_d and sel(4));
+M2: Mux2 port map (M0_d, M1_d, sel(4), d);
 
 end Behavioral;
 

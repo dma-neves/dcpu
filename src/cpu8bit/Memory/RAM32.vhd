@@ -38,15 +38,6 @@ e_adr(3) <= adr(3) and En;
 
 e_rw <= rw and En;
 
-e_DO(0) <= DO(0) and En;
-e_DO(1) <= DO(1) and En;
-e_DO(2) <= DO(2) and En;
-e_DO(3) <= DO(3) and En;
-e_DO(4) <= DO(4) and En;
-e_DO(5) <= DO(5) and En;
-e_DO(6) <= DO(6) and En;
-e_DO(7) <= DO(7) and En;
-
 MEM32_0: Mem32b port map (e_adr, R, e_rw, DI(0), e_DO(0));
 MEM32_1: Mem32b port map (e_adr, R, e_rw, DI(1), e_DO(1));
 MEM32_2: Mem32b port map (e_adr, R, e_rw, DI(2), e_DO(2));
@@ -55,6 +46,15 @@ MEM32_4: Mem32b port map (e_adr, R, e_rw, DI(4), e_DO(4));
 MEM32_5: Mem32b port map (e_adr, R, e_rw, DI(5), e_DO(5));
 MEM32_6: Mem32b port map (e_adr, R, e_rw, DI(6), e_DO(6));
 MEM32_7: Mem32b port map (e_adr, R, e_rw, DI(7), e_DO(7));
+
+DO(0) <= e_DO(0) and En;
+DO(1) <= e_DO(1) and En;
+DO(2) <= e_DO(2) and En;
+DO(3) <= e_DO(3) and En;
+DO(4) <= e_DO(4) and En;
+DO(5) <= e_DO(5) and En;
+DO(6) <= e_DO(6) and En;
+DO(7) <= e_DO(7) and En;
 
 end Behavioral;
 

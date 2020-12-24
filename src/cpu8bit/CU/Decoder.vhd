@@ -3,7 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity Decoder is
 Port(
-	inst : in STD_LOGIC_VECTOR(7 downto 0);z
+	inst : in STD_LOGIC_VECTOR(7 downto 0);
 	En : in STD_LOGIC;
 	
 	add_RA_RB,
@@ -36,6 +36,9 @@ Port(
 end Decoder;
 
 architecture Behavioral of Decoder is
+
+signal e_inst : STD_LOGIC_VECTOR(7 downto 0);
+
 begin
 
 e_inst(0) <= inst(0) and En;
@@ -107,19 +110,19 @@ str_RA_adr <=
 (    e_inst(0)) and (    e_inst(1)) and (not e_inst(2)) and (    e_inst(3)) and 
 (not e_inst(4)) and (not e_inst(5)) and (not e_inst(6)) and (not e_inst(7));
 
---"00001011"
-lod_adr_RB <= 
-(    e_inst(0)) and (    e_inst(1)) and (not e_inst(2)) and (    e_inst(3)) and 
-(not e_inst(4)) and (not e_inst(5)) and (not e_inst(6)) and (not e_inst(7));
-
 --"00001100"
-str_RB_adr <= 
+lod_adr_RB <= 
 (not e_inst(0)) and (not e_inst(1)) and (    e_inst(2)) and (    e_inst(3)) and 
 (not e_inst(4)) and (not e_inst(5)) and (not e_inst(6)) and (not e_inst(7));
 
 --"00001101"
-lod_adr_RC <= 
+str_RB_adr <= 
 (    e_inst(0)) and (not e_inst(1)) and (    e_inst(2)) and (    e_inst(3)) and 
+(not e_inst(4)) and (not e_inst(5)) and (not e_inst(6)) and (not e_inst(7));
+
+--"00001110"
+lod_adr_RC <= 
+(not e_inst(0)) and (    e_inst(1)) and (    e_inst(2)) and (    e_inst(3)) and 
 (not e_inst(4)) and (not e_inst(5)) and (not e_inst(6)) and (not e_inst(7));
 
 --"00001111"

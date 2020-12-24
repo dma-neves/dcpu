@@ -34,7 +34,7 @@ signal MUX_d : STD_LOGIC_VECTOR(7 downto 0);
 
 begin
 
-MUX32: Mux32 port map (adr,
+M32: Mux32 port map (adr,
 "00000000","00000000",
 "00000000","00000000",
 "00000000","00000000",
@@ -51,6 +51,7 @@ MUX32: Mux32 port map (adr,
 "00000000","00000000",
 "00000000","00000000",
 "00000000","00000000",
+
 MUX_d
 );
 
