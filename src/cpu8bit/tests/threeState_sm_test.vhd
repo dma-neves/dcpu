@@ -2,20 +2,21 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
  
  
-ENTITY twoState_sm_test IS
-END twoState_sm_test;
+ENTITY threeState_sm_test IS
+END threeState_sm_test;
  
-ARCHITECTURE behavior OF twoState_sm_test IS 
+ARCHITECTURE behavior OF threeState_sm_test IS 
  
     -- Component Declaration for the Unit Under Test (UUT)
  
-    COMPONENT TwoState_sm
+    COMPONENT ThreeState_sm
     PORT(
          clk : IN  std_logic;
          reset : IN  std_logic;
          start : IN  std_logic;
          S0 : OUT  std_logic;
-         S1 : OUT  std_logic
+         S1 : OUT  std_logic;
+         S2 : OUT  std_logic
         );
     END COMPONENT;
     
@@ -28,6 +29,7 @@ ARCHITECTURE behavior OF twoState_sm_test IS
  	--Outputs
    signal S0 : std_logic;
    signal S1 : std_logic;
+   signal S2 : std_logic;
 
    -- Clock period definitions
    constant clk_period : time := 10 ns;
@@ -35,12 +37,13 @@ ARCHITECTURE behavior OF twoState_sm_test IS
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
-   uut: TwoState_sm PORT MAP (
+   uut: ThreeState_sm PORT MAP (
           clk => clk,
           reset => reset,
           start => start,
           S0 => S0,
-          S1 => S1
+          S1 => S1,
+          S2 => S2
         );
 
    -- Clock process definitions
