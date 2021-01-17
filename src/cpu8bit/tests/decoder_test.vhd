@@ -197,7 +197,9 @@ BEGIN
 
 		inst <= "00010101";
 		wait for 100 ns;
-
+		
+		inst <= "00010110";
+		wait for 100 ns;
 
       wait;
    end process;

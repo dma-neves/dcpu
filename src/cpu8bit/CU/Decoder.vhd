@@ -37,133 +37,122 @@ end Decoder;
 
 architecture Behavioral of Decoder is
 
-signal e_inst : STD_LOGIC_VECTOR(7 downto 0);
-
 begin
 
-e_inst(0) <= inst(0) and En;
-e_inst(1) <= inst(1) and En;
-e_inst(2) <= inst(2) and En;
-e_inst(3) <= inst(3) and En;
-e_inst(4) <= inst(4) and En;
-e_inst(5) <= inst(5) and En;
-e_inst(6) <= inst(6) and En;
-e_inst(7) <= inst(7) and En;
-
 --"00000000"
-add_RA_RB <= 
-(not e_inst(0)) and (not e_inst(1)) and (not e_inst(2)) and (not e_inst(3)) and 
-(not e_inst(4)) and (not e_inst(5)) and (not e_inst(6)) and (not e_inst(7));
+add_RA_RB <= En and 
+(not inst(0)) and (not inst(1)) and (not inst(2)) and (not inst(3)) and 
+(not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00000001"
-add_RA_X <= 
-(    e_inst(0)) and (not e_inst(1)) and (not e_inst(2)) and (not e_inst(3)) and 
-(not e_inst(4)) and (not e_inst(5)) and (not e_inst(6)) and (not e_inst(7));
+add_RA_X <= En and 
+(    inst(0)) and (not inst(1)) and (not inst(2)) and (not inst(3)) and 
+(not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00000010"
-sub_RA_RB <= 
-(not e_inst(0)) and (    e_inst(1)) and (not e_inst(2)) and (not e_inst(3)) and 
-(not e_inst(4)) and (not e_inst(5)) and (not e_inst(6)) and (not e_inst(7));
+sub_RA_RB <= En and 
+(not inst(0)) and (    inst(1)) and (not inst(2)) and (not inst(3)) and 
+(not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00000011"
-sub_RA_X <= 
-(    e_inst(0)) and (    e_inst(1)) and (not e_inst(2)) and (not e_inst(3)) and 
-(not e_inst(4)) and (not e_inst(5)) and (not e_inst(6)) and (not e_inst(7));
+sub_RA_X <= En and 
+(    inst(0)) and (    inst(1)) and (not inst(2)) and (not inst(3)) and 
+(not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00000100"
-inc_RA <= 
-(not e_inst(0)) and (not e_inst(1)) and (    e_inst(2)) and (not e_inst(3)) and 
-(not e_inst(4)) and (not e_inst(5)) and (not e_inst(6)) and (not e_inst(7));
+inc_RA <= En and 
+(not inst(0)) and (not inst(1)) and (    inst(2)) and (not inst(3)) and 
+(not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00000101"
-dec_RA <= 
-(    e_inst(0)) and (not e_inst(1)) and (    e_inst(2)) and (not e_inst(3)) and 
-(not e_inst(4)) and (not e_inst(5)) and (not e_inst(6)) and (not e_inst(7));
+dec_RA <= En and 
+(    inst(0)) and (not inst(1)) and (    inst(2)) and (not inst(3)) and 
+(not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00000110"
-neg_RA <= 
-(not e_inst(0)) and (    e_inst(1)) and (    e_inst(2)) and (not e_inst(3)) and 
-(not e_inst(4)) and (not e_inst(5)) and (not e_inst(6)) and (not e_inst(7));
+neg_RA <= En and 
+(not inst(0)) and (    inst(1)) and (    inst(2)) and (not inst(3)) and 
+(not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00000111"
-not_RA <= 
-(    e_inst(0)) and (    e_inst(1)) and (    e_inst(2)) and (not e_inst(3)) and 
-(not e_inst(4)) and (not e_inst(5)) and (not e_inst(6)) and (not e_inst(7));
+not_RA <= En and 
+(    inst(0)) and (    inst(1)) and (    inst(2)) and (not inst(3)) and 
+(not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00001000"
-and_RA_RB <= 
-(not e_inst(0)) and (not e_inst(1)) and (not e_inst(2)) and (    e_inst(3)) and 
-(not e_inst(4)) and (not e_inst(5)) and (not e_inst(6)) and (not e_inst(7));
+and_RA_RB <= En and 
+(not inst(0)) and (not inst(1)) and (not inst(2)) and (    inst(3)) and 
+(not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00001001"
-or_RA_RB <= 
-(    e_inst(0)) and (not e_inst(1)) and (not e_inst(2)) and (    e_inst(3)) and 
-(not e_inst(4)) and (not e_inst(5)) and (not e_inst(6)) and (not e_inst(7));
+or_RA_RB <= En and 
+(    inst(0)) and (not inst(1)) and (not inst(2)) and (    inst(3)) and 
+(not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00001010"
-lod_adr_RA <= 
-(not e_inst(0)) and (    e_inst(1)) and (not e_inst(2)) and (    e_inst(3)) and 
-(not e_inst(4)) and (not e_inst(5)) and (not e_inst(6)) and (not e_inst(7));
+lod_adr_RA <= En and 
+(not inst(0)) and (    inst(1)) and (not inst(2)) and (    inst(3)) and 
+(not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00001011"
-str_RA_adr <= 
-(    e_inst(0)) and (    e_inst(1)) and (not e_inst(2)) and (    e_inst(3)) and 
-(not e_inst(4)) and (not e_inst(5)) and (not e_inst(6)) and (not e_inst(7));
+str_RA_adr <= En and 
+(    inst(0)) and (    inst(1)) and (not inst(2)) and (    inst(3)) and 
+(not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00001100"
-lod_adr_RB <= 
-(not e_inst(0)) and (not e_inst(1)) and (    e_inst(2)) and (    e_inst(3)) and 
-(not e_inst(4)) and (not e_inst(5)) and (not e_inst(6)) and (not e_inst(7));
+lod_adr_RB <= En and 
+(not inst(0)) and (not inst(1)) and (    inst(2)) and (    inst(3)) and 
+(not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00001101"
-str_RB_adr <= 
-(    e_inst(0)) and (not e_inst(1)) and (    e_inst(2)) and (    e_inst(3)) and 
-(not e_inst(4)) and (not e_inst(5)) and (not e_inst(6)) and (not e_inst(7));
+str_RB_adr <= En and 
+(    inst(0)) and (not inst(1)) and (    inst(2)) and (    inst(3)) and 
+(not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00001110"
-lod_adr_RC <= 
-(not e_inst(0)) and (    e_inst(1)) and (    e_inst(2)) and (    e_inst(3)) and 
-(not e_inst(4)) and (not e_inst(5)) and (not e_inst(6)) and (not e_inst(7));
+lod_adr_RC <= En and 
+(not inst(0)) and (    inst(1)) and (    inst(2)) and (    inst(3)) and 
+(not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00001111"
-str_RC_adr <= 
-(    e_inst(0)) and (    e_inst(1)) and (    e_inst(2)) and (    e_inst(3)) and 
-(not e_inst(4)) and (not e_inst(5)) and (not e_inst(6)) and (not e_inst(7));
+str_RC_adr <= En and 
+(    inst(0)) and (    inst(1)) and (    inst(2)) and (    inst(3)) and 
+(not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00010000"
-lod_ACR_RA <= 
-(not e_inst(0)) and (not e_inst(1)) and (not e_inst(2)) and (not e_inst(3)) and 
-(    e_inst(4)) and (not e_inst(5)) and (not e_inst(6)) and (not e_inst(7));
+lod_ACR_RA <= En and 
+(not inst(0)) and (not inst(1)) and (not inst(2)) and (not inst(3)) and 
+(    inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00010001"
-str_ACR_adr <= 
-(    e_inst(0)) and (not e_inst(1)) and (not e_inst(2)) and (not e_inst(3)) and 
-(    e_inst(4)) and (not e_inst(5)) and (not e_inst(6)) and (not e_inst(7));
+str_ACR_adr <= En and 
+(    inst(0)) and (not inst(1)) and (not inst(2)) and (not inst(3)) and 
+(    inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00010010"
-jmp_X <= 
-(not e_inst(0)) and (    e_inst(1)) and (not e_inst(2)) and (not e_inst(3)) and 
-(    e_inst(4)) and (not e_inst(5)) and (not e_inst(6)) and (not e_inst(7));
+jmp_X <= En and 
+(not inst(0)) and (    inst(1)) and (not inst(2)) and (not inst(3)) and 
+(    inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00010011"
-jmpz_X <= 
-(    e_inst(0)) and (    e_inst(1)) and (not e_inst(2)) and (not e_inst(3)) and 
-(    e_inst(4)) and (not e_inst(5)) and (not e_inst(6)) and (not e_inst(7));
+jmpz_X <= En and 
+(    inst(0)) and (    inst(1)) and (not inst(2)) and (not inst(3)) and 
+(    inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00010100"
-jmpn_X <= 
-(not e_inst(0)) and (not e_inst(1)) and (    e_inst(2)) and (not e_inst(3)) and 
-(    e_inst(4)) and (not e_inst(5)) and (not e_inst(6)) and (not e_inst(7));
+jmpn_X <= En and 
+(not inst(0)) and (not inst(1)) and (    inst(2)) and (not inst(3)) and 
+(    inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00010101"
-jmpo_X <= 
-(    e_inst(0)) and (not e_inst(1)) and (    e_inst(2)) and (not e_inst(3)) and 
-(    e_inst(4)) and (not e_inst(5)) and (not e_inst(6)) and (not e_inst(7));
+jmpo_X <= En and 
+(    inst(0)) and (not inst(1)) and (    inst(2)) and (not inst(3)) and 
+(    inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00010110"
-hlt <= 
-(not e_inst(0)) and (    e_inst(1)) and (    e_inst(2)) and (not e_inst(3)) and 
-(    e_inst(4)) and (not e_inst(5)) and (not e_inst(6)) and (not e_inst(7));
+hlt <= En and 
+(not inst(0)) and (    inst(1)) and (    inst(2)) and (not inst(3)) and 
+(    inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 end Behavioral;
 
