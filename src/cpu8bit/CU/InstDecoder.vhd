@@ -1,7 +1,7 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
-entity Decoder is
+entity InstDecoder is
 Port(
 	inst : in STD_LOGIC_VECTOR(7 downto 0);
 	En : in STD_LOGIC;
@@ -33,9 +33,9 @@ Port(
 	hlt
 	: out STD_LOGIC
 );
-end Decoder;
+end InstDecoder;
 
-architecture Behavioral of Decoder is
+architecture Behavioral of InstDecoder is
 
 begin
 

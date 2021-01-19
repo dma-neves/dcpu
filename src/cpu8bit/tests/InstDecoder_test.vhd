@@ -5,14 +5,14 @@ USE ieee.std_logic_1164.ALL;
 -- arithmetic functions with Signed or Unsigned values
 --USE ieee.numeric_std.ALL;
  
-ENTITY decoder_test IS
-END decoder_test;
+ENTITY InstDecoder_test IS
+END InstDecoder_test;
  
-ARCHITECTURE behavior OF decoder_test IS 
+ARCHITECTURE behavior OF InstDecoder_test IS 
  
     -- Component Declaration for the Unit Under Test (UUT)
  
-    COMPONENT Decoder
+    COMPONENT InstDecoder
     PORT(
          inst : IN  std_logic_vector(7 downto 0);
          En : IN  std_logic;
@@ -79,7 +79,7 @@ ARCHITECTURE behavior OF decoder_test IS
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
-   uut: Decoder PORT MAP (
+   uut: InstDecoder PORT MAP (
           inst => inst,
           En => En,
           add_RA_RB => add_RA_RB,
