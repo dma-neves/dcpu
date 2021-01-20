@@ -1,22 +1,26 @@
+
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
  
+ENTITY sevenState_sm_test IS
+END sevenState_sm_test;
  
-ENTITY threeState_sm_test IS
-END threeState_sm_test;
- 
-ARCHITECTURE behavior OF threeState_sm_test IS 
+ARCHITECTURE behavior OF sevenState_sm_test IS 
  
     -- Component Declaration for the Unit Under Test (UUT)
  
-    COMPONENT ThreeState_sm
+    COMPONENT SevenState_sm
     PORT(
          clk : IN  std_logic;
          reset : IN  std_logic;
          start : IN  std_logic;
          S0 : OUT  std_logic;
          S1 : OUT  std_logic;
-         S2 : OUT  std_logic
+         S2 : OUT  std_logic;
+			S3 : OUT  std_logic;
+         S4 : OUT  std_logic;
+         S5 : OUT  std_logic;
+			S6 : OUT  std_logic
         );
     END COMPONENT;
     
@@ -30,6 +34,10 @@ ARCHITECTURE behavior OF threeState_sm_test IS
    signal S0 : std_logic;
    signal S1 : std_logic;
    signal S2 : std_logic;
+	signal S3 : std_logic;
+   signal S4 : std_logic;
+   signal S5 : std_logic;
+	signal S6 : std_logic;
 
    -- Clock period definitions
    constant clk_period : time := 10 ns;
@@ -37,13 +45,17 @@ ARCHITECTURE behavior OF threeState_sm_test IS
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
-   uut: ThreeState_sm PORT MAP (
+   uut: SevenState_sm PORT MAP (
           clk => clk,
           reset => reset,
           start => start,
           S0 => S0,
           S1 => S1,
-          S2 => S2
+          S2 => S2,
+			 S3 => S3,
+          S4 => S4,
+          S5 => S5,
+			 S6 => S6
         );
 
    -- Clock process definitions
