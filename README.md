@@ -5,10 +5,10 @@
   - This cpu isn't suposso to be in any way revolutionary, efficient or well optimized, i'm only trying to design the simplest possible system that has all the basic features that a cpu needs. The aim of this project ist there fore only to learn more about cpu/computer architecture and digital systems implementation.
 
 **Schematics:**
-  Main:
+  - Main:
   ![alt text](https://github.com/dma-neves/VHDL_8bitCPU/blob/main/other/cpu_schem.png)
 
-  Control Unit:
+  - Control Unit:
   ![alt text](https://github.com/dma-neves/VHDL_8bitCPU/blob/main/other/CU.png)
 
 **Specifications:**
