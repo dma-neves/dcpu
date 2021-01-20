@@ -10,6 +10,9 @@
 
   Control Unit:
   ![alt text](https://github.com/dma-neves/VHDL_8bitCPU/blob/main/other/CU.png)
+  
+  Seven State State Machine:
+  ![alt text](https://github.com/dma-neves/VHDL_8bitCPU/blob/main/other/seven_state_sm.png)
 
 **Specifications:**
   - The CPU will contain 3 general purpose registers RA RB RC, 3 instruction related registers IC (Instruction Counter) IR (Instruction Register) IDR (Instruction Data Register) and a accumulator register ACR.
