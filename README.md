@@ -4,12 +4,16 @@
   - A simple 8bit cpu that will be devoloped in VHDL implicitly using logic gates and a structural (instead of high level behavioral) description (exception for the DFlipFlop implementation because of latching issues). Devoleped using the Xilinx ISE tool.
   - This cpu isn't suposso to be in any way revolutionary, efficient or well optimized, i'm only trying to design the simplest possible system that has all the basic features that a cpu needs. The aim of this project ist there fore only to learn more about cpu/computer architecture and digital systems implementation.
 
-**Schematic:**
+**Schematics:**
+  Main:
   ![alt text](https://github.com/dma-neves/VHDL_8bitCPU/blob/main/other/cpu_schem.png)
+
+  Control Unit:
+  ![alt text](https://github.com/dma-neves/VHDL_8bitCPU/blob/main/other/CU.png)
 
 **Specifications:**
   - The CPU will contain 3 general purpose registers RA RB RC, 3 instruction related registers IC (Instruction Counter) IR (Instruction Register) IDR (Instruction Data Register) and a accumulator register ACR.
-  - The 8bit ALU can perform 8 different operations. More detailed description: (https://github.com/dma-neves/VHDL_ALU).
+  - The 8bit ALU can perform 8 different operations. More detailed description: https://github.com/dma-neves/VHDL_ALU.
   
 **ISA (temporary):**
 
