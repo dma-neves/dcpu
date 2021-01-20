@@ -25,7 +25,7 @@ Port(
 );
 end component;
 
-signal l_adr, h_adr : STD_LOGIC_VECTOR(3 downto 0);
+signal l_adr : STD_LOGIC_VECTOR(3 downto 0);
 
 signal MR00RW, MR00DO, MR00EDO : STD_LOGIC;
 signal MR01RW, MR01DO, MR01EDO : STD_LOGIC;

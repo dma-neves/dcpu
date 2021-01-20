@@ -14,7 +14,7 @@ ARCHITECTURE behavior OF ram32_test IS
  
     COMPONENT RAM32
     PORT(
-         clk : IN  std_logic;
+         En: IN  std_logic;
          adr : IN  std_logic_vector(4 downto 0);
          R : IN  std_logic;
          rw : IN  std_logic;
@@ -25,7 +25,7 @@ ARCHITECTURE behavior OF ram32_test IS
     
 
    --Inputs
-   signal clk : std_logic := '0';
+   signal En: std_logic := '0';
    signal adr : std_logic_vector(4 downto 0) := (others => '0');
    signal R : std_logic := '0';
    signal rw : std_logic := '0';
@@ -34,62 +34,48 @@ ARCHITECTURE behavior OF ram32_test IS
  	--Outputs
    signal DO : std_logic_vector(7 downto 0);
 
-   -- Clock period definitions
-   constant clk_period : time := 10 ns;
  
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
    uut: RAM32 PORT MAP (
-          clk => clk,
+          En=> En,
           adr => adr,
           R => R,
           rw => rw,
           DI => DI,
           DO => DO
         );
-
-   -- Clock process definitions
-   clk_process :process
-   begin
-		clk <= '0';
-		wait for clk_period/2;
-		clk <= '1';
-		wait for clk_period/2;
-   end process;
  
 
    -- Stimulus process
    stim_proc: process
    begin		
       -- hold reset state for 100 ns.
+		R <= '1';
       wait for 100 ns;	
-
-      wait for clk_period*10;
 
       -- insert stimulus here 
 		
-		wait for clk_period*0.5;
-		
-		R <= '1';
-		wait for clk_period*3;
-		
 		R <= '0';
-		wait for clk_period*3;
+		En <= '1';
+		wait for 100 ns;
 		
 		DI <= "01110110";
 		adr <= "00100";
+		wait for 100 ns;
+		
 		rw <= '1';
-		wait for clk_period;
+		wait for 100 ns;
 		
 		rw <= '0';
-		wait for clk_period;
+		wait for 100 ns;
 		
 		adr <= "00000";
-		wait for clk_period;
+		wait for 100 ns;
 		
-		adr <= "00001";
-		wait for clk_period;
+		adr <= "00100";
+		wait for 100 ns;
 
       wait;
    end process;
