@@ -49,5 +49,5 @@
 	18 jmp  X
 	19 jmpz X
 	20 jmpn X
-	21 jmpO X
+	21 jmpo X
 	22 hlt
