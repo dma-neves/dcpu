@@ -7,12 +7,12 @@ add_RA_X:
 	ACR_En
 
 sub_RA_RB:
-	ocp(0)
+	opc(0)
 	ACR_En
 
 
 sub_RA_X:
-	ocp(0)
+	opc(0)
 	RB_En
 	RB_S
 	ACR_En
