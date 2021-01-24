@@ -6,7 +6,7 @@
 
 **Schematics:**\
   Main:
-  ![alt text](https://github.com/dma-neves/VHDL_8bitCPU/blob/main/other/cpu_schem.png)
+  ![alt text](https://github.com/dma-neves/VHDL_8bitCPU/blob/main/other/cpu.png)
 
   Control Unit:
   ![alt text](https://github.com/dma-neves/VHDL_8bitCPU/blob/main/other/CU.png)
@@ -23,31 +23,35 @@
 	Arithmetic:
 
 	00 add RA RB
-	01 add RA X
-	02 sub RA RB
-	03 sub RA X
-	04 inc RA
-	05 dec RA
-	06 neg RA
-	07 not RA
-	08 and RA RB
-	09 or  RA RB
+    01 add RA RC
+	02 add RA X
+	03 sub RA RB
+    04 sub RA RC
+	05 sub RA X
+	06 inc RA
+	07 dec RA
+	08 neg RA
+	09 not RA
+	10 and RA RB
+    11 and RA RC
+	12 or  RA RB
+    13 or  RA RC
 
 	Memory:
 
-	10 lod addr RA
-	11 str RA   addr
-	12 lod addr RB
-	13 str RB   addr
-	14 lod addr RC
-	15 str RC   addr
-	16 lod ACR  RA
-	17 str ACR  addr
+	14 lod addr RA
+	15 str RA   addr
+	16 lod addr RB
+	17 str RB   addr
+	18 lod addr RC
+	19 str RC   addr
+	20 lod ACR  RA
+	21 str ACR  addr
 
 	Instruction change:
 
-	18 jmp  X
-	19 jmpz X
-	20 jmpn X
-	21 jmpo X
-	22 hlt
+	22 jmp  X
+	23 jmpz X
+	24 jmpn X
+	25 jmpo X
+	26 hlt
