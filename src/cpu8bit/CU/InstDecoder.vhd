@@ -6,15 +6,19 @@ Port(
 	inst : in STD_LOGIC_VECTOR(7 downto 0);
 	
 	add_RA_RB,
+	add_RA_RC,
 	add_RA_X,
 	sub_RA_RB,
+	sub_RA_RC,
 	sub_RA_X,
 	inc_RA,
 	dec_RA,
 	neg_RA,
 	not_RA,
 	and_RA_RB,
+	and_RA_RC,
 	or_RA_RB,
+	or_RA_RC,
 
 	lod_adr_RA,
 	str_RA_adr,
@@ -44,113 +48,133 @@ add_RA_RB <=
 (not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00000001"
-add_RA_X <=
+add_RA_RC <=
 (    inst(0)) and (not inst(1)) and (not inst(2)) and (not inst(3)) and 
 (not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00000010"
-sub_RA_RB <=
+add_RA_X <=
 (not inst(0)) and (    inst(1)) and (not inst(2)) and (not inst(3)) and 
 (not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00000011"
-sub_RA_X <=
+sub_RA_RB <=
 (    inst(0)) and (    inst(1)) and (not inst(2)) and (not inst(3)) and 
 (not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00000100"
-inc_RA <=
+sub_RA_RC <=
 (not inst(0)) and (not inst(1)) and (    inst(2)) and (not inst(3)) and 
 (not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00000101"
-dec_RA <=
+sub_RA_X <=
 (    inst(0)) and (not inst(1)) and (    inst(2)) and (not inst(3)) and 
 (not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00000110"
-neg_RA <=
+inc_RA <=
 (not inst(0)) and (    inst(1)) and (    inst(2)) and (not inst(3)) and 
 (not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00000111"
-not_RA <=
+dec_RA <=
 (    inst(0)) and (    inst(1)) and (    inst(2)) and (not inst(3)) and 
 (not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00001000"
-and_RA_RB <=
+neg_RA <=
 (not inst(0)) and (not inst(1)) and (not inst(2)) and (    inst(3)) and 
 (not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00001001"
-or_RA_RB <=
+not_RA <=
 (    inst(0)) and (not inst(1)) and (not inst(2)) and (    inst(3)) and 
 (not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00001010"
-lod_adr_RA <=
+and_RA_RB <=
 (not inst(0)) and (    inst(1)) and (not inst(2)) and (    inst(3)) and 
 (not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00001011"
-str_RA_adr <=
+and_RA_RC <=
 (    inst(0)) and (    inst(1)) and (not inst(2)) and (    inst(3)) and 
 (not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00001100"
-lod_adr_RB <=
+or_RA_RB<=
 (not inst(0)) and (not inst(1)) and (    inst(2)) and (    inst(3)) and 
 (not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00001101"
-str_RB_adr <=
+or_RA_RC <=
 (    inst(0)) and (not inst(1)) and (    inst(2)) and (    inst(3)) and 
 (not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00001110"
-lod_adr_RC <=
+lod_adr_RA <=
 (not inst(0)) and (    inst(1)) and (    inst(2)) and (    inst(3)) and 
 (not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00001111"
-str_RC_adr <=
+str_RA_adr <=
 (    inst(0)) and (    inst(1)) and (    inst(2)) and (    inst(3)) and 
 (not inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00010000"
-lod_ACR_RA <=
+lod_adr_RB <=
 (not inst(0)) and (not inst(1)) and (not inst(2)) and (not inst(3)) and 
 (    inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00010001"
-str_ACR_adr <=
+str_RB_adr <=
 (    inst(0)) and (not inst(1)) and (not inst(2)) and (not inst(3)) and 
 (    inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00010010"
-jmp_X <=
+lod_adr_RC <=
 (not inst(0)) and (    inst(1)) and (not inst(2)) and (not inst(3)) and 
 (    inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00010011"
-jmpz_X <=
+str_RC_adr <=
 (    inst(0)) and (    inst(1)) and (not inst(2)) and (not inst(3)) and 
 (    inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00010100"
-jmpn_X <=
+lod_ACR_RA <=
 (not inst(0)) and (not inst(1)) and (    inst(2)) and (not inst(3)) and 
 (    inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00010101"
-jmpo_X <=
+str_ACR_adr <=
 (    inst(0)) and (not inst(1)) and (    inst(2)) and (not inst(3)) and 
 (    inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00010110"
-hlt <=
+jmp_X <=
 (not inst(0)) and (    inst(1)) and (    inst(2)) and (not inst(3)) and 
+(    inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
+
+--"00010111"
+jmpz_X <=
+(    inst(0)) and (    inst(1)) and (    inst(2)) and (not inst(3)) and 
+(    inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
+
+--"00011000"
+jmpn_X <=
+(not inst(0)) and (not inst(1)) and (not inst(2)) and (    inst(3)) and 
+(    inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
+
+--"00011001"
+jmpo_X <=
+(    inst(0)) and (not inst(1)) and (not inst(2)) and (    inst(3)) and 
+(    inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
+
+--"00011010"
+hlt <=
+(not inst(0)) and (    inst(1)) and (not inst(2)) and (    inst(3)) and 
 (    inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 end Behavioral;

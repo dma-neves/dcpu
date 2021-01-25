@@ -1,9 +1,7 @@
+
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
  
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---USE ieee.numeric_std.ALL;
  
 ENTITY InstDecoder_test IS
 END InstDecoder_test;
@@ -15,17 +13,20 @@ ARCHITECTURE behavior OF InstDecoder_test IS
     COMPONENT InstDecoder
     PORT(
          inst : IN  std_logic_vector(7 downto 0);
-         En : IN  std_logic;
          add_RA_RB : OUT  std_logic;
+         add_RA_RC : OUT  std_logic;
          add_RA_X : OUT  std_logic;
          sub_RA_RB : OUT  std_logic;
+         sub_RA_RC : OUT  std_logic;
          sub_RA_X : OUT  std_logic;
          inc_RA : OUT  std_logic;
          dec_RA : OUT  std_logic;
          neg_RA : OUT  std_logic;
          not_RA : OUT  std_logic;
          and_RA_RB : OUT  std_logic;
+         and_RA_RC : OUT  std_logic;
          or_RA_RB : OUT  std_logic;
+         or_RA_RC : OUT  std_logic;
          lod_adr_RA : OUT  std_logic;
          str_RA_adr : OUT  std_logic;
          lod_adr_RB : OUT  std_logic;
@@ -45,19 +46,22 @@ ARCHITECTURE behavior OF InstDecoder_test IS
 
    --Inputs
    signal inst : std_logic_vector(7 downto 0) := (others => '0');
-   signal En : std_logic := '0';
 
  	--Outputs
    signal add_RA_RB : std_logic;
+   signal add_RA_RC : std_logic;
    signal add_RA_X : std_logic;
    signal sub_RA_RB : std_logic;
+   signal sub_RA_RC : std_logic;
    signal sub_RA_X : std_logic;
    signal inc_RA : std_logic;
    signal dec_RA : std_logic;
    signal neg_RA : std_logic;
    signal not_RA : std_logic;
    signal and_RA_RB : std_logic;
+   signal and_RA_RC : std_logic;
    signal or_RA_RB : std_logic;
+   signal or_RA_RC : std_logic;
    signal lod_adr_RA : std_logic;
    signal str_RA_adr : std_logic;
    signal lod_adr_RB : std_logic;
@@ -73,25 +77,26 @@ ARCHITECTURE behavior OF InstDecoder_test IS
    signal hlt : std_logic;
    -- No clocks detected in port list. Replace <clock> below with 
    -- appropriate port name 
- 
-   --constant <clock>_period : time := 10 ns;
- 
+  
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
    uut: InstDecoder PORT MAP (
           inst => inst,
-          En => En,
           add_RA_RB => add_RA_RB,
+          add_RA_RC => add_RA_RC,
           add_RA_X => add_RA_X,
           sub_RA_RB => sub_RA_RB,
+          sub_RA_RC => sub_RA_RC,
           sub_RA_X => sub_RA_X,
           inc_RA => inc_RA,
           dec_RA => dec_RA,
           neg_RA => neg_RA,
           not_RA => not_RA,
           and_RA_RB => and_RA_RB,
+          and_RA_RC => and_RA_RC,
           or_RA_RB => or_RA_RB,
+          or_RA_RC => or_RA_RC,
           lod_adr_RA => lod_adr_RA,
           str_RA_adr => str_RA_adr,
           lod_adr_RB => lod_adr_RB,
@@ -107,15 +112,6 @@ BEGIN
           hlt => hlt
         );
 
-   -- Clock process definitions
---   <clock>_process :process
---   begin
---		<clock> <= '0';
---		wait for <clock>_period/2;
---		<clock> <= '1';
---		wait for <clock>_period/2;
---   end process;
- 
 
    -- Stimulus process
    stim_proc: process
@@ -123,16 +119,9 @@ BEGIN
       -- hold reset state for 100 ns.
       wait for 100 ns;	
 
-      --wait for <clock>_period*10;
-
       -- insert stimulus here 
 		
-		En <= '0';
-		inst <= "00000010";
-		wait for 100 ns;
-		
 		inst <= "00000000";
-		En <= '1';
 		wait for 100 ns;
 
 		inst <= "00000001";
@@ -200,7 +189,19 @@ BEGIN
 		
 		inst <= "00010110";
 		wait for 100 ns;
-
+		
+		inst <= "00010111";
+		wait for 100 ns;
+		
+		inst <= "00011000";
+		wait for 100 ns;
+		
+		inst <= "00011001";
+		wait for 100 ns;
+		
+		inst <= "00011010";
+		wait for 100 ns;
+		
       wait;
    end process;
 

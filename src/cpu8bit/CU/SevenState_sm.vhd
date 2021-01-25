@@ -20,7 +20,8 @@ Port(
 );
 end component;
 
-signal 
+signal
+DFFS_D, DFFS_Q,
 DFF0_D, DFF0_Q,
 DFF1_D, DFF1_Q,
 DFF2_D, DFF2_Q,
@@ -31,14 +32,16 @@ DFF6_D, DFF6_Q : STD_LOGIC;
 
 begin
 
-DFF0_D <= start or DFF6_Q;
-DFF1_D <= DFF0_Q and (not start);
+DFFS_D <= start;
+DFF0_D <= DFF6_Q or (DFFS_Q and (not start));
+DFF1_D <= DFF0_Q;
 DFF2_D <= DFF1_Q;
 DFF3_D <= DFF2_Q;
 DFF4_D <= DFF3_Q;
 DFF5_D <= DFF4_Q;
 DFF6_D <= DFF5_Q;
 
+DFFS: DFlipFlop port map (DFFS_D, clk, reset, DFFS_Q);
 DFF0: DFlipFlop port map (DFF0_D, clk, reset, DFF0_Q);
 DFF1: DFlipFlop port map (DFF1_D, clk, reset, DFF1_Q);
 DFF2: DFlipFlop port map (DFF2_D, clk, reset, DFF2_Q);
