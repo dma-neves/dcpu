@@ -2,16 +2,16 @@
 
 **Description:**
   - A simple 8bit cpu that will be devoloped in VHDL implicitly using logic gates and a structural (instead of high level behavioral) description (exception for the DFlipFlop implementation because of latching issues). Devoleped using the Xilinx ISE tool.
-  - This cpu isn't suposso to be in any way revolutionary, efficient or well optimized, i'm only trying to design the simplest possible system that has all the basic features that a cpu needs. The aim of this project ist there fore only to learn more about cpu/computer architecture and digital systems implementation.
+  - This cpu isn't suposso to be in any way revolutionary, efficient or well optimized, i'm only trying to design the simplest possible system that has all the basic features that a cpu needs. The aim of this project is therefore only to learn more about cpu/computer architecture and digital systems implementation.
 
 **Schematics:**\
-  Main:
+  - Main:
   ![alt text](https://github.com/dma-neves/VHDL_8bitCPU/blob/main/other/cpu.png)
 
-  Control Unit:
+  - Control Unit:
   ![alt text](https://github.com/dma-neves/VHDL_8bitCPU/blob/main/other/CU.png)
   
-  Seven State State Machine:
+  - Seven State State Machine:
   ![alt text](https://github.com/dma-neves/VHDL_8bitCPU/blob/main/other/seven_state_sm.png)
 
 **Specifications:**
@@ -19,7 +19,7 @@
   - The 8bit ALU can perform 8 different operations. More detailed description: https://github.com/dma-neves/VHDL_ALU.
   - The Control Unit cointains a 7 state SM (state 0 fetches the instruction | state 1 increments the IC | state 2 transfers ACR to IC | state 3 decodes and executes | state 4 and 5 do the same as 1 and 2) therefore the cpu executes 1 instruction every 7 clock cycles. It also contains a instruction decoder that basically works as a demultiplexer and a operation decoder that activates the correct operations for each instruction (https://github.com/dma-neves/VHDL_8bitCPU/blob/main/other/instructionOutputs.txt).
   
-**ISA (temporary):**
+**ISA:**
 
 	Arithmetic:
 
