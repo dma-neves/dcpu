@@ -71,7 +71,7 @@ or_RA_RC:
 
 lod_adr_RA:
 	RA_En
-	RA_S
+	RA_S(0)
 	adr_S
 
 
@@ -107,6 +107,10 @@ str_ACR_adr:
 	DO_S(0)
 	DO_S(1)
 	rw
+
+lod_X_RA:
+    RA_S(1)
+    RA_En
 
 jmp_X or (jmpz_X and z) or (jmpn_X and n) or (jmpo_X and o):
 	IC_En
