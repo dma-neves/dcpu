@@ -48,11 +48,12 @@
 	19 str RC   addr
 	20 lod ACR  RA
 	21 str ACR  addr
+    22 lod X    RA
 
 	Instruction change:
 
-	22 jmp  X
-	23 jmpz X
-	24 jmpn X
-	25 jmpo X
-	26 hlt
+	23 jmp  X
+	24 jmpz X
+	25 jmpn X
+	26 jmpo X
+	27 hlt
