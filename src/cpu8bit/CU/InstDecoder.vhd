@@ -28,6 +28,7 @@ Port(
 	str_RC_adr,
 	lod_ACR_RA,
 	str_ACR_adr,
+	lod_X_RA,
 
 	jmp_X,
 	jmpz_X,
@@ -153,27 +154,27 @@ str_ACR_adr <=
 (    inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00010110"
-jmp_X <=
+lod_X_RA <=
 (not inst(0)) and (    inst(1)) and (    inst(2)) and (not inst(3)) and 
 (    inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00010111"
-jmpz_X <=
+jmp_X <=
 (    inst(0)) and (    inst(1)) and (    inst(2)) and (not inst(3)) and 
 (    inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00011000"
-jmpn_X <=
+jmpz_X <=
 (not inst(0)) and (not inst(1)) and (not inst(2)) and (    inst(3)) and 
 (    inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00011001"
-jmpo_X <=
+jmpn_X <=
 (    inst(0)) and (not inst(1)) and (not inst(2)) and (    inst(3)) and 
 (    inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
 --"00011010"
-hlt <=
+jmpo_X <=
 (not inst(0)) and (    inst(1)) and (not inst(2)) and (    inst(3)) and 
 (    inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 

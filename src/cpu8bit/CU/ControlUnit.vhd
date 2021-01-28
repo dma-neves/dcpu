@@ -11,8 +11,8 @@ Port(
 	dataIn_S : out STD_LOGIC_VECTOR(2 downto 0);
 	opc : out STD_LOGIC_VECTOR(2 downto 0);
 	
-	adr_S,
-	RA_S,
+	adr_S : out STD_LOGIC;
+	RA_S : out STD_LOGIC_VECTOR(1 downto 0);
 	ALU_A_S : out STD_LOGIC;
 	ALU_B_S : out STD_LOGIC_VECTOR(1 downto 0);
 	IC_S,
@@ -68,6 +68,7 @@ Port(
 	str_RC_adr,
 	lod_ACR_RA,
 	str_ACR_adr,
+	lod_X_RA,
 
 	jmp_X,
 	jmpz_X,
@@ -105,18 +106,18 @@ Port(
 	str_RC_adr,
 	lod_ACR_RA,
 	str_ACR_adr,
+	lod_X_RA,
 	jmp_X,
 	jmpz_X,
 	jmpn_X,
-	jmpo_X,
-	hlt : in STD_LOGIC;
+	jmpo_X : in STD_LOGIC;
 	
 	dataOut_S : out STD_LOGIC_VECTOR(1 downto 0);
 	dataIn_S : out STD_LOGIC_VECTOR(2 downto 0);
 	opc : out STD_LOGIC_VECTOR(2 downto 0);
 	
-	adr_S,
-	RA_S,
+	adr_S : out STD_LOGIC;
+	RA_S : out STD_LOGIC_VECTOR(1 downto 0);
 	ALU_A_S : out STD_LOGIC;
 	ALU_B_S : out STD_LOGIC_VECTOR(1 downto 0);
 	IC_S,
@@ -156,6 +157,7 @@ lod_adr_RC,
 str_RC_adr,
 lod_ACR_RA,
 str_ACR_adr,
+lod_X_RA,
 jmp_X,
 jmpz_X,
 jmpn_X,
@@ -167,10 +169,10 @@ signal dataIn_S_aux : STD_LOGIC_VECTOR(2 downto 0);
 signal opc_aux : STD_LOGIC_VECTOR(2 downto 0);
 
 signal ALU_B_S_aux : STD_LOGIC_VECTOR(1 downto 0);
+signal RA_S_aux : STD_LOGIC_VECTOR(1 downto 0);
 
 signal
 adr_S_aux,
-RA_S_aux,
 ALU_A_S_aux,
 IC_S_aux,
 RA_En_aux,
@@ -201,11 +203,15 @@ IDR_En_active,
 IR_En_active,
 ACR_En_active : STD_LOGIC;
 
+signal sm_clk : STD_LOGIC;
+
 begin
+
+sm_clk <= clk and (not hlt);
 
 -- Seven State State Machine
 SSSM: SevenState_sm port map(
-	clk,
+	sm_clk,
 	reset,
 	start,
 	
@@ -244,6 +250,7 @@ ID: InstDecoder port map(
 	str_RC_adr,
 	lod_ACR_RA,
 	str_ACR_adr,
+	lod_X_RA,
 	jmp_X,
 	jmpz_X,
 	jmpn_X,
@@ -281,11 +288,11 @@ OD: OpDecoder port map(
 	str_RC_adr,
 	lod_ACR_RA,
 	str_ACR_adr,
+	lod_X_RA,
 	jmp_X,
 	jmpz_X,
 	jmpn_X,
 	jmpo_X,
-	hlt,
 	
 	dataOut_S_aux,
 	dataIn_S_aux,

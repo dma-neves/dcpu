@@ -29,18 +29,18 @@ Port(
 	str_RC_adr,
 	lod_ACR_RA,
 	str_ACR_adr,
+	lod_X_RA,
 	jmp_X,
 	jmpz_X,
 	jmpn_X,
-	jmpo_X,
-	hlt : in STD_LOGIC;
+	jmpo_X : in STD_LOGIC;
 	
 	dataOut_S : out STD_LOGIC_VECTOR(1 downto 0);
 	dataIn_S : out STD_LOGIC_VECTOR(2 downto 0);
 	opc : out STD_LOGIC_VECTOR(2 downto 0);
 	
-	adr_S,
-	RA_S,
+	adr_S : out STD_LOGIC;
+	RA_S : out STD_LOGIC_VECTOR(1 downto 0);
 	ALU_A_S : out STD_LOGIC;
 	ALU_B_S : out STD_LOGIC_VECTOR(1 downto 0);
 	IC_S,
@@ -71,12 +71,13 @@ begin
 	opc(2) <= En and ( neg_RA or not_RA or and_RA_RB or or_RA_RB or or_RA_RC or and_RA_RC );
 	
 	adr_S <= En and ( lod_adr_RA or str_RA_adr or lod_adr_RB or str_RB_adr or lod_adr_RC or str_RC_adr or str_ACR_adr );
-	RA_S <= En and ( lod_adr_RA );
+	RA_S(0) <= En and ( lod_adr_RA );
+	RA_S(1) <= En and ( lod_X_RA );
 	ALU_A_S <= En and ( '0' );
 	ALU_B_S(0) <= En and ( add_RA_RC or sub_RA_RC or and_RA_RC or or_RA_RC );
 	ALU_B_S(1) <= En and ( add_RA_X or sub_RA_X );
 	IC_S <= En and ( jmp_X or (jmpn_X and NF) or (jmpz_X and ZF) or (jmpo_X and OVF) );
-	RA_En <= En and ( lod_adr_RA or lod_ACR_RA );
+	RA_En <= En and ( lod_adr_RA or lod_ACR_RA or lod_X_RA);
 	RB_En <= En and ( lod_adr_RB );
 	RC_En <= En and ( lod_adr_RC );
 	IC_En <= En and ( jmp_X or (jmpn_X and NF) or (jmpz_X and ZF) or (jmpo_X and OVF) );

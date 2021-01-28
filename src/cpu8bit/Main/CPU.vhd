@@ -8,8 +8,12 @@ Port(
 	clk : in STD_LOGIC;
 	dataIn : in STD_LOGIC_VECTOR(7 downto 0);
 	
-	adrOut : out STD_LOGIC_VECTOR(7 downto 0);
-	dataOut : out STD_LOGIC_VECTOR(7 downto 0)
+	address : out STD_LOGIC_VECTOR(7 downto 0);
+	dataOut : out STD_LOGIC_VECTOR(7 downto 0);
+	readWrite : out STD_LOGIC;
+	romRam : out STD_LOGIC; 
+	
+	regA : out STD_LOGIC_VECTOR(7 downto 0)
 );
 end CPU;
 
@@ -27,8 +31,8 @@ Port(
 	dataIn_S : out STD_LOGIC_VECTOR(2 downto 0);
 	opc : out STD_LOGIC_VECTOR(2 downto 0);
 	
-	adr_S,
-	RA_S,
+	adr_S : out STD_LOGIC;
+	RA_S : out STD_LOGIC_VECTOR(1 downto 0);
 	ALU_A_S : out STD_LOGIC;
 	ALU_B_S : out STD_LOGIC_VECTOR(1 downto 0);
 	IC_S,
@@ -101,8 +105,10 @@ signal dataIn_S : STD_LOGIC_VECTOR(2 downto 0);
 signal opc : STD_LOGIC_VECTOR(2 downto 0);
 
 signal
-adr_S,
-RA_S,
+adr_S : STD_LOGIC;
+signal
+RA_S : STD_LOGIC_VECTOR(1 downto 0);
+signal
 ALU_A_S : STD_LOGIC;
 signal
 ALU_B_S : STD_LOGIC_VECTOR(1 downto 0);
@@ -117,7 +123,24 @@ IR_En,
 ACR_En,
 RW : STD_LOGIC;
 
+signal
+RA_In, RA_Out,
+RB_In, RB_Out,
+RC_In, RC_Out,
+IR_In, IR_Out,
+IC_In, IC_Out,
+IDR_In, IDR_Out,
+ACR_In, ACR_Out : STD_LOGIC_VECTOR(7 downto 0);
+
+signal ALU_a, ALU_b : STD_LOGIC_VECTOR(7 downto 0);
+
+signal DI_0, DI_1, DI_2, DI_3, DI_4 : STD_LOGIC_VECTOR(7 downto 0); 
+
 begin
+
+regA <= RA_Out;
+readWrite <= RW;
+romRam <= RW or (not IR_En);
 
 -- Port maps
 CU: ControlUnit port map(
@@ -146,6 +169,83 @@ CU: ControlUnit port map(
 	ACR_En => ACR_En,
 	RW => RW
 );
+
+RA: Register_8bit port map(
+	En => RA_En,
+	R => reset,
+
+	DIn => RA_In,
+	DOut => RA_Out
+);
+
+RB: Register_8bit port map(
+	En => RB_En,
+	R => reset,
+
+	DIn => RB_In,
+	DOut => RB_Out
+);
+
+RC: Register_8bit port map(
+	En => RC_En,
+	R => reset,
+
+	DIn => RC_In,
+	DOut => RC_Out
+);
+
+IR: Register_8bit port map(
+	En => IR_En,
+	R => reset,
+
+	DIn => IR_In,
+	DOut => IR_Out
+);
+
+IDR: Register_8bit port map(
+	En => IDR_En,
+	R => reset,
+
+	DIn => IDR_In,
+	DOut => IDR_Out
+);
+
+IC: Register_8bit port map(
+	En => IC_En,
+	R => reset,
+
+	DIn => IC_In,
+	DOut => IC_Out
+);
+
+ACR: Register_8bit port map(
+	En => ACR_En,
+	R => reset,
+
+	DIn => ACR_In,
+	DOut => ACR_Out
+);
+
+ALU_M: ALU port map(
+	a => ALU_a,
+	b => ALU_b,
+	opc => opc,
+	
+	result => ACR_In,
+	zeroF => ZF,
+	negativeF => NF,
+	overflowF => OVF
+);
+
+DEMUX_DATAIN: DeMux5 port map(dataIn, dataIn_S, DI_0, DI_1, DI_2, DI_3, DI_4);
+MUX_DATAOUT: Mux4 port map(RC_Out, RB_Out, RA_Out, ACR_Out, dataOut_S, dataOut);
+MUX_ADDRESS: Mux2 port map(IC_Out, IDR_Out, adr_S, address);
+
+MUX_A: Mux4 port map(ACR_Out, DI_0, IDR_Out, "00000000", RA_S, RA_In);
+MUX_IC: Mux2 port map(ACR_Out, IDR_Out, IC_S, IC_In);
+MUX_ALU_A: Mux2 port map(RA_Out, IC_Out, ALU_A_S, ALU_a);
+MUX_ALU_B: Mux4 port map(RB_Out, RC_Out, IDR_Out, "00000000", ALU_B_S, ALU_b);
+
 
 end Behavioral;
 
