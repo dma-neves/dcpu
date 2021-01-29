@@ -25,7 +25,7 @@ Port(
 	address : out STD_LOGIC_VECTOR(7 downto 0);
 	dataOut : out STD_LOGIC_VECTOR(7 downto 0);
 	readWrite : out STD_LOGIC;
-	romRam : out STD_LOGIC; 
+	fetch : out STD_LOGIC; 
 	
 	regA : out STD_LOGIC_VECTOR(7 downto 0)
 );
@@ -63,12 +63,12 @@ signal adr_aux, ramData, romData, dataToCPU, dataToMem : STD_LOGIC_VECTOR(7 down
 signal adr_mem : STD_LOGIC_VECTOR(4 downto 0);
 signal RW_aux : STD_LOGIC;
 
-signal romRam, ramEn, romEn : STD_LOGIC; 
+signal fetch, ramEn, romEn : STD_LOGIC; 
 
 begin
 
-romEn <= romRam;
-ramEn <= (not romRam);
+romEn <= fetch;
+ramEn <= (not fetch);
 
 dataToCPU(0) <= ramData(0) or romData(0);
 dataToCPU(1) <= ramData(1) or romData(1);
@@ -81,7 +81,7 @@ dataToCPU(7) <= ramData(7) or romData(7);
 
 adr_mem(0) <= adr_aux(0);
 adr_mem(1) <= adr_aux(1);
-adr_mem(3) <= adr_aux(2);
+adr_mem(2) <= adr_aux(2);
 adr_mem(3) <= adr_aux(3);
 adr_mem(4) <= adr_aux(4);
 
@@ -89,7 +89,7 @@ adr_mem(4) <= adr_aux(4);
 
 CLKM: ClockManager port map(clk, clk_aux);
 
-CPU_M: CPU port map(reset, start, clk_aux, dataToCPU, adr_aux, dataToMem, RW_aux, romRam, regA);
+CPU_M: CPU port map(reset, start, clk_aux, dataToCPU, adr_aux, dataToMem, RW_aux, fetch, regA);
 RAM32_M: RAM32 port map(adr_mem, ramEn, reset, RW_aux, dataToMem, ramData);
 ROM32_m: ROM32 port map(adr_mem, romEn, romData);
 

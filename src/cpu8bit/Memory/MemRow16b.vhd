@@ -51,7 +51,7 @@ signal DFF15En, DFF15Q, DFF15DO : STD_LOGIC;
 
 begin
 
-DEMUX: DeMux16_1b port map (DI, adr, I0, I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15);
+DEMUX: DeMux16_1b port map ('1', adr, I0, I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14, I15);
 
 
 DFF00En <= I0 and rw;

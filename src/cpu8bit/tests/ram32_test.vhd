@@ -68,6 +68,9 @@ BEGIN
 		rw <= '1';
 		wait for 100 ns;
 		
+		DI <= "00000000";
+		wait for 100 ns;
+		
 		rw <= '0';
 		wait for 100 ns;
 		

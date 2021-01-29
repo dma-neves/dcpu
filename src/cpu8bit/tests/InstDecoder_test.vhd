@@ -35,6 +35,7 @@ ARCHITECTURE behavior OF InstDecoder_test IS
          str_RC_adr : OUT  std_logic;
          lod_ACR_RA : OUT  std_logic;
          str_ACR_adr : OUT  std_logic;
+         lod_X_RA : OUT  std_logic;
          jmp_X : OUT  std_logic;
          jmpz_X : OUT  std_logic;
          jmpn_X : OUT  std_logic;
@@ -70,6 +71,7 @@ ARCHITECTURE behavior OF InstDecoder_test IS
    signal str_RC_adr : std_logic;
    signal lod_ACR_RA : std_logic;
    signal str_ACR_adr : std_logic;
+   signal lod_X_RA : std_logic;
    signal jmp_X : std_logic;
    signal jmpz_X : std_logic;
    signal jmpn_X : std_logic;
@@ -105,13 +107,14 @@ BEGIN
           str_RC_adr => str_RC_adr,
           lod_ACR_RA => lod_ACR_RA,
           str_ACR_adr => str_ACR_adr,
+          lod_X_RA => lod_X_RA,
           jmp_X => jmp_X,
           jmpz_X => jmpz_X,
           jmpn_X => jmpn_X,
           jmpo_X => jmpo_X,
           hlt => hlt
         );
-
+ 
 
    -- Stimulus process
    stim_proc: process
@@ -200,6 +203,9 @@ BEGIN
 		wait for 100 ns;
 		
 		inst <= "00011010";
+		wait for 100 ns;
+		
+		inst <= "00011011";
 		wait for 100 ns;
 		
       wait;

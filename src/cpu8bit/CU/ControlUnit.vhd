@@ -22,8 +22,11 @@ Port(
 	IC_En,
 	IDR_En,
 	IR_En,
-	ACR_En,
-	RW : out STD_LOGIC
+	PACR_En,
+	IACR_En,
+	RW : out STD_LOGIC;
+	
+	fetch : out STD_LOGIC
 );
 end ControlUnit;
 
@@ -181,7 +184,7 @@ RC_En_aux,
 IC_En_aux,
 IDR_En_aux,
 IR_En_aux,
-ACR_En_aux,
+PACR_En_aux,
 RW_aux : STD_LOGIC;
 
 signal
@@ -200,12 +203,13 @@ saveIC : STD_LOGIC;
 signal
 IC_En_active,
 IDR_En_active,
-IR_En_active,
-ACR_En_active : STD_LOGIC;
+IR_En_active : STD_LOGIC;
 
 signal sm_clk : STD_LOGIC;
 
 begin
+
+fetch <= fetchInst or fetchData;
 
 sm_clk <= clk and (not hlt);
 
@@ -308,7 +312,7 @@ OD: OpDecoder port map(
 	IC_En_aux,
 	IDR_En_aux,
 	IR_En_aux,
-	ACR_En_aux,
+	PACR_En_aux,
 	RW_aux
 );
 
@@ -320,7 +324,6 @@ saveIC <= S2 or S6;
 IC_En_active <= IC_En_aux or saveIC;
 IDR_En_active <= IDR_En_aux or fetchData;
 IR_En_active <= IR_En_aux or fetchInst;
-ACR_En_active <= ACR_En_aux or incIC;
 
 -- outputs
 dataOut_S <= dataOut_S_aux;
@@ -344,7 +347,8 @@ RC_En <= RC_En_aux and (not clk);
 IC_En <= IC_En_active and (not clk);
 IDR_En <= IDR_En_active and (not clk);
 IR_En <= IR_En_active and (not clk);
-ACR_En <= ACR_En_active and (not clk);
+PACR_En <= PACR_En_aux and (not clk);
+IACR_En <= incIC and (not clk);
 RW <= RW_aux and (not clk);
 
 end Behavioral;

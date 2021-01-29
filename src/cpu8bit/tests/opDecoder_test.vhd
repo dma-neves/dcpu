@@ -1,3 +1,4 @@
+
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
  
@@ -15,19 +16,19 @@ ARCHITECTURE behavior OF opDecoder_test IS
          NF : IN  std_logic;
          OVF : IN  std_logic;
          add_RA_RB : IN  std_logic;
-			add_RA_RC : IN  std_logic;
+         add_RA_RC : IN  std_logic;
          add_RA_X : IN  std_logic;
          sub_RA_RB : IN  std_logic;
-			sub_RA_RC : IN  std_logic;
+         sub_RA_RC : IN  std_logic;
          sub_RA_X : IN  std_logic;
          inc_RA : IN  std_logic;
          dec_RA : IN  std_logic;
          neg_RA : IN  std_logic;
          not_RA : IN  std_logic;
          and_RA_RB : IN  std_logic;
-			and_RA_RC : IN  std_logic;
+         and_RA_RC : IN  std_logic;
          or_RA_RB : IN  std_logic;
-			or_RA_RC : IN  std_logic;
+         or_RA_RC : IN  std_logic;
          lod_adr_RA : IN  std_logic;
          str_RA_adr : IN  std_logic;
          lod_adr_RB : IN  std_logic;
@@ -36,18 +37,18 @@ ARCHITECTURE behavior OF opDecoder_test IS
          str_RC_adr : IN  std_logic;
          lod_ACR_RA : IN  std_logic;
          str_ACR_adr : IN  std_logic;
+         lod_X_RA : IN  std_logic;
          jmp_X : IN  std_logic;
          jmpz_X : IN  std_logic;
          jmpn_X : IN  std_logic;
          jmpo_X : IN  std_logic;
-         hlt : IN  std_logic;
          dataOut_S : OUT  std_logic_vector(1 downto 0);
          dataIn_S : OUT  std_logic_vector(2 downto 0);
          opc : OUT  std_logic_vector(2 downto 0);
          adr_S : OUT  std_logic;
-         RA_S : OUT  std_logic;
+         RA_S : OUT  std_logic_vector(1 downto 0);
          ALU_A_S : OUT  std_logic;
-			ALU_B_S : out std_logic_vector(1 downto 0);
+         ALU_B_S : OUT  std_logic_vector(1 downto 0);
          IC_S : OUT  std_logic;
          RA_En : OUT  std_logic;
          RB_En : OUT  std_logic;
@@ -67,19 +68,19 @@ ARCHITECTURE behavior OF opDecoder_test IS
    signal NF : std_logic := '0';
    signal OVF : std_logic := '0';
    signal add_RA_RB : std_logic := '0';
-	signal add_RA_RC : std_logic := '0';
+   signal add_RA_RC : std_logic := '0';
    signal add_RA_X : std_logic := '0';
    signal sub_RA_RB : std_logic := '0';
-	signal sub_RA_RC : std_logic := '0';
+   signal sub_RA_RC : std_logic := '0';
    signal sub_RA_X : std_logic := '0';
    signal inc_RA : std_logic := '0';
    signal dec_RA : std_logic := '0';
    signal neg_RA : std_logic := '0';
    signal not_RA : std_logic := '0';
    signal and_RA_RB : std_logic := '0';
-	signal and_RA_RC : std_logic := '0';
+   signal and_RA_RC : std_logic := '0';
    signal or_RA_RB : std_logic := '0';
-	signal or_RA_RC : std_logic := '0';
+   signal or_RA_RC : std_logic := '0';
    signal lod_adr_RA : std_logic := '0';
    signal str_RA_adr : std_logic := '0';
    signal lod_adr_RB : std_logic := '0';
@@ -88,20 +89,20 @@ ARCHITECTURE behavior OF opDecoder_test IS
    signal str_RC_adr : std_logic := '0';
    signal lod_ACR_RA : std_logic := '0';
    signal str_ACR_adr : std_logic := '0';
+   signal lod_X_RA : std_logic := '0';
    signal jmp_X : std_logic := '0';
    signal jmpz_X : std_logic := '0';
    signal jmpn_X : std_logic := '0';
    signal jmpo_X : std_logic := '0';
-   signal hlt : std_logic := '0';
 
  	--Outputs
    signal dataOut_S : std_logic_vector(1 downto 0);
    signal dataIn_S : std_logic_vector(2 downto 0);
    signal opc : std_logic_vector(2 downto 0);
    signal adr_S : std_logic;
-   signal RA_S : std_logic;
+   signal RA_S : std_logic_vector(1 downto 0);
    signal ALU_A_S : std_logic;
-	signal ALU_B_S : std_logic_vector(1 downto 0);
+   signal ALU_B_S : std_logic_vector(1 downto 0);
    signal IC_S : std_logic;
    signal RA_En : std_logic;
    signal RB_En : std_logic;
@@ -113,7 +114,8 @@ ARCHITECTURE behavior OF opDecoder_test IS
    signal RW : std_logic;
    -- No clocks detected in port list. Replace <clock> below with 
    -- appropriate port name 
-  
+ 
+ 
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
@@ -123,19 +125,19 @@ BEGIN
           NF => NF,
           OVF => OVF,
           add_RA_RB => add_RA_RB,
-			 add_RA_RC => add_RA_RC,
+          add_RA_RC => add_RA_RC,
           add_RA_X => add_RA_X,
           sub_RA_RB => sub_RA_RB,
-			 sub_RA_RC => sub_RA_RC,
+          sub_RA_RC => sub_RA_RC,
           sub_RA_X => sub_RA_X,
           inc_RA => inc_RA,
           dec_RA => dec_RA,
           neg_RA => neg_RA,
           not_RA => not_RA,
           and_RA_RB => and_RA_RB,
-			 and_RA_RC => and_RA_RC,
+          and_RA_RC => and_RA_RC,
           or_RA_RB => or_RA_RB,
-			 or_RA_RC => or_RA_RC,
+          or_RA_RC => or_RA_RC,
           lod_adr_RA => lod_adr_RA,
           str_RA_adr => str_RA_adr,
           lod_adr_RB => lod_adr_RB,
@@ -144,18 +146,18 @@ BEGIN
           str_RC_adr => str_RC_adr,
           lod_ACR_RA => lod_ACR_RA,
           str_ACR_adr => str_ACR_adr,
+          lod_X_RA => lod_X_RA,
           jmp_X => jmp_X,
           jmpz_X => jmpz_X,
           jmpn_X => jmpn_X,
           jmpo_X => jmpo_X,
-          hlt => hlt,
           dataOut_S => dataOut_S,
           dataIn_S => dataIn_S,
           opc => opc,
           adr_S => adr_S,
           RA_S => RA_S,
           ALU_A_S => ALU_A_S,
-			 ALU_B_S => ALU_B_S,
+          ALU_B_S => ALU_B_S,
           IC_S => IC_S,
           RA_En => RA_En,
           RB_En => RB_En,
@@ -166,6 +168,7 @@ BEGIN
           ACR_En => ACR_En,
           RW => RW
         );
+
  
 
    -- Stimulus process
@@ -201,11 +204,11 @@ BEGIN
 		str_RC_adr <= '1'; wait for 100 ns; str_RC_adr <= '0';
 		lod_ACR_RA <= '1'; wait for 100 ns; lod_ACR_RA <= '0';
 		str_ACR_adr <= '1'; wait for 100 ns; str_ACR_adr <= '0';
+		lod_X_RA <= '1'; wait for 100 ns; lod_X_RA <= '0';
 		jmp_X <= '1'; wait for 100 ns; jmp_X <= '0';
 		jmpz_X <= '1'; wait for 100 ns; jmpz_X <= '0';
 		jmpn_X <= '1'; wait for 100 ns; jmpn_X <= '0';
 		jmpo_X <= '1'; wait for 100 ns; jmpo_X <= '0';
-		hlt <= '1'; wait for 100 ns; hlt <= '0';
 
       wait;
    end process;

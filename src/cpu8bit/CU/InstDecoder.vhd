@@ -178,5 +178,10 @@ jmpo_X <=
 (not inst(0)) and (    inst(1)) and (not inst(2)) and (    inst(3)) and 
 (    inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
 
+--"00011011"
+hlt <=
+(    inst(0)) and (    inst(1)) and (not inst(2)) and (    inst(3)) and 
+(    inst(4)) and (not inst(5)) and (not inst(6)) and (not inst(7));
+
 end Behavioral;
 

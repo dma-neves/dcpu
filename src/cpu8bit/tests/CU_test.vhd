@@ -1,7 +1,6 @@
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
-
  
 ENTITY CU_test IS
 END CU_test;
@@ -23,7 +22,7 @@ ARCHITECTURE behavior OF CU_test IS
          dataIn_S : OUT  std_logic_vector(2 downto 0);
          opc : OUT  std_logic_vector(2 downto 0);
          adr_S : OUT  std_logic;
-         RA_S : OUT  std_logic;
+         RA_S : OUT  std_logic_vector(1 downto 0);
          ALU_A_S : OUT  std_logic;
          ALU_B_S : OUT  std_logic_vector(1 downto 0);
          IC_S : OUT  std_logic;
@@ -53,7 +52,7 @@ ARCHITECTURE behavior OF CU_test IS
    signal dataIn_S : std_logic_vector(2 downto 0);
    signal opc : std_logic_vector(2 downto 0);
    signal adr_S : std_logic;
-   signal RA_S : std_logic;
+   signal RA_S : std_logic_vector(1 downto 0);
    signal ALU_A_S : std_logic;
    signal ALU_B_S : std_logic_vector(1 downto 0);
    signal IC_S : std_logic;

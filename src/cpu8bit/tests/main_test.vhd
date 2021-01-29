@@ -44,9 +44,9 @@ BEGIN
    -- Clock process definitions
    clk_process :process
    begin
-		clk <= '0';
-		wait for clk_period/2;
 		clk <= '1';
+		wait for clk_period/2;
+		clk <= '0';
 		wait for clk_period/2;
    end process;
  
@@ -63,6 +63,9 @@ BEGIN
 
       -- insert stimulus here 
 		start <= '1';
+		wait for clk_period*4;
+		
+		start <= '0';
 
       wait;
    end process;
