@@ -6,7 +6,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity Main is
 Port(
 	clk : in STD_LOGIC;
-	reset, start : in STD_LOGIC;
+	reset, start, run, step : in STD_LOGIC;
 	
 	regA : out STD_LOGIC_VECTOR(7 downto 0)
 );
@@ -33,7 +33,9 @@ end component;
 
 component ClockManager is
 Port(
-	clk : in STD_LOGIC;
+	clk, reset : in STD_LOGIC;
+	run, step : in STD_LOGIC;
+	
 	clk_out : out STD_LOGIC
 );
 end component;
@@ -65,6 +67,8 @@ signal RW_aux : STD_LOGIC;
 
 signal fetch, ramEn, romEn : STD_LOGIC; 
 
+signal start : STD_LOGIC;
+
 begin
 
 romEn <= fetch;
@@ -87,7 +91,7 @@ adr_mem(4) <= adr_aux(4);
 
 -- Port maps
 
-CLKM: ClockManager port map(clk, clk_aux);
+CLKM: ClockManager port map(clk, reset, run, step, clk_aux);
 
 CPU_M: CPU port map(reset, start, clk_aux, dataToCPU, adr_aux, dataToMem, RW_aux, fetch, regA);
 RAM32_M: RAM32 port map(adr_mem, ramEn, reset, RW_aux, dataToMem, ramData);
