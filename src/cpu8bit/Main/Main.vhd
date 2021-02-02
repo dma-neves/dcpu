@@ -49,9 +49,9 @@ Port(
 );
 end component;
 
-component ROM32 is
+component ROM256 is
 Port(
-	adr : in STD_LOGIC_VECTOR(4 downto 0);
+	adr : in STD_LOGIC_VECTOR(7 downto 0);
 	En : in STD_LOGIC;
 	DO : out STD_LOGIC_VECTOR(7 downto 0)
 );
@@ -91,7 +91,7 @@ CLKM: ClockManager port map(clk, clk_aux);
 
 CPU_M: CPU port map(reset, start, clk_aux, dataToCPU, adr_aux, dataToMem, RW_aux, fetch, regA);
 RAM32_M: RAM32 port map(adr_mem, ramEn, reset, RW_aux, dataToMem, ramData);
-ROM32_m: ROM32 port map(adr_mem, romEn, romData);
+ROM256_M: ROM256 port map(adr_aux, romEn, romData);
 
 end Behavioral;
 
