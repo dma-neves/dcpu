@@ -1,0 +1,14 @@
+
+NET "clk" LOC = "T9" ; 
+NET "reset" LOC = "L14";
+
+NET "start" LOC = "L13";
+
+NET "regA[7]" LOC = "P11";
+NET "regA[6]" LOC = "P12";
+NET "regA[5]" LOC = "N12";
+NET "regA[4]" LOC = "P13";
+NET "regA[3]" LOC = "N14";
+NET "regA[2]" LOC = "L12";
+NET "regA[1]" LOC = "P14";
+NET "regA[0]" LOC = "K12";
