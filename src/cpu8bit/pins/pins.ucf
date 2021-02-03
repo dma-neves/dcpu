@@ -3,8 +3,9 @@ NET "clk" LOC = "T9" ;
 NET "reset" LOC = "L14";
 
 NET "start" LOC = "L13";
-NET "run" LOC = "M14";
-NET "step" LOC = "M13";
+NET "step" LOC = "M14";
+
+NET "run" LOC = "K13";
 
 NET "regA[7]" LOC = "P11";
 NET "regA[6]" LOC = "P12";
