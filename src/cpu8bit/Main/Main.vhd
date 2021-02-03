@@ -33,7 +33,7 @@ end component;
 
 component ClockManager is
 Port(
-	clk, reset : in STD_LOGIC;
+	clk : in STD_LOGIC;
 	run, step : in STD_LOGIC;
 	
 	clk_out : out STD_LOGIC
@@ -67,8 +67,6 @@ signal RW_aux : STD_LOGIC;
 
 signal fetch, ramEn, romEn : STD_LOGIC; 
 
-signal start : STD_LOGIC;
-
 begin
 
 romEn <= fetch;
@@ -91,7 +89,7 @@ adr_mem(4) <= adr_aux(4);
 
 -- Port maps
 
-CLKM: ClockManager port map(clk, reset, run, step, clk_aux);
+CLKM: ClockManager port map(clk, run, step, clk_aux);
 
 CPU_M: CPU port map(reset, start, clk_aux, dataToCPU, adr_aux, dataToMem, RW_aux, fetch, regA);
 RAM32_M: RAM32 port map(adr_mem, ramEn, reset, RW_aux, dataToMem, ramData);
