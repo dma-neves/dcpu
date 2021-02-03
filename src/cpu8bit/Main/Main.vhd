@@ -67,8 +67,6 @@ signal RW_aux : STD_LOGIC;
 
 signal fetch, ramEn, romEn : STD_LOGIC; 
 
-signal start : STD_LOGIC;
-
 begin
 
 romEn <= fetch;
