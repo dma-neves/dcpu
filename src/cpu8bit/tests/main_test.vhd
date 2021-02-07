@@ -2,6 +2,7 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
  
+
  
 ENTITY main_test IS
 END main_test;
@@ -15,7 +16,16 @@ ARCHITECTURE behavior OF main_test IS
          clk : IN  std_logic;
          reset : IN  std_logic;
          start : IN  std_logic;
-         regA : OUT  std_logic_vector(7 downto 0)
+         run : IN  std_logic;
+         step : IN  std_logic;
+         regA : OUT  std_logic_vector(7 downto 0);
+         regB : OUT  std_logic_vector(7 downto 0);
+         regC : OUT  std_logic_vector(7 downto 0);
+         regIC : OUT  std_logic_vector(7 downto 0);
+         regIR : OUT  std_logic_vector(7 downto 0);
+         regIDR : OUT  std_logic_vector(7 downto 0);
+         regIACR : OUT  std_logic_vector(7 downto 0);
+         regPACR : OUT  std_logic_vector(7 downto 0)
         );
     END COMPONENT;
     
@@ -24,9 +34,18 @@ ARCHITECTURE behavior OF main_test IS
    signal clk : std_logic := '0';
    signal reset : std_logic := '0';
    signal start : std_logic := '0';
+   signal run : std_logic := '0';
+   signal step : std_logic := '0';
 
  	--Outputs
    signal regA : std_logic_vector(7 downto 0);
+   signal regB : std_logic_vector(7 downto 0);
+   signal regC : std_logic_vector(7 downto 0);
+   signal regIC : std_logic_vector(7 downto 0);
+   signal regIR : std_logic_vector(7 downto 0);
+   signal regIDR : std_logic_vector(7 downto 0);
+   signal regIACR : std_logic_vector(7 downto 0);
+   signal regPACR : std_logic_vector(7 downto 0);
 
    -- Clock period definitions
    constant clk_period : time := 10 ns;
@@ -38,7 +57,16 @@ BEGIN
           clk => clk,
           reset => reset,
           start => start,
-          regA => regA
+          run => run,
+          step => step,
+          regA => regA,
+          regB => regB,
+          regC => regC,
+          regIC => regIC,
+          regIR => regIR,
+          regIDR => regIDR,
+          regIACR => regIACR,
+          regPACR => regPACR
         );
 
    -- Clock process definitions
@@ -56,6 +84,8 @@ BEGIN
    begin		
       -- hold reset state for 100 ns.
 		reset <= '1';
+		run <= '1';
+		step <= '0';
       wait for 100 ns;	
 		
 		reset <= '0';

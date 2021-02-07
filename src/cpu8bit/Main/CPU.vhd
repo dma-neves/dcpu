@@ -13,7 +13,7 @@ Port(
 	readWrite : out STD_LOGIC;
 	fetch : out STD_LOGIC; 
 	
-	regA : out STD_LOGIC_VECTOR(7 downto 0)
+	regA, regB, regC, regIC, regIR, regIDR, regIACR, regPACR : out STD_LOGIC_VECTOR(7 downto 0)
 );
 end CPU;
 
@@ -145,6 +145,14 @@ signal ALU_result : STD_LOGIC_VECTOR(7 downto 0);
 begin
 
 regA <= RA_Out;
+regB <= RB_Out;
+regC <= RC_Out;
+regIC <= IC_Out;
+regIR <= IR_Out;
+regIDR <= IDR_Out;
+regIACR <= IACR_Out;
+regPACR <= PACR_Out;
+
 readWrite <= RW;
 
 PACR_In <= ALU_result;
