@@ -2,10 +2,10 @@
 
 	00 add RA RB
     01 add RA RC
-	02 add RA X
+	02 add RA $X
 	03 sub RA RB
     04 sub RA RC
-	05 sub RA X
+	05 sub RA $X
 	06 inc RA
 	07 dec RA
 	08 neg RA
@@ -17,20 +17,20 @@
 
 	Memory:
 
-	14 lod addr RA
-	15 str RA   addr
-	16 lod addr RB
-	17 str RB   addr
-	18 lod addr RC
-	19 str RC   addr
-	20 lod ACR  RA
-	21 str ACR  addr
-    22 lod X    RA
+	14 lod adr RA
+	15 str RA  adr
+	16 lod adr RB
+	17 str RB  adr
+	18 lod adr RC
+	19 str RC  adr
+	20 lod ACR RA
+	21 str ACR adr
+    22 lod $X  RA
 
 	Instruction change:
 
-	23 jmp  X
-	24 jmpz X
-	25 jmpn X
-	26 jmpo X
+	23 jmp  adr
+	24 jmpz adr
+	25 jmpn adr
+	26 jmpo adr
 	27 hlt
