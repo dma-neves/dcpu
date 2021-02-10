@@ -21,22 +21,22 @@
   
 **ISA:**
 
-	Arithmetic:
+	Logic & Arithmetic:
 
 	00 add RA RB
-    01 add RA RC
+	01 add RA RC
 	02 add RA $X
 	03 sub RA RB
-    04 sub RA RC
+	04 sub RA RC
 	05 sub RA $X
 	06 inc RA
 	07 dec RA
 	08 neg RA
 	09 not RA
 	10 and RA RB
-    11 and RA RC
+	11 and RA RC
 	12 or  RA RB
-    13 or  RA RC
+	13 or  RA RC
 
 	Memory:
 
@@ -48,7 +48,7 @@
 	19 str RC  adr
 	20 lod ACR RA
 	21 str ACR adr
-    22 lod $X  RA
+	22 lod $X  RA
 
 	Instruction change:
 
@@ -57,3 +57,4 @@
 	25 jmpn adr
 	26 jmpo adr
 	27 hlt
+
