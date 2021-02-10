@@ -58,7 +58,7 @@ str RA 0 # a
 lod $b RA
 str RB 1 # b
 
-lod $1 RA # i
+lod $0 RA # i
 str RA 2
 
 lod $0 RA # r
@@ -67,7 +67,7 @@ str RA 3
 mult_start:
 
 	lod 3 RA
-	lod 1 RB
+	lod 0 RB
 	add RA RB
 	str ACR 3 # r += a
 
@@ -75,11 +75,11 @@ mult_start:
 	inc RA
 	str ACR 2 # i++
 
-	lod 1 RA
-	lod 2 RB
-	sub RA RB #b-i
+	lod 2 RA
+	lod 1 RB
+	sub RA RB #i-b
 
-	jmpn 7 # jmpn mult_start
+	jmpn 15 # jmpn mult_start
 
 lod 3 RA
 hlt
@@ -95,9 +95,9 @@ str RA 0  0000000000001111
 
 lod $b RA 0000010100010110
 
-str RB 1  0000000100010001
+str RA 1  0000000100001111
 
-lod $1 RA 0000000100010110
+lod $0 RA 0000000000010110
 
 str RA 2  0000001000001111
 
@@ -107,7 +107,7 @@ str RA 3  0000001100001111
 
 lod 3 RA  0000001100001110
 
-lod 1 RB  0000000100010000
+lod 0 RB  0000000000010000
 
 add RA RB 0000000000000000
 
@@ -119,13 +119,13 @@ inc RA    0000000000000110
 
 str ACR 2 0000001000010101
 
-lod 1 RA  0000000100001110
+lod 2 RA  0000001000001110
 
-lod 2 RB  0000001000010000
+lod 1 RB  0000000100010000
 
 sub RA RB 0000000000000011
 
-jmpn 7    0000011100011001
+jmpn 15   0000111100011001
 
 lod 3 RA  0000001100001110
 

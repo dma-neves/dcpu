@@ -58,6 +58,14 @@ Port(
 );
 end component;
 
+component Register_3bit is
+Port(
+	En, R : in STD_LOGIC;
+	DIn : in STD_LOGIC_VECTOR(2 downto 0);
+	DOut : out STD_LOGIC_VECTOR(2 downto 0)
+);
+end component;
+
 component ALU is
 Port (
 	a : IN STD_LOGIC_VECTOR(7 downto 0);
@@ -97,6 +105,9 @@ Port(
 end component;
 
 -- Signals
+
+signal zeroF, negativeF, overflowF : STD_LOGIC;
+
 signal
 ZF,
 NF,
@@ -237,14 +248,6 @@ IC: Register_8bit port map(
 	DOut => IC_Out
 );
 
-PACR: Register_8bit port map(
-	En => PACR_En,
-	R => reset,
-
-	DIn => PACR_In,
-	DOut => PACR_Out
-);
-
 IACR: Register_8bit port map(
 	En => IACR_En,
 	R => reset,
@@ -253,15 +256,36 @@ IACR: Register_8bit port map(
 	DOut => IACR_Out
 );
 
+PACR: Register_8bit port map(
+	En => PACR_En,
+	R => reset,
+
+	DIn => PACR_In,
+	DOut => PACR_Out
+);
+
+FLAGR: Register_3bit port map(
+	En => PACR_En,
+	R => reset,
+	
+	DIn(0) => zeroF,
+	DIn(1) => negativeF,
+	DIn(2) => overflowF,
+	
+	DOut(0) => ZF,
+	DOut(1) => NF,
+	DOut(2) => OVF
+);
+
 ALU_M: ALU port map(
 	a => ALU_a,
 	b => ALU_b,
 	opc => opc,
 	
 	result => ALU_result,
-	zeroF => ZF,
-	negativeF => NF,
-	overflowF => OVF
+	zeroF => zeroF,
+	negativeF => negativeF,
+	overflowF => overflowF
 );
 
 DEMUX_DATAIN: DeMux5 port map(dataIn, dataIn_S, DI_0, RB_In, RC_In, IR_In, IDR_In);
