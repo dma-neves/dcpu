@@ -58,6 +58,7 @@
 	26 jmpo adr
 	27 hlt
 
+
 **Programming the ROM**
   - To facilitate the programming of the ROM I created a simple assembler and ROM generator (https://github.com/dma-neves/Assembler).
   - Example:

@@ -20,20 +20,21 @@
 	14 lod $X ADR --
 	15 lod X  ADR --
 
-	16 lod ADR RA
-	17 str RA  ADR
-	18 lod ADR RB
-	19 str RB  ADR
-	20 lod ADR RC
-	21 str RC  ADR
+	16 lod [ADR] RA
+	17 str RA    [ADR]
+	18 lod [ADR] RB
+	19 str RB    [ADR]
+	20 lod [ADR] RC
+	21 str RC    [ADR]
 
 	22 lod ACR RA
-	23 str ACR ADR
+	23 lod ACR ADR
+	23 str ACR [ADR]
 
 	24 lod $X  RA 
 	25 lod $X  RB  --
 	26 lod $X  RC  --
-	27 lod $X  ADR --
+	27 lod $X  [ADR] --
 
 	Instruction change:
 
