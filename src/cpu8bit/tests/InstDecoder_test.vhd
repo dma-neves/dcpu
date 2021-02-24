@@ -1,7 +1,7 @@
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
- 
+
  
 ENTITY InstDecoder_test IS
 END InstDecoder_test;
@@ -27,19 +27,25 @@ ARCHITECTURE behavior OF InstDecoder_test IS
          and_RA_RC : OUT  std_logic;
          or_RA_RB : OUT  std_logic;
          or_RA_RC : OUT  std_logic;
-         lod_adr_RA : OUT  std_logic;
-         str_RA_adr : OUT  std_logic;
-         lod_adr_RB : OUT  std_logic;
-         str_RB_adr : OUT  std_logic;
-         lod_adr_RC : OUT  std_logic;
-         str_RC_adr : OUT  std_logic;
-         lod_ACR_RA : OUT  std_logic;
-         str_ACR_adr : OUT  std_logic;
          lod_X_RA : OUT  std_logic;
-         jmp_X : OUT  std_logic;
-         jmpz_X : OUT  std_logic;
-         jmpn_X : OUT  std_logic;
-         jmpo_X : OUT  std_logic;
+         lod_X_RB : OUT  std_logic;
+         lod_X_RC : OUT  std_logic;
+         lod_X_ADR : OUT  std_logic;
+         lod_X_mADR : OUT  std_logic;
+         lod_adr_ADR : OUT  std_logic;
+         lod_mADR_RA : OUT  std_logic;
+         str_RA_mADR : OUT  std_logic;
+         lod_mADR_RB : OUT  std_logic;
+         str_RB_mADR : OUT  std_logic;
+         lod_mADR_RC : OUT  std_logic;
+         str_RC_mADR : OUT  std_logic;
+         lod_ACR_RA : OUT  std_logic;
+         lod_ACR_ADR : OUT  std_logic;
+         str_ACR_mADR : OUT  std_logic;
+         jmp_adr : OUT  std_logic;
+         jmpz_adr : OUT  std_logic;
+         jmpn_adr : OUT  std_logic;
+         jmpo_adr : OUT  std_logic;
          hlt : OUT  std_logic
         );
     END COMPONENT;
@@ -63,23 +69,30 @@ ARCHITECTURE behavior OF InstDecoder_test IS
    signal and_RA_RC : std_logic;
    signal or_RA_RB : std_logic;
    signal or_RA_RC : std_logic;
-   signal lod_adr_RA : std_logic;
-   signal str_RA_adr : std_logic;
-   signal lod_adr_RB : std_logic;
-   signal str_RB_adr : std_logic;
-   signal lod_adr_RC : std_logic;
-   signal str_RC_adr : std_logic;
-   signal lod_ACR_RA : std_logic;
-   signal str_ACR_adr : std_logic;
    signal lod_X_RA : std_logic;
-   signal jmp_X : std_logic;
-   signal jmpz_X : std_logic;
-   signal jmpn_X : std_logic;
-   signal jmpo_X : std_logic;
+   signal lod_X_RB : std_logic;
+   signal lod_X_RC : std_logic;
+   signal lod_X_ADR : std_logic;
+   signal lod_X_mADR : std_logic;
+   signal lod_adr_ADR : std_logic;
+   signal lod_mADR_RA : std_logic;
+   signal str_RA_mADR : std_logic;
+   signal lod_mADR_RB : std_logic;
+   signal str_RB_mADR : std_logic;
+   signal lod_mADR_RC : std_logic;
+   signal str_RC_mADR : std_logic;
+   signal lod_ACR_RA : std_logic;
+   signal lod_ACR_ADR : std_logic;
+   signal str_ACR_mADR : std_logic;
+   signal jmp_adr : std_logic;
+   signal jmpz_adr : std_logic;
+   signal jmpn_adr : std_logic;
+   signal jmpo_adr : std_logic;
    signal hlt : std_logic;
    -- No clocks detected in port list. Replace <clock> below with 
    -- appropriate port name 
-  
+ 
+ 
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
@@ -99,115 +112,104 @@ BEGIN
           and_RA_RC => and_RA_RC,
           or_RA_RB => or_RA_RB,
           or_RA_RC => or_RA_RC,
-          lod_adr_RA => lod_adr_RA,
-          str_RA_adr => str_RA_adr,
-          lod_adr_RB => lod_adr_RB,
-          str_RB_adr => str_RB_adr,
-          lod_adr_RC => lod_adr_RC,
-          str_RC_adr => str_RC_adr,
-          lod_ACR_RA => lod_ACR_RA,
-          str_ACR_adr => str_ACR_adr,
           lod_X_RA => lod_X_RA,
-          jmp_X => jmp_X,
-          jmpz_X => jmpz_X,
-          jmpn_X => jmpn_X,
-          jmpo_X => jmpo_X,
+          lod_X_RB => lod_X_RB,
+          lod_X_RC => lod_X_RC,
+          lod_X_ADR => lod_X_ADR,
+          lod_X_mADR => lod_X_mADR,
+          lod_adr_ADR => lod_adr_ADR,
+          lod_mADR_RA => lod_mADR_RA,
+          str_RA_mADR => str_RA_mADR,
+          lod_mADR_RB => lod_mADR_RB,
+          str_RB_mADR => str_RB_mADR,
+          lod_mADR_RC => lod_mADR_RC,
+          str_RC_mADR => str_RC_mADR,
+          lod_ACR_RA => lod_ACR_RA,
+          lod_ACR_ADR => lod_ACR_ADR,
+          str_ACR_mADR => str_ACR_mADR,
+          jmp_adr => jmp_adr,
+          jmpz_adr => jmpz_adr,
+          jmpn_adr => jmpn_adr,
+          jmpo_adr => jmpo_adr,
           hlt => hlt
         );
+
+
  
 
    -- Stimulus process
    stim_proc: process
    begin		
-      -- hold reset state for 100 ns.
-      wait for 100 ns;	
-
-      -- insert stimulus here 
 		
 		inst <= "00000000";
 		wait for 100 ns;
-
 		inst <= "00000001";
 		wait for 100 ns;
-
 		inst <= "00000010";
 		wait for 100 ns;
-
 		inst <= "00000011";
 		wait for 100 ns;
-
 		inst <= "00000100";
 		wait for 100 ns;
-
 		inst <= "00000101";
 		wait for 100 ns;
-
 		inst <= "00000110";
 		wait for 100 ns;
-
 		inst <= "00000111";
 		wait for 100 ns;
-
 		inst <= "00001000";
 		wait for 100 ns;
-
 		inst <= "00001001";
 		wait for 100 ns;
-
 		inst <= "00001010";
 		wait for 100 ns;
-
 		inst <= "00001011";
 		wait for 100 ns;
-
 		inst <= "00001100";
 		wait for 100 ns;
-
 		inst <= "00001101";
 		wait for 100 ns;
-
 		inst <= "00001110";
 		wait for 100 ns;
-
 		inst <= "00001111";
 		wait for 100 ns;
-
 		inst <= "00010000";
 		wait for 100 ns;
-
 		inst <= "00010001";
 		wait for 100 ns;
-
 		inst <= "00010010";
 		wait for 100 ns;
-
 		inst <= "00010011";
 		wait for 100 ns;
-
 		inst <= "00010100";
 		wait for 100 ns;
-
 		inst <= "00010101";
 		wait for 100 ns;
-		
 		inst <= "00010110";
 		wait for 100 ns;
-		
 		inst <= "00010111";
 		wait for 100 ns;
-		
 		inst <= "00011000";
 		wait for 100 ns;
-		
 		inst <= "00011001";
 		wait for 100 ns;
-		
 		inst <= "00011010";
 		wait for 100 ns;
-		
 		inst <= "00011011";
 		wait for 100 ns;
-		
+		inst <= "00011100";
+		wait for 100 ns;
+		inst <= "00011101";
+		wait for 100 ns;
+		inst <= "00011110";
+		wait for 100 ns;
+		inst <= "00011111";
+		wait for 100 ns;
+		inst <= "00100000";
+		wait for 100 ns;
+		inst <= "00100001";
+		wait for 100 ns;
+
       wait;
    end process;
 

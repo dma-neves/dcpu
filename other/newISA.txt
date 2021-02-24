@@ -17,29 +17,29 @@
 
 	Memory:
 
-	14 lod $X ADR --
-	15 lod X  ADR --
+	14 lod $X  RA 
+	15 lod $X  RB
+	16 lod $X  RC
+	17 lod $X  ADR
 
-	16 lod [ADR] RA
-	17 str RA    [ADR]
-	18 lod [ADR] RB
-	19 str RB    [ADR]
-	20 lod [ADR] RC
-	21 str RC    [ADR]
+	18 lod $X [ADR]
+	19 lod X  ADR
 
-	22 lod ACR RA
-	23 lod ACR ADR
-	23 str ACR [ADR]
+	20 lod [ADR] RA
+	21 str RA    [ADR]
+	22 lod [ADR] RB
+	23 str RB    [ADR]
+	24 lod [ADR] RC
+	25 str RC    [ADR]
 
-	24 lod $X  RA 
-	25 lod $X  RB  --
-	26 lod $X  RC  --
-	27 lod $X  [ADR] --
+	26 lod ACR RA
+	27 lod ACR ADR
+	28 str ACR [ADR]
 
 	Instruction change:
 
-	28 jmp  X
-	29 jmpz X
-	30 jmpn X
-	31 jmpo X
-	32 hlt
+	29 jmp  X
+	30 jmpz X
+	31 jmpn X
+	32 jmpo X
+	33 hlt
