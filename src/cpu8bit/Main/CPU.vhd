@@ -12,8 +12,8 @@ Port(
 	dataOut : out STD_LOGIC_VECTOR(7 downto 0);
 	readWrite : out STD_LOGIC;
 	fetch : out STD_LOGIC; 
-	
-	regA, regB, regC, regIC, regIR, regIDR, regIACR, regPACR : out STD_LOGIC_VECTOR(7 downto 0)
+
+	regA, regB, regC, regIC, regIR, regIDR, regIACR, regPACR, regADR : out STD_LOGIC_VECTOR(7 downto 0)
 );
 end CPU;
 
@@ -26,16 +26,19 @@ Port(
 	clk, reset, start : in STD_LOGIC;
 	inst : in STD_LOGIC_VECTOR(7 downto 0);
 	ZF, NF, OVF : in STD_LOGIC;
-	
-	dataOut_S : out STD_LOGIC_VECTOR(1 downto 0);
-	dataIn_S : out STD_LOGIC_VECTOR(2 downto 0);
+
+	dataOut_S : out STD_LOGIC_VECTOR(2 downto 0);
+	address_S : out STD_LOGIC_VECTOR(1 downto 0);
 	opc : out STD_LOGIC_VECTOR(2 downto 0);
 	
-	adr_S : out STD_LOGIC;
+	ADR_S : out STD_LOGIC_VECTOR(1 downto 0);
 	RA_S : out STD_LOGIC_VECTOR(1 downto 0);
+	RB_S : out STD_LOGIC;
+	RC_S : out STD_LOGIC;
 	ALU_A_S : out STD_LOGIC;
 	ALU_B_S : out STD_LOGIC_VECTOR(1 downto 0);
 	IC_S,
+	ADR_En,
 	RA_En,
 	RB_En,
 	RC_En,
@@ -79,12 +82,12 @@ Port (
 );
 end component;
 
-component DeMux5 is
+component Mux5 is
 Port(
-	d : in STD_LOGIC_VECTOR(7 downto 0);
+	I0, I1, I2, I3, I4_7 : in STD_LOGIC_VECTOR(7 downto 0);
 	sel : in STD_LOGIC_VECTOR(2 downto 0);
 	
-	I0, I1, I2, I3, I4 : out STD_LOGIC_VECTOR(7 downto 0)
+	o : out STD_LOGIC_VECTOR(7 downto 0)
 );
 end component;
 
@@ -113,20 +116,17 @@ ZF,
 NF,
 OVF : STD_LOGIC;
 
-signal dataOut_S : STD_LOGIC_VECTOR(1 downto 0);
-signal dataIn_S : STD_LOGIC_VECTOR(2 downto 0);
+signal dataOut_S : STD_LOGIC_VECTOR(2 downto 0);
+signal address_S : STD_LOGIC_VECTOR(1 downto 0);
 signal opc : STD_LOGIC_VECTOR(2 downto 0);
-
-signal
-adr_S : STD_LOGIC;
-signal
-RA_S : STD_LOGIC_VECTOR(1 downto 0);
-signal
-ALU_A_S : STD_LOGIC;
-signal
-ALU_B_S : STD_LOGIC_VECTOR(1 downto 0);
-signal
-IC_S,
+signal ADR_S : STD_LOGIC_VECTOR(1 downto 0);
+signal RA_S : STD_LOGIC_VECTOR(1 downto 0);
+signal RB_S : STD_LOGIC;
+signal RC_S : STD_LOGIC;
+signal ALU_A_S : STD_LOGIC;
+signal ALU_B_S : STD_LOGIC_VECTOR(1 downto 0);
+signal IC_S,
+ADR_En,
 RA_En,
 RB_En,
 RC_En,
@@ -136,8 +136,9 @@ IR_En,
 PACR_En,
 IACR_En,
 RW : STD_LOGIC;
-
+	
 signal
+ADR_In, ADR_Out,
 RA_In, RA_Out,
 RB_In, RB_Out,
 RC_In, RC_Out,
@@ -180,13 +181,17 @@ CU: ControlUnit port map(
 	OVF => OVF,
 	
 	dataOut_S => dataOut_S,
-	dataIn_S => dataIn_S,
+	address_S => address_S,
 	opc => opc,
-	adr_S => adr_S,
+	
+	ADR_S => ADR_S,
 	RA_S => RA_S,
-	ALU_A_S => ALU_A_S,
+	RB_S => RB_S,
+	RC_S => RC_S,
+	ALU_A_S => RC_S,
 	ALU_B_S => ALU_B_S,
 	IC_S => IC_S,
+	ADR_En => ADR_En,
 	RA_En => RA_En,
 	RB_En => RB_En,
 	RC_En => RC_En,
@@ -198,6 +203,14 @@ CU: ControlUnit port map(
 	RW => RW,
 	
 	fetch => fetch
+);
+
+ADR: Register_8bit port map(
+	En => ADR_En,
+	R => reset,
+	
+	DIn => ADR_In,
+	DOut => ADR_Out
 );
 
 RA: Register_8bit port map(
@@ -288,11 +301,13 @@ ALU_M: ALU port map(
 	overflowF => overflowF
 );
 
-DEMUX_DATAIN: DeMux5 port map(dataIn, dataIn_S, DI_0, RB_In, RC_In, IR_In, IDR_In);
-MUX_DATAOUT: Mux4 port map(RC_Out, RB_Out, RA_Out, PACR_Out, dataOut_S, dataOut);
-MUX_ADDRESS: Mux2 port map(IC_Out, IDR_Out, adr_S, address);
+MUX_DATAOUT: Mux5 port map(RC_Out, RB_Out, RA_Out, PACR_Out, IDR_Out, dataOut_S, dataOut);
+MUX_ADDRESS: Mux4 port map(IC_Out, IDR_Out, ADR_Out, "00000000", address_S, address);
 
-MUX_A: Mux4 port map(PACR_Out, DI_0, IDR_Out, "00000000", RA_S, RA_In);
+MUX_A: Mux4 port map(PACR_Out, dataIn, IDR_Out, "00000000", RA_S, RA_In);
+MUX_B: Mux2 port map(dataIn, IDR_Out, RB_S, RB_In);
+MUX_C: Mux2 port map(dataIn, IDR_Out, RC_S, RC_In);
+MUX_ADR: Mux4 port map(dataIn, IDR_Out, PACR_Out, "00000000", ADR_S, ADR_In);
 MUX_IC: Mux2 port map(IACR_Out, IDR_Out, IC_S, IC_In);
 MUX_ALU_A: Mux2 port map(RA_Out, IC_Out, ALU_A_S, ALU_a);
 MUX_ALU_B: Mux4 port map(RB_Out, RC_Out, IDR_Out, "00000000", ALU_B_S, ALU_b);
