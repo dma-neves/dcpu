@@ -25,7 +25,7 @@ Port(
 	lod_X_RC,
 	lod_X_ADR,
 	
-	lod_X_mADR,
+	str_X_mADR,
 	lod_adr_ADR,
 	
 	lod_mADR_RA,
@@ -90,7 +90,7 @@ lod_X_RA <= dm_o(14);
 lod_X_RB <= dm_o(15);
 lod_X_RC <= dm_o(16);
 lod_X_ADR <= dm_o(17);
-lod_X_mADR <= dm_o(18);
+str_X_mADR <= dm_o(18);
 lod_adr_ADR <= dm_o(19);
 lod_mADR_RA <= dm_o(20);
 str_RA_mADR <= dm_o(21);

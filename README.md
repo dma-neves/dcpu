@@ -20,7 +20,7 @@
 **Specifications:**
   - The CPU contains 3 general purpose registers RA RB RC, 3 instruction related registers IC (Instruction Counter) IR (Instruction Register) IDR (Instruction Data Register) and two accumulator registers PACR and IACR, an accomulator for the program and instruction counter respectively. It also contains a 3 bit flag register FLAGR.
   - The 8bit ALU can perform 8 different operations. More detailed description: https://github.com/dma-neves/VHDL_ALU.
-  - The Control Unit cointains a 7 state SM (state 0 fetches the instruction | state 1 increments the IC | state 2 transfers IACR to IC | state 3 decodes and executes | state 4 and 5 do the same as 1 and 2) therefore the cpu executes 1 instruction every 7 clock cycles. It also contains a instruction decoder and a operation decoder that activates the correct [operations](https://github.com/dma-neves/VHDL_8bitCPU/blob/main/other/instructionOutputs.txt) for each instruction.
+  - The Control Unit cointains a 7 state SM (state 0 fetches the instruction | state 1 increments the IC | state 2 transfers IACR to IC | state 3 decodes and executes | state 4 and 5 do the same as 1 and 2) therefore the cpu executes 1 instruction every 7 clock cycles. It also contains a instruction decoder and a operation decoder that activates the correct [operations](https://github.com/dma-neves/VHDL_8bitCPU/blob/main/other/instruction_outputs/instructionOutputs.txt) for each instruction.
   
 **ISA:**
 
