@@ -1,6 +1,7 @@
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
+
  
 ENTITY CU_test IS
 END CU_test;
@@ -18,22 +19,27 @@ ARCHITECTURE behavior OF CU_test IS
          ZF : IN  std_logic;
          NF : IN  std_logic;
          OVF : IN  std_logic;
-         dataOut_S : OUT  std_logic_vector(1 downto 0);
-         dataIn_S : OUT  std_logic_vector(2 downto 0);
+         dataOut_S : OUT  std_logic_vector(2 downto 0);
+         address_S : OUT  std_logic_vector(1 downto 0);
          opc : OUT  std_logic_vector(2 downto 0);
-         adr_S : OUT  std_logic;
+         ADR_S : OUT  std_logic_vector(1 downto 0);
          RA_S : OUT  std_logic_vector(1 downto 0);
+         RB_S : OUT  std_logic;
+         RC_S : OUT  std_logic;
          ALU_A_S : OUT  std_logic;
          ALU_B_S : OUT  std_logic_vector(1 downto 0);
          IC_S : OUT  std_logic;
+         ADR_En : OUT  std_logic;
          RA_En : OUT  std_logic;
          RB_En : OUT  std_logic;
          RC_En : OUT  std_logic;
          IC_En : OUT  std_logic;
          IDR_En : OUT  std_logic;
          IR_En : OUT  std_logic;
-         ACR_En : OUT  std_logic;
-         RW : OUT  std_logic
+         PACR_En : OUT  std_logic;
+         IACR_En : OUT  std_logic;
+         RW : OUT  std_logic;
+         fetch : OUT  std_logic
         );
     END COMPONENT;
     
@@ -48,22 +54,27 @@ ARCHITECTURE behavior OF CU_test IS
    signal OVF : std_logic := '0';
 
  	--Outputs
-   signal dataOut_S : std_logic_vector(1 downto 0);
-   signal dataIn_S : std_logic_vector(2 downto 0);
+   signal dataOut_S : std_logic_vector(2 downto 0);
+   signal address_S : std_logic_vector(1 downto 0);
    signal opc : std_logic_vector(2 downto 0);
-   signal adr_S : std_logic;
+   signal ADR_S : std_logic_vector(1 downto 0);
    signal RA_S : std_logic_vector(1 downto 0);
+   signal RB_S : std_logic;
+   signal RC_S : std_logic;
    signal ALU_A_S : std_logic;
    signal ALU_B_S : std_logic_vector(1 downto 0);
    signal IC_S : std_logic;
+   signal ADR_En : std_logic;
    signal RA_En : std_logic;
    signal RB_En : std_logic;
    signal RC_En : std_logic;
    signal IC_En : std_logic;
    signal IDR_En : std_logic;
    signal IR_En : std_logic;
-   signal ACR_En : std_logic;
+   signal PACR_En : std_logic;
+   signal IACR_En : std_logic;
    signal RW : std_logic;
+   signal fetch : std_logic;
 
    -- Clock period definitions
    constant clk_period : time := 10 ns;
@@ -80,29 +91,34 @@ BEGIN
           NF => NF,
           OVF => OVF,
           dataOut_S => dataOut_S,
-          dataIn_S => dataIn_S,
+          address_S => address_S,
           opc => opc,
-          adr_S => adr_S,
+          ADR_S => ADR_S,
           RA_S => RA_S,
+          RB_S => RB_S,
+          RC_S => RC_S,
           ALU_A_S => ALU_A_S,
           ALU_B_S => ALU_B_S,
           IC_S => IC_S,
+          ADR_En => ADR_En,
           RA_En => RA_En,
           RB_En => RB_En,
           RC_En => RC_En,
           IC_En => IC_En,
           IDR_En => IDR_En,
           IR_En => IR_En,
-          ACR_En => ACR_En,
-          RW => RW
+          PACR_En => PACR_En,
+          IACR_En => IACR_En,
+          RW => RW,
+          fetch => fetch
         );
 
    -- Clock process definitions
    clk_process :process
    begin
-		clk <= '1';
-		wait for clk_period/2;
 		clk <= '0';
+		wait for clk_period/2;
+		clk <= '1';
 		wait for clk_period/2;
    end process;
  
@@ -142,8 +158,6 @@ BEGIN
 		
 		inst <= "00000101";
 		wait for 70 ns;
-
-      wait;
    end process;
 
 END;

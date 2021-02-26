@@ -25,7 +25,8 @@ ARCHITECTURE behavior OF main_test IS
          regIR : OUT  std_logic_vector(7 downto 0);
          regIDR : OUT  std_logic_vector(7 downto 0);
          regIACR : OUT  std_logic_vector(7 downto 0);
-         regPACR : OUT  std_logic_vector(7 downto 0)
+         regPACR : OUT  std_logic_vector(7 downto 0);
+			regADR : OUT  std_logic_vector(7 downto 0)
         );
     END COMPONENT;
     
@@ -46,6 +47,7 @@ ARCHITECTURE behavior OF main_test IS
    signal regIDR : std_logic_vector(7 downto 0);
    signal regIACR : std_logic_vector(7 downto 0);
    signal regPACR : std_logic_vector(7 downto 0);
+	signal regADR : std_logic_vector(7 downto 0);
 
    -- Clock period definitions
    constant clk_period : time := 10 ns;
@@ -66,7 +68,8 @@ BEGIN
           regIR => regIR,
           regIDR => regIDR,
           regIACR => regIACR,
-          regPACR => regPACR
+          regPACR => regPACR,
+			 regADR => regADR
         );
 
    -- Clock process definitions

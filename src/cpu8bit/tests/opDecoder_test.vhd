@@ -1,6 +1,7 @@
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
+
  
 ENTITY opDecoder_test IS
 END opDecoder_test;
@@ -29,27 +30,36 @@ ARCHITECTURE behavior OF opDecoder_test IS
          and_RA_RC : IN  std_logic;
          or_RA_RB : IN  std_logic;
          or_RA_RC : IN  std_logic;
-         lod_adr_RA : IN  std_logic;
-         str_RA_adr : IN  std_logic;
-         lod_adr_RB : IN  std_logic;
-         str_RB_adr : IN  std_logic;
-         lod_adr_RC : IN  std_logic;
-         str_RC_adr : IN  std_logic;
-         lod_ACR_RA : IN  std_logic;
-         str_ACR_adr : IN  std_logic;
          lod_X_RA : IN  std_logic;
-         jmp_X : IN  std_logic;
-         jmpz_X : IN  std_logic;
-         jmpn_X : IN  std_logic;
-         jmpo_X : IN  std_logic;
-         dataOut_S : OUT  std_logic_vector(1 downto 0);
-         dataIn_S : OUT  std_logic_vector(2 downto 0);
+         lod_X_RB : IN  std_logic;
+         lod_X_RC : IN  std_logic;
+         lod_X_ADR : IN  std_logic;
+         str_X_mADR : IN  std_logic;
+         lod_adr_ADR : IN  std_logic;
+         lod_mADR_RA : IN  std_logic;
+         str_RA_mADR : IN  std_logic;
+         lod_mADR_RB : IN  std_logic;
+         str_RB_mADR : IN  std_logic;
+         lod_mADR_RC : IN  std_logic;
+         str_RC_mADR : IN  std_logic;
+         lod_ACR_RA : IN  std_logic;
+         lod_ACR_ADR : IN  std_logic;
+         str_ACR_mADR : IN  std_logic;
+         jmp_adr : IN  std_logic;
+         jmpz_adr : IN  std_logic;
+         jmpn_adr : IN  std_logic;
+         jmpo_adr : IN  std_logic;
+         dataOut_S : OUT  std_logic_vector(2 downto 0);
+         address_S : OUT  std_logic_vector(1 downto 0);
          opc : OUT  std_logic_vector(2 downto 0);
-         adr_S : OUT  std_logic;
+         ADR_S : OUT  std_logic_vector(1 downto 0);
          RA_S : OUT  std_logic_vector(1 downto 0);
+         RB_S : OUT  std_logic;
+         RC_S : OUT  std_logic;
          ALU_A_S : OUT  std_logic;
          ALU_B_S : OUT  std_logic_vector(1 downto 0);
          IC_S : OUT  std_logic;
+         ADR_En : OUT  std_logic;
          RA_En : OUT  std_logic;
          RB_En : OUT  std_logic;
          RC_En : OUT  std_logic;
@@ -81,29 +91,38 @@ ARCHITECTURE behavior OF opDecoder_test IS
    signal and_RA_RC : std_logic := '0';
    signal or_RA_RB : std_logic := '0';
    signal or_RA_RC : std_logic := '0';
-   signal lod_adr_RA : std_logic := '0';
-   signal str_RA_adr : std_logic := '0';
-   signal lod_adr_RB : std_logic := '0';
-   signal str_RB_adr : std_logic := '0';
-   signal lod_adr_RC : std_logic := '0';
-   signal str_RC_adr : std_logic := '0';
-   signal lod_ACR_RA : std_logic := '0';
-   signal str_ACR_adr : std_logic := '0';
    signal lod_X_RA : std_logic := '0';
-   signal jmp_X : std_logic := '0';
-   signal jmpz_X : std_logic := '0';
-   signal jmpn_X : std_logic := '0';
-   signal jmpo_X : std_logic := '0';
+   signal lod_X_RB : std_logic := '0';
+   signal lod_X_RC : std_logic := '0';
+   signal lod_X_ADR : std_logic := '0';
+   signal str_X_mADR : std_logic := '0';
+   signal lod_adr_ADR : std_logic := '0';
+   signal lod_mADR_RA : std_logic := '0';
+   signal str_RA_mADR : std_logic := '0';
+   signal lod_mADR_RB : std_logic := '0';
+   signal str_RB_mADR : std_logic := '0';
+   signal lod_mADR_RC : std_logic := '0';
+   signal str_RC_mADR : std_logic := '0';
+   signal lod_ACR_RA : std_logic := '0';
+   signal lod_ACR_ADR : std_logic := '0';
+   signal str_ACR_mADR : std_logic := '0';
+   signal jmp_adr : std_logic := '0';
+   signal jmpz_adr : std_logic := '0';
+   signal jmpn_adr : std_logic := '0';
+   signal jmpo_adr : std_logic := '0';
 
  	--Outputs
-   signal dataOut_S : std_logic_vector(1 downto 0);
-   signal dataIn_S : std_logic_vector(2 downto 0);
+   signal dataOut_S : std_logic_vector(2 downto 0);
+   signal address_S : std_logic_vector(1 downto 0);
    signal opc : std_logic_vector(2 downto 0);
-   signal adr_S : std_logic;
+   signal ADR_S : std_logic_vector(1 downto 0);
    signal RA_S : std_logic_vector(1 downto 0);
+   signal RB_S : std_logic;
+   signal RC_S : std_logic;
    signal ALU_A_S : std_logic;
    signal ALU_B_S : std_logic_vector(1 downto 0);
    signal IC_S : std_logic;
+   signal ADR_En : std_logic;
    signal RA_En : std_logic;
    signal RB_En : std_logic;
    signal RC_En : std_logic;
@@ -114,8 +133,7 @@ ARCHITECTURE behavior OF opDecoder_test IS
    signal RW : std_logic;
    -- No clocks detected in port list. Replace <clock> below with 
    -- appropriate port name 
- 
- 
+  
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
@@ -138,27 +156,36 @@ BEGIN
           and_RA_RC => and_RA_RC,
           or_RA_RB => or_RA_RB,
           or_RA_RC => or_RA_RC,
-          lod_adr_RA => lod_adr_RA,
-          str_RA_adr => str_RA_adr,
-          lod_adr_RB => lod_adr_RB,
-          str_RB_adr => str_RB_adr,
-          lod_adr_RC => lod_adr_RC,
-          str_RC_adr => str_RC_adr,
-          lod_ACR_RA => lod_ACR_RA,
-          str_ACR_adr => str_ACR_adr,
           lod_X_RA => lod_X_RA,
-          jmp_X => jmp_X,
-          jmpz_X => jmpz_X,
-          jmpn_X => jmpn_X,
-          jmpo_X => jmpo_X,
+          lod_X_RB => lod_X_RB,
+          lod_X_RC => lod_X_RC,
+          lod_X_ADR => lod_X_ADR,
+          str_X_mADR => str_X_mADR,
+          lod_adr_ADR => lod_adr_ADR,
+          lod_mADR_RA => lod_mADR_RA,
+          str_RA_mADR => str_RA_mADR,
+          lod_mADR_RB => lod_mADR_RB,
+          str_RB_mADR => str_RB_mADR,
+          lod_mADR_RC => lod_mADR_RC,
+          str_RC_mADR => str_RC_mADR,
+          lod_ACR_RA => lod_ACR_RA,
+          lod_ACR_ADR => lod_ACR_ADR,
+          str_ACR_mADR => str_ACR_mADR,
+          jmp_adr => jmp_adr,
+          jmpz_adr => jmpz_adr,
+          jmpn_adr => jmpn_adr,
+          jmpo_adr => jmpo_adr,
           dataOut_S => dataOut_S,
-          dataIn_S => dataIn_S,
+          address_S => address_S,
           opc => opc,
-          adr_S => adr_S,
+          ADR_S => ADR_S,
           RA_S => RA_S,
+          RB_S => RB_S,
+          RC_S => RC_S,
           ALU_A_S => ALU_A_S,
           ALU_B_S => ALU_B_S,
           IC_S => IC_S,
+          ADR_En => ADR_En,
           RA_En => RA_En,
           RB_En => RB_En,
           RC_En => RC_En,
@@ -173,15 +200,12 @@ BEGIN
 
    -- Stimulus process
    stim_proc: process
-   begin		
-      -- hold reset state for 100 ns.
+   begin	
 		En <= '1';
 		ZF <= '1';
 		NF <= '1';
 		OVF <= '1';
-      wait for 100 ns;	
-
-      -- insert stimulus here
+		
 		add_RA_RB <= '1'; wait for 100 ns; add_RA_RB <= '0';
 		add_RA_RC <= '1'; wait for 100 ns; add_RA_RC <= '0';
 		add_RA_X <= '1'; wait for 100 ns; add_RA_X <= '0';
@@ -196,19 +220,25 @@ BEGIN
 		and_RA_RC <= '1'; wait for 100 ns; and_RA_RC <= '0';
 		or_RA_RB <= '1'; wait for 100 ns; or_RA_RB <= '0';
 		or_RA_RC <= '1'; wait for 100 ns; or_RA_RC <= '0';
-		lod_adr_RA <= '1'; wait for 100 ns; lod_adr_RA <= '0';
-		str_RA_adr <= '1'; wait for 100 ns; str_RA_adr <= '0';
-		lod_adr_RB <= '1'; wait for 100 ns; lod_adr_RB <= '0';
-		str_RB_adr <= '1'; wait for 100 ns; str_RB_adr <= '0';
-		lod_adr_RC <= '1'; wait for 100 ns; lod_adr_RC <= '0';
-		str_RC_adr <= '1'; wait for 100 ns; str_RC_adr <= '0';
-		lod_ACR_RA <= '1'; wait for 100 ns; lod_ACR_RA <= '0';
-		str_ACR_adr <= '1'; wait for 100 ns; str_ACR_adr <= '0';
 		lod_X_RA <= '1'; wait for 100 ns; lod_X_RA <= '0';
-		jmp_X <= '1'; wait for 100 ns; jmp_X <= '0';
-		jmpz_X <= '1'; wait for 100 ns; jmpz_X <= '0';
-		jmpn_X <= '1'; wait for 100 ns; jmpn_X <= '0';
-		jmpo_X <= '1'; wait for 100 ns; jmpo_X <= '0';
+		lod_X_RB <= '1'; wait for 100 ns; lod_X_RB <= '0';
+		lod_X_RC <= '1'; wait for 100 ns; lod_X_RC <= '0';
+		lod_X_ADR <= '1'; wait for 100 ns; lod_X_ADR <= '0';
+		str_X_mADR <= '1'; wait for 100 ns; str_X_mADR <= '0';
+		lod_adr_ADR <= '1'; wait for 100 ns; lod_adr_ADR <= '0';
+		lod_mADR_RA <= '1'; wait for 100 ns; lod_mADR_RA <= '0';
+		str_RA_mADR <= '1'; wait for 100 ns; str_RA_mADR <= '0';
+		lod_mADR_RB <= '1'; wait for 100 ns; lod_mADR_RB <= '0';
+		str_RB_mADR <= '1'; wait for 100 ns; str_RB_mADR <= '0';
+		lod_mADR_RC <= '1'; wait for 100 ns; lod_mADR_RC <= '0';
+		str_RC_mADR <= '1'; wait for 100 ns; str_RC_mADR <= '0';
+		lod_ACR_RA <= '1'; wait for 100 ns; lod_ACR_RA <= '0';
+		lod_ACR_ADR <= '1'; wait for 100 ns; lod_ACR_ADR <= '0';
+		str_ACR_mADR <= '1'; wait for 100 ns; str_ACR_mADR <= '0';
+		jmp_adr <= '1'; wait for 100 ns; jmp_adr <= '0';
+		jmpz_adr <= '1'; wait for 100 ns; jmpz_adr <= '0';
+		jmpn_adr <= '1'; wait for 100 ns; jmpn_adr <= '0';
+		jmpo_adr <= '1'; wait for 100 ns; jmpo_adr <= '0';
 
       wait;
    end process;

@@ -73,6 +73,9 @@ architecture Behavioral of OpDecoder is
 
 begin
 
+	ALU_A_S <= '0';
+	IDR_En <= '0';
+	IR_En <= '0';
 	ACR_En <= En and (add_RA_RB or add_RA_RC or add_RA_X or sub_RA_RB or sub_RA_RC or sub_RA_X or inc_RA or dec_RA or neg_RA or not_RA or and_RA_RB or and_RA_RC or or_RA_RB or or_RA_RC);
 	ALU_B_S(0) <= En and (add_RA_RC or sub_RA_RC or and_RA_RC or or_RA_RC);
 	ALU_B_S(1) <= En and (add_RA_X or sub_RA_X);

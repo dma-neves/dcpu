@@ -1,6 +1,7 @@
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
+ 
 
  
 ENTITY InstDecoder_test IS
@@ -31,7 +32,7 @@ ARCHITECTURE behavior OF InstDecoder_test IS
          lod_X_RB : OUT  std_logic;
          lod_X_RC : OUT  std_logic;
          lod_X_ADR : OUT  std_logic;
-         lod_X_mADR : OUT  std_logic;
+         str_X_mADR : OUT  std_logic;
          lod_adr_ADR : OUT  std_logic;
          lod_mADR_RA : OUT  std_logic;
          str_RA_mADR : OUT  std_logic;
@@ -73,7 +74,7 @@ ARCHITECTURE behavior OF InstDecoder_test IS
    signal lod_X_RB : std_logic;
    signal lod_X_RC : std_logic;
    signal lod_X_ADR : std_logic;
-   signal lod_X_mADR : std_logic;
+   signal str_X_mADR : std_logic;
    signal lod_adr_ADR : std_logic;
    signal lod_mADR_RA : std_logic;
    signal str_RA_mADR : std_logic;
@@ -116,7 +117,7 @@ BEGIN
           lod_X_RB => lod_X_RB,
           lod_X_RC => lod_X_RC,
           lod_X_ADR => lod_X_ADR,
-          lod_X_mADR => lod_X_mADR,
+          str_X_mADR => str_X_mADR,
           lod_adr_ADR => lod_adr_ADR,
           lod_mADR_RA => lod_mADR_RA,
           str_RA_mADR => str_RA_mADR,
@@ -133,14 +134,11 @@ BEGIN
           jmpo_adr => jmpo_adr,
           hlt => hlt
         );
-
-
  
 
    -- Stimulus process
    stim_proc: process
    begin		
-		
 		inst <= "00000000";
 		wait for 100 ns;
 		inst <= "00000001";
@@ -209,8 +207,7 @@ BEGIN
 		wait for 100 ns;
 		inst <= "00100001";
 		wait for 100 ns;
-
-      wait;
+		
    end process;
 
 END;
