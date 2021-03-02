@@ -23,7 +23,7 @@
 	17 lod $X  ADR
 
 	18 str $X [ADR]
-	19 lod X  ADR
+	19 lod [X] ADR
 
 	20 lod [ADR] RA
 	21 str RA    [ADR]
@@ -36,10 +36,17 @@
 	27 lod ACR ADR
 	28 str ACR [ADR]
 
+	29 str IC [ADR]
+
 	Instruction change:
 
-	29 jmp  X
-	30 jmpz X
-	31 jmpn X
-	32 jmpo X
-	33 hlt
+	30 jmp  ADR
+	31 jmp  X
+	32 jmpz X
+	33 jmpn X
+	34 jmpo X
+	35 hlt
+
+	data out 101 -> IC
+	IC_S -> 2 bits
+

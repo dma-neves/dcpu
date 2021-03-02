@@ -250,22 +250,39 @@ str_ACR_mADR:
 	dataOut_S(1)
 	RW
 
-jmp_adr:
-	# IC_A = IDR -> IC_S = 1
+str_IC_mADR:
+	# address = ADR -> address_S = "10"
+	# dataOut = IC  -> dataOut_S = "101"
+	# RW = 1        -> RW = 1
+
+	address_S(1)
+	dataOut_S(0)
+	dataOut_S(2)
+	RW
+
+jmp_ADR:
+	# IC_A = DI -> IC_S = "10"
 	# IC_En = 1  -> IC_En
 
-	IC_S
+	IC_S(1)
+	IC_En
+
+jmp_x:
+	# IC_A = IDR -> IC_S = "01"
+	# IC_En = 1  -> IC_En
+
+	IC_S(0)
 	IC_En
 	
 
-(jmpz_adr and ZF):
-	IC_S
+(jmpz_x and ZF):
+	IC_S(0)
 	IC_En
 
-(jmpn_adr and NF):
-	IC_S
+(jmpn_x and NF):
+	IC_S(0)
 	IC_En
 
-(jmpo_adr and OVF):
-	IC_S
+(jmpo_x and OVF):
+	IC_S(0)
 	IC_En

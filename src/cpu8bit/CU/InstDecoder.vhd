@@ -38,11 +38,14 @@ Port(
 	lod_ACR_RA,
 	lod_ACR_ADR,
 	str_ACR_mADR,
+	
+	str_IC_mADR,
 
-	jmp_adr,
-	jmpz_adr,
-	jmpn_adr,
-	jmpo_adr,
+	jmp_ADR,
+	jmp_x,
+	jmpz_x,
+	jmpn_x,
+	jmpo_x,
 	hlt
 	: out STD_LOGIC
 );
@@ -101,16 +104,24 @@ str_RC_mADR <= dm_o(25);
 lod_ACR_RA <= dm_o(26);
 lod_ACR_ADR <= dm_o(27);
 str_ACR_mADR <= dm_o(28);
-jmp_adr <= dm_o(29);
-jmpz_adr <= dm_o(30);
-jmpn_adr <= dm_o(31);
-	
-jmpo_adr <= 
+str_IC_mADR <= dm_o(29);
+jmp_ADR <= dm_o(30);
+jmp_x <= dm_o(31);
+
+jmpz_x <= 
 (not inst(0)) and (not inst(1)) and (not inst(2)) and (not inst(3)) and
 (not inst(4)) and (    inst(5)) and (not inst(6)) and (not inst(7));
 
-hlt <= 
+jmpn_x <= 
 (    inst(0)) and (not inst(1)) and (not inst(2)) and (not inst(3)) and
+(not inst(4)) and (    inst(5)) and (not inst(6)) and (not inst(7));
+	
+jmpo_x <= 
+(not inst(0)) and (    inst(1)) and (not inst(2)) and (not inst(3)) and
+(not inst(4)) and (    inst(5)) and (not inst(6)) and (not inst(7));
+
+hlt <= 
+(    inst(0)) and (    inst(1)) and (not inst(2)) and (not inst(3)) and
 (not inst(4)) and (    inst(5)) and (not inst(6)) and (not inst(7));
 
 end Behavioral;

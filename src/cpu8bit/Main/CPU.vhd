@@ -37,7 +37,7 @@ Port(
 	RC_S : out STD_LOGIC;
 	ALU_A_S : out STD_LOGIC;
 	ALU_B_S : out STD_LOGIC_VECTOR(1 downto 0);
-	IC_S,
+	IC_S : out STD_LOGIC_VECTOR(1 downto 0);
 	ADR_En,
 	RA_En,
 	RB_En,
@@ -82,9 +82,9 @@ Port (
 );
 end component;
 
-component Mux5 is
+component Mux8 is
 Port(
-	I0, I1, I2, I3, I4_7 : in STD_LOGIC_VECTOR(7 downto 0);
+	I0, I1, I2, I3, I4, I5, I6, I7 : in STD_LOGIC_VECTOR(7 downto 0);
 	sel : in STD_LOGIC_VECTOR(2 downto 0);
 	
 	o : out STD_LOGIC_VECTOR(7 downto 0)
@@ -125,7 +125,8 @@ signal RB_S : STD_LOGIC;
 signal RC_S : STD_LOGIC;
 signal ALU_A_S : STD_LOGIC;
 signal ALU_B_S : STD_LOGIC_VECTOR(1 downto 0);
-signal IC_S,
+signal IC_S : STD_LOGIC_VECTOR(1 downto 0);
+signal
 ADR_En,
 RA_En,
 RB_En,
@@ -301,14 +302,14 @@ ALU_M: ALU port map(
 	overflowF => overflowF
 );
 
-MUX_DATAOUT: Mux5 port map(RC_Out, RB_Out, RA_Out, PACR_Out, IDR_Out, dataOut_S, dataOut);
+MUX_DATAOUT: Mux8 port map(RC_Out, RB_Out, RA_Out, PACR_Out, IDR_Out, IC_Out, "00000000", "00000000", dataOut_S, dataOut);
 MUX_ADDRESS: Mux4 port map(IC_Out, IDR_Out, ADR_Out, "00000000", address_S, address);
 
 MUX_A: Mux4 port map(PACR_Out, dataIn, IDR_Out, "00000000", RA_S, RA_In);
 MUX_B: Mux2 port map(dataIn, IDR_Out, RB_S, RB_In);
 MUX_C: Mux2 port map(dataIn, IDR_Out, RC_S, RC_In);
 MUX_ADR: Mux4 port map(dataIn, IDR_Out, PACR_Out, "00000000", ADR_S, ADR_In);
-MUX_IC: Mux2 port map(IACR_Out, IDR_Out, IC_S, IC_In);
+MUX_IC: Mux4 port map(IACR_Out, IDR_Out, ADR_Out, "00000000", IC_S, IC_In);
 MUX_ALU_A: Mux2 port map(RA_Out, IC_Out, ALU_A_S, ALU_a);
 MUX_ALU_B: Mux4 port map(RB_Out, RC_Out, IDR_Out, "00000000", ALU_B_S, ALU_b);
 

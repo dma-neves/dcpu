@@ -17,7 +17,7 @@ Port(
 	RC_S : out STD_LOGIC;
 	ALU_A_S : out STD_LOGIC;
 	ALU_B_S : out STD_LOGIC_VECTOR(1 downto 0);
-	IC_S,
+	IC_S : out STD_LOGIC_VECTOR(1 downto 0);
 	ADR_En,
 	RA_En,
 	RB_En,
@@ -85,11 +85,14 @@ Port(
 	lod_ACR_RA,
 	lod_ACR_ADR,
 	str_ACR_mADR,
+	
+	str_IC_mADR,
 
-	jmp_adr,
-	jmpz_adr,
-	jmpn_adr,
-	jmpo_adr,
+	jmp_ADR,
+	jmp_x,
+	jmpz_x,
+	jmpn_x,
+	jmpo_x,
 	hlt
 	: out STD_LOGIC
 );
@@ -133,11 +136,14 @@ Port(
 	lod_ACR_RA,
 	lod_ACR_ADR,
 	str_ACR_mADR,
+	
+	str_IC_mADR,
 
-	jmp_adr,
-	jmpz_adr,
-	jmpn_adr,
-	jmpo_adr : in STD_LOGIC;
+	jmp_ADR,
+	jmp_x,
+	jmpz_x,
+	jmpn_x,
+	jmpo_x : in STD_LOGIC;
 	
 	dataOut_S : out STD_LOGIC_VECTOR(2 downto 0);
 	address_S : out STD_LOGIC_VECTOR(1 downto 0);
@@ -149,7 +155,7 @@ Port(
 	RC_S : out STD_LOGIC;
 	ALU_A_S : out STD_LOGIC;
 	ALU_B_S : out STD_LOGIC_VECTOR(1 downto 0);
-	IC_S,
+	IC_S : out STD_LOGIC_VECTOR(1 downto 0);
 	ADR_En,
 	RA_En,
 	RB_En,
@@ -194,10 +200,12 @@ str_RC_mADR,
 lod_ACR_RA,
 lod_ACR_ADR,
 str_ACR_mADR,
-jmp_adr,
-jmpz_adr,
-jmpn_adr,
-jmpo_adr,
+str_IC_mADR,
+jmp_ADR,
+jmp_x,
+jmpz_x,
+jmpn_x,
+jmpo_x,
 hlt : STD_LOGIC;
 
 signal dataOut_S_aux : STD_LOGIC_VECTOR(2 downto 0);
@@ -209,7 +217,8 @@ signal RB_S_aux : STD_LOGIC;
 signal RC_S_aux : STD_LOGIC;
 signal ALU_A_S_aux : STD_LOGIC;
 signal ALU_B_S_aux : STD_LOGIC_VECTOR(1 downto 0);
-signal IC_S_aux,
+signal IC_S_aux : STD_LOGIC_VECTOR(1 downto 0);
+signal
 ADR_En_aux,
 RA_En_aux,
 RB_En_aux,
@@ -299,11 +308,14 @@ ID: InstDecoder port map(
 	lod_ACR_RA,
 	lod_ACR_ADR,
 	str_ACR_mADR,
+	
+	str_IC_mADR,
 
-	jmp_adr,
-	jmpz_adr,
-	jmpn_adr,
-	jmpo_adr,
+	jmp_ADR,
+	jmp_x,
+	jmpz_x,
+	jmpn_x,
+	jmpo_x,
 	hlt
 );
 
@@ -348,11 +360,14 @@ OD: OpDecoder port map(
 	lod_ACR_RA,
 	lod_ACR_ADR,
 	str_ACR_mADR,
+	
+	str_IC_mADR,
 
-	jmp_adr,
-	jmpz_adr,
-	jmpn_adr,
-	jmpo_adr,
+	jmp_ADR,
+	jmp_x,
+	jmpz_x,
+	jmpn_x,
+	jmpo_x,
 	
 	dataOut_S_aux,
 	address_S_aux,
