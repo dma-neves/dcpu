@@ -1,9 +1,7 @@
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
- 
 
- 
 ENTITY InstDecoder_test IS
 END InstDecoder_test;
  
@@ -43,10 +41,12 @@ ARCHITECTURE behavior OF InstDecoder_test IS
          lod_ACR_RA : OUT  std_logic;
          lod_ACR_ADR : OUT  std_logic;
          str_ACR_mADR : OUT  std_logic;
-         jmp_adr : OUT  std_logic;
-         jmpz_adr : OUT  std_logic;
-         jmpn_adr : OUT  std_logic;
-         jmpo_adr : OUT  std_logic;
+         str_IC_mADR : OUT  std_logic;
+         jmp_ADR : OUT  std_logic;
+         jmp_x : OUT  std_logic;
+         jmpz_x : OUT  std_logic;
+         jmpn_x : OUT  std_logic;
+         jmpo_x : OUT  std_logic;
          hlt : OUT  std_logic
         );
     END COMPONENT;
@@ -85,10 +85,12 @@ ARCHITECTURE behavior OF InstDecoder_test IS
    signal lod_ACR_RA : std_logic;
    signal lod_ACR_ADR : std_logic;
    signal str_ACR_mADR : std_logic;
-   signal jmp_adr : std_logic;
-   signal jmpz_adr : std_logic;
-   signal jmpn_adr : std_logic;
-   signal jmpo_adr : std_logic;
+   signal str_IC_mADR : std_logic;
+   signal jmp_ADR : std_logic;
+   signal jmp_x : std_logic;
+   signal jmpz_x : std_logic;
+   signal jmpn_x : std_logic;
+   signal jmpo_x : std_logic;
    signal hlt : std_logic;
    -- No clocks detected in port list. Replace <clock> below with 
    -- appropriate port name 
@@ -128,17 +130,21 @@ BEGIN
           lod_ACR_RA => lod_ACR_RA,
           lod_ACR_ADR => lod_ACR_ADR,
           str_ACR_mADR => str_ACR_mADR,
-          jmp_adr => jmp_adr,
-          jmpz_adr => jmpz_adr,
-          jmpn_adr => jmpn_adr,
-          jmpo_adr => jmpo_adr,
+          str_IC_mADR => str_IC_mADR,
+          jmp_ADR => jmp_ADR,
+          jmp_x => jmp_x,
+          jmpz_x => jmpz_x,
+          jmpn_x => jmpn_x,
+          jmpo_x => jmpo_x,
           hlt => hlt
         );
+
  
 
    -- Stimulus process
    stim_proc: process
    begin		
+
 		inst <= "00000000";
 		wait for 100 ns;
 		inst <= "00000001";
@@ -206,6 +212,10 @@ BEGIN
 		inst <= "00100000";
 		wait for 100 ns;
 		inst <= "00100001";
+		wait for 100 ns;
+		inst <= "00100010";
+		wait for 100 ns;
+		inst <= "00100011";
 		wait for 100 ns;
 		
    end process;

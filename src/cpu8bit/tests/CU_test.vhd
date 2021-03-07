@@ -1,6 +1,7 @@
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
+ 
 
  
 ENTITY CU_test IS
@@ -28,7 +29,7 @@ ARCHITECTURE behavior OF CU_test IS
          RC_S : OUT  std_logic;
          ALU_A_S : OUT  std_logic;
          ALU_B_S : OUT  std_logic_vector(1 downto 0);
-         IC_S : OUT  std_logic;
+         IC_S : OUT  std_logic_vector(1 downto 0);
          ADR_En : OUT  std_logic;
          RA_En : OUT  std_logic;
          RB_En : OUT  std_logic;
@@ -63,7 +64,7 @@ ARCHITECTURE behavior OF CU_test IS
    signal RC_S : std_logic;
    signal ALU_A_S : std_logic;
    signal ALU_B_S : std_logic_vector(1 downto 0);
-   signal IC_S : std_logic;
+   signal IC_S : std_logic_vector(1 downto 0);
    signal ADR_En : std_logic;
    signal RA_En : std_logic;
    signal RB_En : std_logic;
@@ -126,7 +127,8 @@ BEGIN
    -- Stimulus process
    stim_proc: process
    begin		
-      -- hold reset state for 100 ns.
+	
+     -- hold reset state for 100 ns.
 		reset <= '1';
       wait for 100 ns;	
 
@@ -158,6 +160,7 @@ BEGIN
 		
 		inst <= "00000101";
 		wait for 70 ns;
+		
    end process;
 
 END;

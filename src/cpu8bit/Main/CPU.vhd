@@ -165,6 +165,7 @@ regIR <= IR_Out;
 regIDR <= IDR_Out;
 regIACR <= IACR_Out;
 regPACR <= PACR_Out;
+regADR <= ADR_Out;
 
 readWrite <= RW;
 
@@ -189,7 +190,7 @@ CU: ControlUnit port map(
 	RA_S => RA_S,
 	RB_S => RB_S,
 	RC_S => RC_S,
-	ALU_A_S => RC_S,
+	ALU_A_S => ALU_A_S,
 	ALU_B_S => ALU_B_S,
 	IC_S => IC_S,
 	ADR_En => ADR_En,
@@ -312,6 +313,9 @@ MUX_ADR: Mux4 port map(dataIn, IDR_Out, PACR_Out, "00000000", ADR_S, ADR_In);
 MUX_IC: Mux4 port map(IACR_Out, IDR_Out, ADR_Out, "00000000", IC_S, IC_In);
 MUX_ALU_A: Mux2 port map(RA_Out, IC_Out, ALU_A_S, ALU_a);
 MUX_ALU_B: Mux4 port map(RB_Out, RC_Out, IDR_Out, "00000000", ALU_B_S, ALU_b);
+
+IR_In <= dataIn;
+IDR_In <= dataIn;
 
 
 end Behavioral;

@@ -102,5 +102,9 @@ begin
 	IC_En <= En and (jmp_ADR or jmp_x or (jmpz_x and ZF) or (jmpn_x and NF) or (jmpo_x and OVF));
 	IC_S(0) <= En and (jmp_x or (jmpz_x and ZF) or (jmpn_x and NF) or (jmpo_x and OVF));
 	
+	ALU_A_S <= '0';
+	IDR_En <= '0';
+	IR_En <= '0';
+	
 end Behavioral;
 
