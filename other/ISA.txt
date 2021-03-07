@@ -46,7 +46,3 @@
 	33 jmpn X
 	34 jmpo X
 	35 hlt
-
-	data out 101 -> IC
-	IC_S -> 2 bits
-
