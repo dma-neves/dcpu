@@ -1,7 +1,7 @@
 # 8bitCPU
 
 **Note**
-  - CPU is being redesigned. Current version doesnt fully work yet.
+  - README isn't fully updated.
 
 **Description:**
   - A simple 8bit cpu devoloped in VHDL implicitly using logic gates and a structural (instead of high level behavioral) description (exception for the DFlipFlop implementation because of latching issues). Devoleped using the Xilinx ISE tool.
