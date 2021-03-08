@@ -18,9 +18,9 @@
   </br>![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/seven_state_sm.png)
 
 **Specifications:**
-  - The CPU contains 3 general purpose registers RA RB RC, 3 instruction related registers IC (Instruction Counter) IR (Instruction Register) IDR (Instruction Data Register) and two accumulator registers PACR and IACR, an accomulator for the program and instruction counter respectively. It also contains a 3 bit flag register FLAGR.
-  - The 8bit ALU can perform 8 different operations. More detailed description: https://github.com/dma-neves/VHDL_ALU.
-  - The Control Unit cointains a 7 state SM (state 0 fetches the instruction | state 1 increments the IC | state 2 transfers IACR to IC | state 3 decodes and executes | state 4 and 5 do the same as 1 and 2) therefore the cpu executes 1 instruction every 7 clock cycles. It also contains a instruction decoder and a operation decoder that activates the correct [operations](https://github.com/dma-neves/8bitCPU/blob/main/other/instruction_outputs/instructionOutputs.txt) for each instruction.
+  - The CPU contains nine 8-bit registers: 3 general purpose registers RA RB RC, 3 instruction related registers IC (Instruction Counter) IR (Instruction Register) IDR (Instruction Data Register), a address register ADR and two accumulator registers PACR (Program Accomulator) and IACR (Instruction Counter Accomulator).
+  - The 8bit [ALU](https://github.com/dma-neves/VHDL_ALU) can perform 8 different operations and its flags can be stored in the 3 bit flag register FLAGR.
+  - The Control Unit cointains a 7 state SM (state 0 fetches the instruction | state 1 increments the IC | state 2 transfers IACR to IC | state 3 decodes and executes | state 4 and 5 do the same as 1 and 2) therefore the cpu executes 1 instruction every 7 clock cycles. The instruction decoder and operation decoder activate the correct [operations](https://github.com/dma-neves/8bitCPU/blob/main/other/instruction_outputs/instructionOutputs.txt) for each instruction.
   
 **ISA:**
 
@@ -43,23 +43,35 @@
 
 	Memory:
 
-	14 lod adr RA
-	15 str RA  adr
-	16 lod adr RB
-	17 str RB  adr
-	18 lod adr RC
-	19 str RC  adr
-	20 lod ACR RA
-	21 str ACR adr
-	22 lod $X  RA
+	14 lod $X  RA 
+	15 lod $X  RB
+	16 lod $X  RC
+	17 lod $X  ADR
+
+	18 str $X [ADR]
+	19 lod [X] ADR
+
+	20 lod [ADR] RA
+	21 str RA    [ADR]
+	22 lod [ADR] RB
+	23 str RB    [ADR]
+	24 lod [ADR] RC
+	25 str RC    [ADR]
+
+	26 lod ACR RA
+	27 lod ACR ADR
+	28 str ACR [ADR]
+
+	29 str IC [ADR]
 
 	Instruction change:
 
-	23 jmp  adr
-	24 jmpz adr
-	25 jmpn adr
-	26 jmpo adr
-	27 hlt
+	30 jmp  ADR
+	31 jmp  X
+	32 jmpz X
+	33 jmpn X
+	34 jmpo X
+	35 hlt
 
 
 **Programming the ROM**
