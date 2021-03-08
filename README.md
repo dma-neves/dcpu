@@ -9,18 +9,18 @@
 
 **Schematics:**
   - Main:
-  <br/>![alt text](https://github.com/dma-neves/VHDL_8bitCPU/blob/main/other/cpu.png)
+  <br/>![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/cpu.png)
 
   - Control Unit:
-  <br/>![alt text](https://github.com/dma-neves/VHDL_8bitCPU/blob/main/other/CU.png)
+  <br/>![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/CU.png)
   
   - Seven State State Machine:
-  </br>![alt text](https://github.com/dma-neves/VHDL_8bitCPU/blob/main/other/seven_state_sm.png)
+  </br>![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/seven_state_sm.png)
 
 **Specifications:**
   - The CPU contains 3 general purpose registers RA RB RC, 3 instruction related registers IC (Instruction Counter) IR (Instruction Register) IDR (Instruction Data Register) and two accumulator registers PACR and IACR, an accomulator for the program and instruction counter respectively. It also contains a 3 bit flag register FLAGR.
   - The 8bit ALU can perform 8 different operations. More detailed description: https://github.com/dma-neves/VHDL_ALU.
-  - The Control Unit cointains a 7 state SM (state 0 fetches the instruction | state 1 increments the IC | state 2 transfers IACR to IC | state 3 decodes and executes | state 4 and 5 do the same as 1 and 2) therefore the cpu executes 1 instruction every 7 clock cycles. It also contains a instruction decoder and a operation decoder that activates the correct [operations](https://github.com/dma-neves/VHDL_8bitCPU/blob/main/other/instruction_outputs/instructionOutputs.txt) for each instruction.
+  - The Control Unit cointains a 7 state SM (state 0 fetches the instruction | state 1 increments the IC | state 2 transfers IACR to IC | state 3 decodes and executes | state 4 and 5 do the same as 1 and 2) therefore the cpu executes 1 instruction every 7 clock cycles. It also contains a instruction decoder and a operation decoder that activates the correct [operations](https://github.com/dma-neves/8bitCPU/blob/main/other/instruction_outputs/instructionOutputs.txt) for each instruction.
   
 **ISA:**
 
@@ -66,8 +66,8 @@
   - To facilitate the programming of the ROM I created a simple assembler and ROM generator (https://github.com/dma-neves/Assembler).
   - Example:
     - I wrote an assembly program that calculates n factorial. In this example n=5 therefore the final result stored in register A will be 5! = 120 = 0b01111000
-    ![alt text](https://github.com/dma-neves/VHDL_8bitCPU/blob/main/other/example/factorialProgram.png)
+    ![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/example/factorialProgram.png)
     - Given the assembly code we can generate the binary using the assembler and the ROM256.vhd using the romGenerator
-    ![alt text](https://github.com/dma-neves/VHDL_8bitCPU/blob/main/other/example/factorialBinary.png)
+    ![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/example/factorialBinary.png)
     - Finally, putting the ROM file in the Xilinx project we can simulate the cpu and check the final result stored in rega (register A).
-    ![alt text](https://github.com/dma-neves/VHDL_8bitCPU/blob/main/other/example/factorialResult.png)
+    ![alt text](https://github.com/dma-neves/bitCPU/blob/main/other/example/factorialResult.png)
