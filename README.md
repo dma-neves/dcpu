@@ -1,4 +1,4 @@
-# VHDL_8bitCPU
+# 8bitCPU
 
 **Note**
   - CPU is being redesigned. Current version doesnt fully work yet.
