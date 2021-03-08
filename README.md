@@ -70,4 +70,4 @@
     - Given the assembly code we can generate the binary using the assembler and the ROM256.vhd using the romGenerator
     ![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/example/factorialBinary.png)
     - Finally, putting the ROM file in the Xilinx project we can simulate the cpu and check the final result stored in rega (register A).
-    ![alt text](https://github.com/dma-neves/bitCPU/blob/main/other/example/factorialResult.png)
+    ![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/example/factorialResult.png)
