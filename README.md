@@ -66,8 +66,8 @@
   - To facilitate the programming of the ROM I created a simple assembler and ROM generator (https://github.com/dma-neves/Assembler).
   - Example:
     - I wrote an assembly program that calculates n factorial. In this example n=5 therefore the final result stored in register A will be 5! = 120 = 0b01111000
-    ![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/example/factorialProgram.png)
+    <br/>!![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/example/factorialProgram.png)
     - Given the assembly code we can generate the binary using the assembler and the ROM256.vhd using the romGenerator
-    ![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/example/factorialBinary.png)
+    <br/>!![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/example/factorialBinary.png)
     - Finally, putting the ROM file in the Xilinx project we can simulate the cpu and check the final result stored in rega (register A).
-    ![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/example/factorialResult.png)
+    <br/>!![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/example/factorialResult.png)
