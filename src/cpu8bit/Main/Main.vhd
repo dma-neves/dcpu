@@ -8,7 +8,9 @@ Port(
 	clk : in STD_LOGIC;
 	reset, start, run, step : in STD_LOGIC;
 	
-	regA, regB, regC, regIC, regIR, regIDR, regIACR, regPACR, regADR : out STD_LOGIC_VECTOR(7 downto 0)
+	regA, regB, regC, regIC, regIR, regIDR, regIACR, regPACR, regADR : out STD_LOGIC_VECTOR(7 downto 0);
+	
+	state_0, state_1, state_2, state_3, state_4, state_5, state_6 : out STD_LOGIC
 );
 end Main;
 
@@ -27,7 +29,9 @@ Port(
 	readWrite : out STD_LOGIC;
 	fetch : out STD_LOGIC; 
 	
-	regA, regB, regC, regIC, regIR, regIDR, regIACR, regPACR, regADR : out STD_LOGIC_VECTOR(7 downto 0)
+	regA, regB, regC, regIC, regIR, regIDR, regIACR, regPACR, regADR : out STD_LOGIC_VECTOR(7 downto 0);
+	
+	state_0, state_1, state_2, state_3, state_4, state_5, state_6 : out STD_LOGIC
 );
 end component;
 
@@ -93,7 +97,8 @@ CLKM: ClockManager port map(clk, run, step, clk_aux);
 
 CPU_M: CPU port map(reset, start, clk_aux, dataToCPU, adr_aux, dataToMem, 
 						  RW_aux, fetch, regA, regB, regC, regIC, regIR, regIDR,
-						  regIACR, regPACR, regADR);
+						  regIACR, regPACR, regADR,
+						  state_0, state_1, state_2, state_3, state_4, state_5, state_6);
 RAM32_M: RAM32 port map(adr_mem, ramEn, reset, RW_aux, dataToMem, ramData);
 ROM256_M: ROM256 port map(adr_aux, romEn, romData);
 

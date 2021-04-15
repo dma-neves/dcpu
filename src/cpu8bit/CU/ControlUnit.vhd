@@ -29,8 +29,15 @@ Port(
 	IACR_En,
 	RW : out STD_LOGIC;
 	
-	fetch : out STD_LOGIC
+	fetch : out STD_LOGIC;
 	
+	state_0,
+	state_1,
+	state_2,
+	state_3,
+	state_4,
+	state_5,
+	state_6 : out STD_LOGIC
 );
 end ControlUnit;
 
@@ -424,6 +431,14 @@ IR_En <= IR_En_active and (not clk);
 PACR_En <= PACR_En_aux and (not clk);
 IACR_En <= incIC and (not clk);
 RW <= RW_aux and (not clk);
+
+state_0 <= fetchInst;
+state_1 <= S1;
+state_2 <= S2;
+state_3 <= fetchData;
+state_4 <= decode;
+state_5 <= S5;
+state_6 <= S6;
 
 end Behavioral;
 

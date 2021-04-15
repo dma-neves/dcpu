@@ -13,7 +13,9 @@ Port(
 	readWrite : out STD_LOGIC;
 	fetch : out STD_LOGIC; 
 
-	regA, regB, regC, regIC, regIR, regIDR, regIACR, regPACR, regADR : out STD_LOGIC_VECTOR(7 downto 0)
+	regA, regB, regC, regIC, regIR, regIDR, regIACR, regPACR, regADR : out STD_LOGIC_VECTOR(7 downto 0);
+	
+	state_0, state_1, state_2, state_3, state_4, state_5, state_6 : out STD_LOGIC
 );
 end CPU;
 
@@ -49,7 +51,15 @@ Port(
 	IACR_En,
 	RW : out STD_LOGIC;
 	
-	fetch : out STD_LOGIC
+	fetch : out STD_LOGIC;
+	
+	state_0,
+	state_1,
+	state_2,
+	state_3,
+	state_4,
+	state_5,
+	state_6 : out STD_LOGIC
 );
 end component;
 
@@ -204,7 +214,15 @@ CU: ControlUnit port map(
 	IACR_En => IACR_En,
 	RW => RW,
 	
-	fetch => fetch
+	fetch => fetch,
+	
+	state_0 => state_0,
+	state_1 => state_1,
+	state_2 => state_2,
+	state_3 => state_3,
+	state_4 => state_4,
+	state_5 => state_5,
+	state_6 => state_6
 );
 
 ADR: Register_8bit port map(
