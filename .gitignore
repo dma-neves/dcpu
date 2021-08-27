@@ -1,0 +1,11 @@
+*.ncd
+*.html
+*.wmbt
+*.wdb
+*.xwbt
+*.cmd
+*.prj
+*.xise
+*.gise
+*.xmsgs
+src/cpu8bit/iseconfig
