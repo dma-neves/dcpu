@@ -6,13 +6,13 @@
 
 **Schematics:**
   - Main:
-  <br/>![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/cpu.png)
+  <br/>![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/diagrams/cpu.png)
 
   - Control Unit:
-  <br/>![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/CU.png)
+  <br/>![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/diagrams/CU.png)
   
   - Seven State State Machine:
-  </br>![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/seven_state_sm.png)
+  </br>![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/diagrams/seven_state_sm.png)
 
 **Specifications:**
   - The CPU contains nine 8-bit registers: 3 general purpose registers RA RB RC, 3 instruction related registers IC (Instruction Counter) IR (Instruction Register) IDR (Instruction Data Register), a address register ADR and two accumulator registers PACR (Program Accomulator) and IACR (Instruction Counter Accomulator).
