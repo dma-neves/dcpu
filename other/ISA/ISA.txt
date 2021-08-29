@@ -1,32 +1,32 @@
 Logic & Arithmetic:
 
-	add RX RY
-	sub RX RY
-	ssp $V (subtract V from the stack pointer)
-	inc RX
-	dec RX
-	neg RX
-	not RX
-	and RX RY
-	or  RX RY
+add RX RY
+sub RX RY
+ssp $V (subtract V from the stack pointer)
+inc RX
+dec RX
+neg RX
+not RX
+and RX RY
+or  RX RY
 
 Memory:
 
-	lod $V ADR
-	str $V [ADR]
-	lod [ADR] RX
-	str RX [ADR]
-	lod RX ADR
-	lod ACR RX
-	lod ACR ADR
-	str ACR [ADR]
-	str IC [ADR]
+lod $V ADR
+str $V [ADR]
+lod [ADR] RX
+str RX [ADR]
+lod RX ADR
+lod ACR RX
+lod ACR ADR
+str ACR [ADR]
+str IC [ADR]
 
 Instruction change:
 
-	jmp  ADR
-	jmp  X
-	jmpz X
-	jmpn X
-	jmpo X
-	hlt
+jmp  ADR
+jmp  X
+jmpz X
+jmpn X
+jmpo X
+hlt
