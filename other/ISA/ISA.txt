@@ -107,11 +107,11 @@ psh RX:
 	lod ACR SP 
 
 pop RX:
-	lod SP ADR
-	lod [ADR] RX
 	dec SP
 	lod ACR SP
-
+	lod SP ADR
+	lod [ADR] RX
+	
 pop:
 	dec SP
 	lod ACR SP
