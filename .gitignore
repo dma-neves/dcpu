@@ -8,4 +8,6 @@
 *.xise
 *.gise
 *.xmsgs
+*.o
+*.cf
 src/cpu8bit/iseconfig

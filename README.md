@@ -1,8 +1,8 @@
 # 8bitCPU
 
 **Description:**
-  - A simple 8bit cpu devoloped in VHDL explicitly using logic gates and a structural (instead of high level behavioral) description (exception for the DFlipFlop implementation because of latching issues). Devoleped using the Xilinx ISE tool.
-  - This cpu isn't suposso to be in any way revolutionary, efficient or well optimized, i'm only trying to design the simplest possible system that has all the basic features that a cpu needs. The aim of this project is therefore only to learn more about cpu/computer architecture and digital systems implementations.
+  - A simple 8bit cpu devoloped in VHDL explicitly using logic gates and a structural description (instead of a high level behavioral description), with the exception of the memory modules and flip-flops.
+  - This cpu isn't suposso to be in any way revolutionary, efficient or well optimized. I'm only trying to design the simplest possible system that has all the basic features that a cpu needs. The aim of this project is therefore, only, to learn more about cpu/computer architecture and the implementation of digital systems.
 
 **Schematics:**
   - Main:
@@ -19,7 +19,7 @@
   - The 8bit [ALU](https://github.com/dma-neves/VHDL_ALU) can perform 8 different operations and its flags can be stored in the 3 bit flag register FLAGR.
   - The Control Unit cointains a 7 state SM (state 0 fetches the instruction | state 1 increments the IC | state 2 transfers IACR to IC | state 4 fetches the instruction data | state 4 decodes and executes | state 5 and 6 do the same as 1 and 2) therefore the cpu executes 1 instruction every 7 clock cycles. The instruction decoder and operation decoder activate the correct [operations](https://github.com/dma-neves/8bitCPU/blob/main/other/instruction_outputs/instructionOutputs.txt) for each instruction.
   
-**ISA:**
+**ISA: (Outdated version)**
 
 	Logic & Arithmetic:
 

@@ -115,4 +115,11 @@ BEGIN
       wait;
    end process;
 
+   -- assertion
+   assert_proc: process
+   begin
+      wait for 30 us;
+      assert regA = "01111000" report "RegA incorrect";
+   end process;
+
 END;
