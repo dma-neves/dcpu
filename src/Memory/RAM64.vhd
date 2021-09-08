@@ -17,21 +17,32 @@ end RAM64;
 architecture Behavioral of RAM64 is
 
 type RAM is array (0 to 63) of STD_LOGIC_VECTOR(7 DOWNTO 0);
-SIGNAL ram_block : RAM;
+SIGNAL ram_block : RAM := (others => "00000000");
+
+SIGNAL DO_aux : STD_LOGIC_VECTOR(7 downto 0);
 
 begin
 
-process(adr, En, rw)
+DO_aux <= ram_block(to_integer(unsigned(adr)));
+DO(0) <= DO_aux(0) and En;
+DO(1) <= DO_aux(1) and En;
+DO(2) <= DO_aux(2) and En;
+DO(3) <= DO_aux(3) and En;
+DO(4) <= DO_aux(4) and En;
+DO(5) <= DO_aux(5) and En;
+DO(6) <= DO_aux(6) and En;
+DO(7) <= DO_aux(7) and En;
+
+process(rw)
 begin
 
-	if (En'event and En = '1') then
+	if (rising_edge(rw)) then
 	
 		if rw = '1' then
 			ram_block(to_integer(unsigned(adr))) <= DI;
 		end if;
 		
 	end if;
-	DO <= ram_block(to_integer(unsigned(adr)));
 
 end process;
 

@@ -44,7 +44,7 @@ Port(
 );
 end component;
 
-component RAM32 is
+component RAM64 is
 Port(
 	adr : in STD_LOGIC_VECTOR(4 downto 0);
 	En : in STD_LOGIC;
@@ -99,7 +99,7 @@ CPU_M: CPU port map(reset, start, clk_aux, dataToCPU, adr_aux, dataToMem,
 						  RW_aux, fetch, regA, regB, regC, regIC, regIR, regIDR,
 						  regIACR, regPACR, regADR,
 						  state_0, state_1, state_2, state_3, state_4, state_5, state_6);
-RAM32_M: RAM32 port map(adr_mem, ramEn, reset, RW_aux, dataToMem, ramData);
+RAM64_M: RAM64 port map(adr_mem, ramEn, reset, RW_aux, dataToMem, ramData);
 ROM256_M: ROM256 port map(adr_aux, romEn, romData);
 
 end Behavioral;
