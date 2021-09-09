@@ -1,68 +1,36 @@
-add_RA_RB:
-	# ALU_A = RA      -> ALU_A_S = 0
-	# ALU_B = RB      -> ALU_B_S = "00"
+add_RX_RY:
+	# ALU_X = RX      -> AXM_S = 0
 	# ALU_opc = "000" -> opc = "000"
 	# ACR_En = 1      -> ACR_En = 1
 
 	ACR_En
 
-add_RA_RC:
-	# ALU_A = RA      -> ALU_A_S = 0
-	# ALU_B = RC      -> ALU_B_S = "01"
-	# ALU_opc = "000" -> opc = "000"
-	# ACR_En = 1      -> ACR_En = 1
-
-	ALU_B_S(0)
-	ACR_En
-
-add_RA_X:
-	# ALU_A = RA      -> ALU_A_S = 0
-	# ALU_B = IDR     -> ALU_B_S = "10"
-	# ALU_opc = "000" -> opc = "000"
-	# ACR_En = 1      -> ACR_En = 1
-
-	ALU_B_S(1)
-	ACR_En
-
-sub_RA_RB:
-	# ALU_A = RA      -> ALU_A_S = 0
-	# ALU_B = RB      -> ALU_B_S = "00"
+sub_RX_RY:
+	# ALU_X = RX      -> AXM_S = 0
 	# ALU_opc = "001" -> opc = "001"
 	# ACR_En = 1      -> ACR_En = 1
 
 	opc(0)
 	ACR_En
 
-sub_RA_RC:
-	# ALU_A = RA      -> ALU_A_S = 0
-	# ALU_B = RC      -> ALU_B_S = "01"
-	# ALU_opc = "001" -> opc = "001"
-	# ACR_En = 1      -> ACR_En = 1
-
-	opc(0)
-	ALU_B_S(0)
-	ACR_En
-
-sub_RA_X:
-	# ALU_A = RA      -> ALU_A_S = 0
-	# ALU_B = IDR     -> ALU_B_S = "10"
-	# ALU_opc = "001" -> opc = "001"
-	# ACR_En = 1      -> ACR_En = 1
-
-	opc(0)
-	ALU_B_S(1)
-	ACR_En
-
-inc_RA:
-	# ALU_A = RA      -> ALU_A_S = 0
+ssp_V:
+	# ALU_X = RX      -> AXM_S = 0
 	# ALU_opc = "010" -> opc = "010"
 	# ACR_En = 1      -> ACR_En = 1
 
 	opc(1)
 	ACR_En
 
-dec_RA:
-	# ALU_A = RA      -> ALU_A_S = 0
+inc_RX:
+	# ALU_X = RX      -> AXM_S = 0
+	# ALU_opc = "010" -> opc = "010"
+	# ACR_En = 1      -> ACR_En = 1
+
+	opc(1)
+	ACR_En
+
+dec_RX:
+	# ALU_X = RX      -> AXM_S = 0
 	# ALU_opc = "011" -> opc = "011"
 	# ACR_En = 1      -> ACR_En = 1
 
@@ -70,16 +38,16 @@ dec_RA:
 	opc(1)
 	ACR_En
 
-neg_RA:
-	# ALU_A = RA      -> ALU_A_S = 0
+neg_RX:
+	# ALU_X = RX      -> AXM_S = 0
 	# ALU_opc = "100" -> opc = "100"
 	# ACR_En = 1      -> ACR_En = 1
 
 	opc(2)
 	ACR_En
 
-not_RA:
-	# ALU_A = RA      -> ALU_A_S = 0
+not_RX:
+	# ALU_X = RX      -> AXM_S = 0
 	# ALU_opc = "101" -> opc = "101"
 	# ACR_En = 1      -> ACR_En = 1
 
@@ -87,9 +55,8 @@ not_RA:
 	opc(2)
 	ACR_En
 
-and_RA_RB:
-	# ALU_A = RA      -> ALU_A_S = 0
-	# ALU_B = RB      -> ALU_B_S = "00"
+and_RX_RY:
+	# ALU_X = RX      -> AXM_S = 0
 	# ALU_opc = "110" -> opc = "110"
 	# ACR_En = 1      -> ACR_En = 1
 
@@ -97,20 +64,8 @@ and_RA_RB:
 	opc(2)
 	ACR_En
 
-and_RA_RC:
-	# ALU_A = RA      -> ALU_A_S = 0
-	# ALU_B = RC      -> ALU_B_S = "01"
-	# ALU_opc = "110" -> opc = "110"
-	# ACR_En = 1      -> ACR_En = 1
-
-	ALU_B_S(0)
-	opc(1)
-	opc(2)
-	ACR_En
-
-or_RA_RB:
-	# ALU_A = RA      -> ALU_A_S = 0
-	# ALU_B = RB      -> ALU_B_S = "00"
+or__RX_RY
+	# ALU_X = RX      -> AXM_S = 0
 	# ALU_opc = "111" -> opc = "111"
 	# ACR_En = 1      -> ACR_En = 1
 
@@ -119,170 +74,99 @@ or_RA_RB:
 	opc(2)
 	ACR_En
 
-or_RA_RC:
-	# ALU_A = RA      -> ALU_A_S = 0
-	# ALU_B = RC      -> ALU_B_S = "01"
-	# ALU_opc = "111" -> opc = "111"
-	# ACR_En = 1      -> ACR_En = 1
+lod_V_ADR:
+	# AM = 2	 -> AM_S = "10"
+	# ADR_En = 1 -> ADR_En = 1
 
-	ALU_B_S(0)
-	opc(0)
-	opc(1)
-	opc(2)
-	ACR_En
-
-lod_X_RA:
-	# RA_A = IDR -> RA_S = "10"
-	# RA_En = 1  -> RA_En = 1
-
-	RA_S(1)
-	RA_En
-
-lod_X_RB:
-	# RB_A = IDR -> RB_S = 1
-	# RB_En = 1  -> RB_En = 1
-
-	RB_S
-	RB_En
-
-lod_X_RC:
-	# RC_A = IDR -> RC_S = 1
-	# RC_En = 1  -> RC_En = 1
-
-	RC_S
-	RC_En
-
-lod_X_ADR:
-	# ADR_A = IDR -> ADR_S = "01"
-	# ADR_En = 1  -> ADR_En = 1
-
-	ADR_S(0)
+	AM_S(1)
 	ADR_En
 
-str_X_mADR:
-	# address = ADR -> address_S = "10"
-	# dataOut = IDR -> dataOut_S = "100"
-	# RW = 1        -> RW = 1
+str_V_mADR:
+	# DOM = 3 -> DOM_S = "11"
+	# AOM = 1 -> AOM_S = 1
+	# rw = 1  -> rw = 1
 
-	address_S(1)
-	dataOut_S(2)
-	RW
+	DOM_S(0)
+	DOM_S(1)
+	AOM_S
+	rw
 
-lod_adr_ADR:
-	# address = IDR -> address_S = "01"
-	# ADR_A = DI    -> ADR_S = "00"
-	# ADR_En = 1    -> ADR_En = 1
+lod_mADR_RX:
+	# AOM = 1 	 -> AOM_S = 1
+	# RM = 1 	 -> RM_S = 1
+	# GPR_En = 1 -> GPR_En = 1
 
-	address_S(0)
+	AOM_S
+	RM_S
+	GPR_En
+
+str_RX_mADR:
+	# DOM = 0 -> DOM_S = "00"
+	# AOM = 1 -> AOM_S = 1
+	# rw = 1
+
+	AOM_S
+	rw
+
+lod_RX_ADR:
+	# AM = 0 	 -> AM_S = "00"
+	# ADR_En = 1 -> ADR_En = 1
+
 	ADR_En
 
-lod_mADR_RA:
-	# address = ADR -> address_S = "10"
-	# RA_A = DI     -> RA_S = "01"
-	# RA_En = 1     -> RA_En = 1
+lod_ACR_RX:
+	# RM = 0	 -> RM_S = 0
+	# GPR_En = 1 -> GPR_En = 1
 
-	address_S(1)
-	RA_S(0)
-	RA_En
-
-str_RA_mADR:
-	# address = ADR -> address_S = "10"
-	# dataOut = RA  -> dataOut_S = "010"
-	# RW = 1        -> RW = 1
-
-	address_S(1)
-	dataOut_S(1)
-	RW
-
-lod_mADR_RB:
-	# address = ADR -> address_S = "10"
-	# RB_A = DI     -> RB_S = 0
-	# RB_En = 1     -> RB_En = 1
-
-	address_S(1)
-	RB_En
-
-str_RB_mADR:
-	# address = ADR -> address_S = "10"
-	# dataOut = RB  -> dataOut_S = "001"
-	# RW = 1        -> RW = 1
-
-	address_S(1)
-	dataOut_S(0)
-	RW
-
-lod_mADR_RC:
-	# address = ADR -> address_S = "10"
-	# RC_A = DI     -> RC_S = 0
-	# RC_En = 1     -> RC_En = 1
-
-	address_S(1)
-	RC_En
-
-str_RC_mADR:
-	# address = ADR -> address_S = "10"
-	# dataOut = RC  -> dataOut_S = "000"
-	# RW = 1        -> RW = 1
-
-	address_S(1)
-	RW
-
-lod_ACR_RA:
-	# RA_A = ACR -> RA_S = "00"
-	# RA_En = 1  -> RA_En = 1
-
-	RA_En
+	GPR_En
 
 lod_ACR_ADR:
-	# ADR_A = ACR -> ADR_S = "10"
-	# ADR_En = 1  -> ADR_En = 1
+	# AM = 1 	 -> AM_S = "01"
+	# ADR_En = 1 -> ADR_En = 1
 
-	ADR_S(1)
+	AM_S(0)
 	ADR_En
 
 str_ACR_mADR:
-	# address = ADR -> address_S = "10"
-	# dataOut = ACR -> dataOut_S = "011"
-	# RW = 1        -> RW = 1
+	# AOM = 1 -> AOM_S = 1
+	# DOM = 2 -> DOM = "10"
+	# rw = 1  -> rw = 1
 
-	address_S(1)
-	dataOut_S(0)
-	dataOut_S(1)
-	RW
+	AOM_S
+	DOM_S(1)
+	rw
 
 str_IC_mADR:
-	# address = ADR -> address_S = "10"
-	# dataOut = IC  -> dataOut_S = "101"
-	# RW = 1        -> RW = 1
+	# AOM = 1 -> AOM_S = 1
+	# DOM = 1 -> DOM_S = "01"
+	# rw = 1 -> rw = 1
 
-	address_S(1)
-	dataOut_S(0)
-	dataOut_S(2)
-	RW
+	AOM_S
+	DOM_S(0)
+	rw
 
-jmp_ADR:
-	# IC_A = DI -> IC_S = "10"
-	# IC_En = 1  -> IC_En
+jmp__ADR:
+	# ICM = 2   -> ICM_S = "10"
+	# IC_En = 1 -> IC_En = 1
 
-	IC_S(1)
+	ICM_S(1)
 	IC_En
 
-jmp_x:
-	# IC_A = IDR -> IC_S = "01"
-	# IC_En = 1  -> IC_En
+jmp__X:
+	# ICM = 1 	-> ICM_S = "01"
+	# IC_En = 1 -> IC_En = 1
 
-	IC_S(0)
-	IC_En
-	
-
-(jmpz_x and ZF):
-	IC_S(0)
+	ICM_S(0)
 	IC_En
 
-(jmpn_x and NF):
-	IC_S(0)
+(jmpz_X and ZF):
+	ICM_S(0)
 	IC_En
 
-(jmpo_x and OVF):
-	IC_S(0)
+(jmpn_X and NF):
+	ICM_S(0)
+	IC_En
+
+(jmpo_X and OVF):
+	ICM_S(0)
 	IC_En

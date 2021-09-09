@@ -4,50 +4,31 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity InstDecoder is
 Port(
 	inst : in STD_LOGIC_VECTOR(7 downto 0);
-	
-	add_RA_RB,
-	add_RA_RC,
-	add_RA_X,
-	sub_RA_RB,
-	sub_RA_RC,
-	sub_RA_X,
-	inc_RA,
-	dec_RA,
-	neg_RA,
-	not_RA,
-	and_RA_RB,
-	and_RA_RC,
-	or_RA_RB,
-	or_RA_RC,	
-	
-	lod_X_RA,
-	lod_X_RB,
-	lod_X_RC,
-	lod_X_ADR,
-	
-	str_X_mADR,
-	lod_adr_ADR,
-	
-	lod_mADR_RA,
-	str_RA_mADR,
-	lod_mADR_RB,
-	str_RB_mADR,
-	lod_mADR_RC,
-	str_RC_mADR,
-	
-	lod_ACR_RA,
-	lod_ACR_ADR,
-	str_ACR_mADR,
-	
-	str_IC_mADR,
 
-	jmp_ADR,
-	jmp_x,
-	jmpz_x,
-	jmpn_x,
-	jmpo_x,
-	hlt
-	: out STD_LOGIC
+	add_RX_RY
+	sub_RX_RY
+	ssp_V
+	inc_RX
+	dec_RX
+	neg_RX
+	not_RX
+	and_RX_RY
+	or__RX_RY
+	lod_V_ADR
+	str_V_mADR
+	lod_mADR_RX
+	str_RX_mADR
+	lod_RX_ADR
+	lod_ACR_RX
+	lod_ACR_ADR
+	str_ACR_mADR
+	str_IC_mADR
+	jmp__ADR
+	jmp__X
+	jmpz_X
+	jmpn_X
+	jmpo_X
+	hlt : out STD_LOGIC
 );
 end InstDecoder;
 
@@ -75,54 +56,30 @@ DM32: DeMux32_1b port map (
 	o => dm_o
 );
 
-add_RA_RB <= dm_o(0);
-add_RA_RC <= dm_o(1);
-add_RA_X <= dm_o(2);
-sub_RA_RB <= dm_o(3);
-sub_RA_RC <= dm_o(4);
-sub_RA_X <= dm_o(5);
-inc_RA <= dm_o(6);
-dec_RA <= dm_o(7);
-neg_RA <= dm_o(8);
-not_RA <= dm_o(9);
-and_RA_RB <= dm_o(10);
-and_RA_RC <= dm_o(11);
-or_RA_RB <= dm_o(12);
-or_RA_RC <= dm_o(13);	
-lod_X_RA <= dm_o(14);
-lod_X_RB <= dm_o(15);
-lod_X_RC <= dm_o(16);
-lod_X_ADR <= dm_o(17);
-str_X_mADR <= dm_o(18);
-lod_adr_ADR <= dm_o(19);
-lod_mADR_RA <= dm_o(20);
-str_RA_mADR <= dm_o(21);
-lod_mADR_RB <= dm_o(22);
-str_RB_mADR <= dm_o(23);
-lod_mADR_RC <= dm_o(24);
-str_RC_mADR <= dm_o(25);
-lod_ACR_RA <= dm_o(26);
-lod_ACR_ADR <= dm_o(27);
-str_ACR_mADR <= dm_o(28);
-str_IC_mADR <= dm_o(29);
-jmp_ADR <= dm_o(30);
-jmp_x <= dm_o(31);
-
-jmpz_x <= 
-(not inst(0)) and (not inst(1)) and (not inst(2)) and (not inst(3)) and
-(not inst(4)) and (    inst(5)) and (not inst(6)) and (not inst(7));
-
-jmpn_x <= 
-(    inst(0)) and (not inst(1)) and (not inst(2)) and (not inst(3)) and
-(not inst(4)) and (    inst(5)) and (not inst(6)) and (not inst(7));
-	
-jmpo_x <= 
-(not inst(0)) and (    inst(1)) and (not inst(2)) and (not inst(3)) and
-(not inst(4)) and (    inst(5)) and (not inst(6)) and (not inst(7));
-
-hlt <= 
-(    inst(0)) and (    inst(1)) and (not inst(2)) and (not inst(3)) and
-(not inst(4)) and (    inst(5)) and (not inst(6)) and (not inst(7));
+add_RX_RY <= dm_o(0);
+sub_RX_RY <= dm_o(1);
+ssp_V <= dm_o(2);
+inc_RX <= dm_o(3);
+dec_RX <= dm_o(4);
+neg_RX <= dm_o(5);
+not_RX <= dm_o(6);
+and_RX_RY <= dm_o(7);
+or__RX_RY <= dm_o(8);
+lod_V_ADR <= dm_o(9);
+str_V_mADR <= dm_o(10);
+lod_mADR_RX <= dm_o(11);
+str_RX_mADR <= dm_o(12);
+lod_RX_ADR <= dm_o(13);
+lod_ACR_RX <= dm_o(14);
+lod_ACR_ADR <= dm_o(15);
+str_ACR_mADR <= dm_o(16);
+str_IC_mADR <= dm_o(17);
+jmp__ADR <= dm_o(18);
+jmp__X <= dm_o(19);
+jmpz_X <= dm_o(20);
+jmpn_X <= dm_o(21);
+jmpo_X <= dm_o(22);
+hlt <= dm_o(23);
 
 end Behavioral;
 
