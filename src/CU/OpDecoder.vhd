@@ -8,29 +8,29 @@ Port(
 	ZF, NF, OVF : in STD_LOGIC;
 	IDR_l, IDR_h : STD_LOGIC_VECTOR(3 downto 0);
 
-	add_RX_RY
-	sub_RX_RY
-	ssp_V
-	inc_RX
-	dec_RX
-	neg_RX
-	not_RX
-	and_RX_RY
-	or__RX_RY
-	lod_V_ADR
-	str_V_mADR
-	lod_mADR_RX
-	str_RX_mADR
-	lod_RX_ADR
-	lod_ACR_RX
-	lod_ACR_ADR
-	str_ACR_mADR
-	str_IC_mADR
-	jmp__ADR
-	jmp__X
-	jmpz_X
-	jmpn_X
-	jmpo_X
+	add_RX_RY,
+	sub_RX_RY,
+	ssp_V,
+	inc_RX,
+	dec_RX,
+	neg_RX,
+	not_RX,
+	and_RX_RY,
+	or_RX_RY,
+	lod_V_ADR,
+	str_V_mADR,
+	lod_mADR_RX,
+	str_RX_mADR,
+	lod_RX_ADR,
+	lod_ACR_RX,
+	lod_ACR_ADR,
+	str_ACR_mADR,
+	str_IC_mADR,
+	jmp_ADR,
+	jmp_X,
+	jmpz_X,
+	jmpn_X,
+	jmpo_X,
 	hlt : in STD_LOGIC;
 
 	opc : OUT STD_LOGIC_VECTOR(2 downto 0);
@@ -41,35 +41,35 @@ Port(
 	AM_S : OUT STD_LOGIC_VECTOR(2 downto 0);
 	AXM_S : OUT STD_LOGIC;
 	DOM_S : OUT STD_LOGIC_VECTOR(2 downto 0);
-	AOM_S : OUT STD_LOGIC_VECTOR(2 downto 0);
+	AOM_S : OUT STD_LOGIC;
 	RED_S : OUT STD_LOGIC_VECTOR(3 downto 0);
 	IC_En,
 	IR_En,
 	IDR_En,
 	ADR_En,
 	FR_En,
-	ACR_en,
+	ACR_En,
 	GPR_En : OUT STD_LOGIC;
+	rw : OUT STD_LOGIC
 );
 end OpDecoder;
 
 architecture Behavioral of OpDecoder is
 
-component Mux2 is
+component Mux2_4b is
 Port(
-	I0, I1 : in STD_LOGIC_VECTOR(7 downto 0);
+	I0, I1 : in STD_LOGIC_VECTOR(3 downto 0);
 	sel : in STD_LOGIC;
-	o : out STD_LOGIC_VECTOR(7 downto 0)
+	o : out STD_LOGIC_VECTOR(3 downto 0)
 );
 end component;
 
 begin
 
-	ACR_En <= En and (add_RX_RY or sub_RX_RY or ssp_V or inc_RX or dec_RX or neg_RX or not_RX or and_RX_RY or and_RX_RY);
-	opc(0) <= En and (sub_RX_RY or dec_RX or not_RX or and_RX_RY);
-	opc(1) <= En and (ssp_V or inc_RX or dec_RX or and_RX_RY or and_RX_RY);
-	opc(2) <= En and (neg_RX or not_RX or and_RX_RY or and_RX_RY);
-	or__RX_RY <= En and (and_RX_RY);
+	ACR_En <= En and (add_RX_RY or sub_RX_RY or ssp_V or inc_RX or dec_RX or neg_RX or not_RX or and_RX_RY or or_RX_RY);
+	opc(0) <= En and (sub_RX_RY or dec_RX or not_RX or or_RX_RY);
+	opc(1) <= En and (ssp_V or inc_RX or dec_RX or and_RX_RY or or_RX_RY);
+	opc(2) <= En and (neg_RX or not_RX or and_RX_RY or or_RX_RY);
 	AM_S(1) <= En and (lod_V_ADR);
 	ADR_En <= En and (lod_V_ADR or lod_RX_ADR or lod_ACR_ADR);
 	DOM_S(0) <= En and (str_V_mADR or str_IC_mADR);
@@ -79,16 +79,17 @@ begin
 	RM_S <= En and (lod_mADR_RX);
 	GPR_En <= En and (lod_mADR_RX or lod_ACR_RX);
 	AM_S(0) <= En and (lod_ACR_ADR);
-	ICM_S(1) <= En and (jmp__ADR);
-	IC_En <= En and (jmp__ADR or jmp__X or (jmpz_X and ZF) or (jmpn_X and NF) or (jmpo_X and OVF));
-	ICM_S(0) <= En and (jmp__X or (jmpz_X and ZF) or (jmpn_X and NF) or (jmpo_X and OVF));
+	ICM_S(1) <= En and (jmp_ADR);
+	IC_En <= En and (jmp_ADR or jmp_X or (jmpz_X and ZF) or (jmpn_X and NF) or (jmpo_X and OVF));
+	ICM_S(0) <= En and (jmp_X or (jmpz_X and ZF) or (jmpn_X and NF) or (jmpo_X and OVF));
 	
 	RYM_S <= IDR_h;
 	RED_S <= IDR_l;
 
-	MUX2_Mod: Mux2 port map (
+
+	MUX2_4b_Mod: Mux2_4b port map (
 		I0 => IDR_l,
-		I1 => "00000111",
+		I1 => "0111",
 		sel => ssp_V,
 		o => RXM_S
 	);
@@ -97,6 +98,9 @@ begin
 	IDR_En <= '0';
 	IR_En <= '0';
 	FR_En  <= '0';
+	DOM_S(2) <= '0';
+	AM_S(2) <= '0';
+	ICM_S(2) <= '0';
 	
 end Behavioral;
 

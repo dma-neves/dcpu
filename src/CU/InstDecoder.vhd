@@ -5,29 +5,29 @@ entity InstDecoder is
 Port(
 	inst : in STD_LOGIC_VECTOR(7 downto 0);
 
-	add_RX_RY
-	sub_RX_RY
-	ssp_V
-	inc_RX
-	dec_RX
-	neg_RX
-	not_RX
-	and_RX_RY
-	or__RX_RY
-	lod_V_ADR
-	str_V_mADR
-	lod_mADR_RX
-	str_RX_mADR
-	lod_RX_ADR
-	lod_ACR_RX
-	lod_ACR_ADR
-	str_ACR_mADR
-	str_IC_mADR
-	jmp__ADR
-	jmp__X
-	jmpz_X
-	jmpn_X
-	jmpo_X
+	add_RX_RY,
+	sub_RX_RY,
+	ssp_V,
+	inc_RX,
+	dec_RX,
+	neg_RX,
+	not_RX,
+	and_RX_RY,
+	or_RX_RY,
+	lod_V_ADR,
+	str_V_mADR,
+	lod_mADR_RX,
+	str_RX_mADR,
+	lod_RX_ADR,
+	lod_ACR_RX,
+	lod_ACR_ADR,
+	str_ACR_mADR,
+	str_IC_mADR,
+	jmp_ADR,
+	jmp_X,
+	jmpz_X,
+	jmpn_X,
+	jmpo_X,
 	hlt : out STD_LOGIC
 );
 end InstDecoder;
@@ -64,7 +64,7 @@ dec_RX <= dm_o(4);
 neg_RX <= dm_o(5);
 not_RX <= dm_o(6);
 and_RX_RY <= dm_o(7);
-or__RX_RY <= dm_o(8);
+or_RX_RY <= dm_o(8);
 lod_V_ADR <= dm_o(9);
 str_V_mADR <= dm_o(10);
 lod_mADR_RX <= dm_o(11);
@@ -74,8 +74,8 @@ lod_ACR_RX <= dm_o(14);
 lod_ACR_ADR <= dm_o(15);
 str_ACR_mADR <= dm_o(16);
 str_IC_mADR <= dm_o(17);
-jmp__ADR <= dm_o(18);
-jmp__X <= dm_o(19);
+jmp_ADR <= dm_o(18);
+jmp_X <= dm_o(19);
 jmpz_X <= dm_o(20);
 jmpn_X <= dm_o(21);
 jmpo_X <= dm_o(22);
