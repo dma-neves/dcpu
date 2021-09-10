@@ -10,7 +10,6 @@ COMPONENT ControlUnit
 PORT(
     clk : IN STD_LOGIC;
     reset : IN STD_LOGIC;
-    start : IN STD_LOGIC;
     inst : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
     IDR : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
     ZF : IN STD_LOGIC;
@@ -49,7 +48,6 @@ END COMPONENT;
 --Inputs
 signal clk : STD_LOGIC := '0';
 signal reset : STD_LOGIC := '0';
-signal start : STD_LOGIC := '0';
 signal inst : STD_LOGIC_VECTOR(7 DOWNTO 0) := (others => '0');
 signal IDR : STD_LOGIC_VECTOR(7 DOWNTO 0) := (others => '0');
 signal ZF : STD_LOGIC := '0';
@@ -94,7 +92,6 @@ BEGIN
 uut: ControlUnit PORT MAP (
     clk => clk,
     reset => reset,
-    start => start,
     inst => inst,
     IDR => IDR,
     ZF => ZF,
@@ -143,7 +140,7 @@ end process;
 stim_proc: process
 begin
     reset <= '1';
-    start <= '0';
+    -- start <= '0';
     inst <= "00000000";
     IDR <= "00000000";
 
@@ -153,17 +150,18 @@ begin
 
     wait for 20 ns;
 
-    start <= '1';
+    --start <= '1';
 
     wait for 20 ns;
 
-    start <= '0';
+    --start <= '0';
 
     wait for 20 ns;
 
     IDR <= "00110010";
 
     wait for 80 ns;
+
 end process;
     
 END;
