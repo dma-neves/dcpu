@@ -3,7 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity ControlUnit is
 Port(
-	clk, reset, start : in STD_LOGIC;
+	clk, reset : in STD_LOGIC;
 	inst : in STD_LOGIC_VECTOR(7 downto 0);
 	IDR : in STD_LOGIC_VECTOR(7 downto 0);
 	ZF, NF, OVF : in STD_LOGIC;
@@ -48,7 +48,6 @@ component SevenState_sm is
 port(
 	clk : in STD_LOGIC;
 	reset : in STD_LOGIC;
-	start : in STD_LOGIC;
 	
 	S0, S1, S2, S3, S4, S5, S6 : out STD_LOGIC
 );
@@ -217,7 +216,6 @@ begin
 SSSM: SevenState_sm port map(
 	sm_clk,
 	reset,
-	start,
 	
 	fetchInst,
 	S1,

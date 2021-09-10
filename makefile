@@ -41,8 +41,9 @@ cu:
 sm:
 	ghdl -a src/CU/SevenState_sm.vhd
 	ghdl -a src/Memory/DFlipFlop.vhd
+	ghdl -a src/Memory/DFlipFlopRA.vhd
 	ghdl -a src/tests/sevenState_sm_test.vhd
 	ghdl -e SevenState_sm_test
-	ghdl -r SevenState_sm_test --wave=wave.ghw --stop-time=700ns
+	ghdl -r SevenState_sm_test --wave=wave.ghw --stop-time=1000ns
 	rm *.o
 	rm *.cf

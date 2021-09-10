@@ -5,7 +5,6 @@ entity SevenState_sm is
 Port(
 	clk : in STD_LOGIC;
 	reset : in STD_LOGIC;
-	start : in STD_LOGIC;
 	
 	S0, S1, S2, S3, S4, S5, S6 : out STD_LOGIC
 );
@@ -20,6 +19,13 @@ Port(
 );
 end component;
 
+component DFlipFlopRA is
+	Port(
+		D, En, R : in STD_LOGIC;
+		Q : OUT STD_LOGIC
+	);
+end component;
+
 signal
 DFFS_D, DFFS_Q,
 DFF0_D, DFF0_Q,
@@ -32,8 +38,8 @@ DFF6_D, DFF6_Q : STD_LOGIC;
 
 begin
 
-DFFS_D <= start;
-DFF0_D <= DFF6_Q or (DFFS_Q and (not start));
+DFFS_D <= '0';
+DFF0_D <= DFF6_Q or DFFS_Q;
 DFF1_D <= DFF0_Q;
 DFF2_D <= DFF1_Q;
 DFF3_D <= DFF2_Q;
@@ -41,7 +47,7 @@ DFF4_D <= DFF3_Q;
 DFF5_D <= DFF4_Q;
 DFF6_D <= DFF5_Q;
 
-DFFS: DFlipFlop port map (DFFS_D, clk, reset, DFFS_Q);
+DFFS: DFlipFlopRA port map (DFFS_D, clk, reset, DFFS_Q);
 DFF0: DFlipFlop port map (DFF0_D, clk, reset, DFF0_Q);
 DFF1: DFlipFlop port map (DFF1_D, clk, reset, DFF1_Q);
 DFF2: DFlipFlop port map (DFF2_D, clk, reset, DFF2_Q);
