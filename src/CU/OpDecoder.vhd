@@ -35,19 +35,18 @@ Port(
 
 	opc : OUT STD_LOGIC_VECTOR(2 downto 0);
 	RM_S : OUT STD_LOGIC;
-	RXM_S : OUT STD_LOGIC_VECTOR(3 downto 0);
-	RYM_S : OUT STD_LOGIC_VECTOR(3 downto 0);
-	ICM_S : OUT STD_LOGIC_VECTOR(2 downto 0);
-	AM_S : OUT STD_LOGIC_VECTOR(2 downto 0);
+	RXM_S : OUT STD_LOGIC_VECTOR(2 downto 0);
+	RYM_S : OUT STD_LOGIC_VECTOR(2 downto 0);
+	ICM_S : OUT STD_LOGIC_VECTOR(1 downto 0);
+	AM_S : OUT STD_LOGIC_VECTOR(1 downto 0);
 	AXM_S : OUT STD_LOGIC;
-	DOM_S : OUT STD_LOGIC_VECTOR(2 downto 0);
+	DOM_S : OUT STD_LOGIC_VECTOR(1 downto 0);
 	AOM_S : OUT STD_LOGIC;
-	RED_S : OUT STD_LOGIC_VECTOR(3 downto 0);
+	RED_S : OUT STD_LOGIC_VECTOR(2 downto 0);
 	IC_En,
 	IR_En,
 	IDR_En,
 	ADR_En,
-	FR_En,
 	ACR_En,
 	GPR_En : OUT STD_LOGIC;
 	rw : OUT STD_LOGIC
@@ -63,6 +62,8 @@ Port(
 	o : out STD_LOGIC_VECTOR(3 downto 0)
 );
 end component;
+
+signal RXM_S_4b : STD_LOGIC_VECTOR(3 downto 0);
 
 begin
 
@@ -83,24 +84,21 @@ begin
 	IC_En <= En and (jmp_ADR or jmp_X or (jmpz_X and ZF) or (jmpn_X and NF) or (jmpo_X and OVF));
 	ICM_S(0) <= En and (jmp_X or (jmpz_X and ZF) or (jmpn_X and NF) or (jmpo_X and OVF));
 	
-	RYM_S <= IDR_h;
-	RED_S <= IDR_l;
+	RXM_S <= RXM_S_4b(2 downto 0);
+	RYM_S <= IDR_h(2 downto 0);
+	RED_S <= IDR_l(2 downto 0);
 
 
 	MUX2_4b_Mod: Mux2_4b port map (
 		I0 => IDR_l,
 		I1 => "0111",
 		sel => ssp_V,
-		o => RXM_S
+		o => RXM_S_4b
 	);
 
 	AXM_S <= '0';
 	IDR_En <= '0';
 	IR_En <= '0';
-	FR_En  <= '0';
-	DOM_S(2) <= '0';
-	AM_S(2) <= '0';
-	ICM_S(2) <= '0';
 	
 end Behavioral;
 

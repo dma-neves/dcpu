@@ -5,7 +5,7 @@ USE ieee.numeric_std.ALL;
 
 entity RAM64 is
 Port(
-	adr : in STD_LOGIC_VECTOR(4 downto 0);
+	adr : in STD_LOGIC_VECTOR(5 downto 0);
 	En : in STD_LOGIC;
 	R : in STD_LOGIC;
 	rw : in STD_LOGIC;

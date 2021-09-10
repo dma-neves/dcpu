@@ -10,14 +10,14 @@ Port(
 
 	opc : OUT STD_LOGIC_VECTOR(2 downto 0);
 	RM_S : OUT STD_LOGIC;
-	RXM_S : OUT STD_LOGIC_VECTOR(3 downto 0);
-	RYM_S : OUT STD_LOGIC_VECTOR(3 downto 0);
-	ICM_S : OUT STD_LOGIC_VECTOR(2 downto 0);
-	AM_S : OUT STD_LOGIC_VECTOR(2 downto 0);
+	RXM_S : OUT STD_LOGIC_VECTOR(2 downto 0);
+	RYM_S : OUT STD_LOGIC_VECTOR(2 downto 0);
+	ICM_S : OUT STD_LOGIC_VECTOR(1 downto 0);
+	AM_S : OUT STD_LOGIC_VECTOR(1 downto 0);
 	AXM_S : OUT STD_LOGIC;
-	DOM_S : OUT STD_LOGIC_VECTOR(2 downto 0);
+	DOM_S : OUT STD_LOGIC_VECTOR(1 downto 0);
 	AOM_S : OUT STD_LOGIC;
-	RED_S : OUT STD_LOGIC_VECTOR(3 downto 0);
+	RED_S : OUT STD_LOGIC_VECTOR(2 downto 0);
 	IC_En,
 	IR_En,
 	IDR_En,
@@ -117,19 +117,18 @@ Port(
 
 	opc : OUT STD_LOGIC_VECTOR(2 downto 0);
 	RM_S : OUT STD_LOGIC;
-	RXM_S : OUT STD_LOGIC_VECTOR(3 downto 0);
-	RYM_S : OUT STD_LOGIC_VECTOR(3 downto 0);
-	ICM_S : OUT STD_LOGIC_VECTOR(2 downto 0);
-	AM_S : OUT STD_LOGIC_VECTOR(2 downto 0);
+	RXM_S : OUT STD_LOGIC_VECTOR(2 downto 0);
+	RYM_S : OUT STD_LOGIC_VECTOR(2 downto 0);
+	ICM_S : OUT STD_LOGIC_VECTOR(1 downto 0);
+	AM_S : OUT STD_LOGIC_VECTOR(1 downto 0);
 	AXM_S : OUT STD_LOGIC;
-	DOM_S : OUT STD_LOGIC_VECTOR(2 downto 0);
+	DOM_S : OUT STD_LOGIC_VECTOR(1 downto 0);
 	AOM_S : OUT STD_LOGIC;
-	RED_S : OUT STD_LOGIC_VECTOR(3 downto 0);
+	RED_S : OUT STD_LOGIC_VECTOR(2 downto 0);
 	IC_En,
 	IR_En,
 	IDR_En,
 	ADR_En,
-	FR_En,
 	ACR_En,
 	GPR_En : OUT STD_LOGIC;
 	rw : OUT STD_LOGIC
@@ -170,20 +169,19 @@ hlt : STD_LOGIC;
 
 signal opc_aux : STD_LOGIC_VECTOR(2 downto 0);
 signal RM_S_aux : STD_LOGIC;
-signal RXM_S_aux : STD_LOGIC_VECTOR(3 downto 0);
-signal RYM_S_aux : STD_LOGIC_VECTOR(3 downto 0);
-signal ICM_S_aux : STD_LOGIC_VECTOR(2 downto 0);
-signal AM_S_aux : STD_LOGIC_VECTOR(2 downto 0);
+signal RXM_S_aux : STD_LOGIC_VECTOR(2 downto 0);
+signal RYM_S_aux : STD_LOGIC_VECTOR(2 downto 0);
+signal ICM_S_aux : STD_LOGIC_VECTOR(1 downto 0);
+signal AM_S_aux : STD_LOGIC_VECTOR(1 downto 0);
 signal AXM_S_aux : STD_LOGIC;
-signal DOM_S_aux : STD_LOGIC_VECTOR(2 downto 0);
+signal DOM_S_aux : STD_LOGIC_VECTOR(1 downto 0);
 signal AOM_S_aux : STD_LOGIC;
-signal RED_S_aux : STD_LOGIC_VECTOR(3 downto 0);
+signal RED_S_aux : STD_LOGIC_VECTOR(2 downto 0);
 signal 
 IC_En_aux,
 IR_En_aux,
 IDR_En_aux,
 ADR_En_aux,
-FR_En_aux,
 ACR_En_aux,
 GPR_En_aux : STD_LOGIC;
 signal rw_aux : STD_LOGIC;
@@ -305,7 +303,6 @@ OD: OpDecoder port map(
 	IR_En_aux,
 	IDR_En_aux,
 	ADR_En_aux,
-	FR_En_aux,
 	ACR_En_aux,
 	GPR_En_aux,
 	rw_aux
@@ -342,12 +339,12 @@ IC_En <= IC_En_active and (not clk);
 IDR_En <= IDR_En_active and (not clk);
 IR_En <= IR_En_active and (not clk);
 ADR_En <= ADR_En_aux and (not clk);
-FR_En <= FR_En_aux and (not clk);
 PACR_En <= ACR_En_aux and (not clk);
+FR_En <= ACR_En_aux and (not clk);
 IACR_En <= incIC and (not clk);
 GPR_En <= GPR_En_aux and (not clk);
 
-rw <= rw_aux;
+rw <= rw_aux and (not clk);
 fetch <= fetchInst or fetchData;
 
 state_0 <= fetchInst;
