@@ -36,20 +36,16 @@ int main() {
 
 ################### main.s ###################
 
-lod $128 SP
 jmp main
 
 avg:
 
 	// arr
 	pop RB
-
 	// len
 	pop RC
-
 	// sum = 0
 	lod $0 RD
-
 	// i = 0
 	lod $0 RE
 
@@ -65,7 +61,7 @@ avg:
 		lod ACR ADR
 		lod [ADR] RF
 		add RD RF
-		str ACR RD
+		lod ACR RD
 
 		// i++
 		inc RE
@@ -75,10 +71,8 @@ avg:
 
 	sum_loop_end:
 
-
 	// div = 0
 	psh $0
-
 	// s = sum
 	psh RD
 
@@ -90,53 +84,49 @@ avg:
 		lod ACR RF
 		srs RF $1
 
-		// div++
-		lsr $2 RF
+		// if s <= 0 goto div_loop_end
+		lsr $1 RF
 		dec RF
+		jmpn div_loop_end
+
+		// else div++ and goto div_loop_start
+		lsr $2 RF
+		inc RF
 		lod ACR RF
 		srs RF $2
+		jmp div_loop_start
 
-		// if s > 0 goto div_loop_start
-		lsr $1 RF
-		neg RF
-		jmpn div_loop_start
+	div_loop_end:
 
 	// return div
-	lsr $2 RA
 	pop
-	pop
+	pop RA
 	pop RB
 	lod RB ADR
 	jmp ADR
-
-
 
 main:
 
 	// len = 3
 	psh $3
-
 	// arr[0] = 5
 	psh $5
-
 	// arr[1] = 2
 	psh $2
-
 	// arr[2] = 9
 	psh $9
 
-	psh callAvg
 
-	sub SP $5
+	// psh return line
+	psh avg_ret
+	// psh len
+	lsr $5 RA
+	psh RA
+	// psh arr
+	SSP $5
 	psh ACR
-
-	sub SP $4
-	psh ACR
-
-	callAvg:
-		// res = avg(arr,len)
-		jmp avg
-		psh RA
+	// call avg(arr,len)
+	jmp avg
+	avg_ret:
 
 	hlt
-	

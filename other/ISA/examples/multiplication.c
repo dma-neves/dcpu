@@ -33,9 +33,12 @@ loop_start:
 	add RC RA
 	lod ACR RC
 
+	// i++
+	inc RD
+	lod ACR RD
 
-	// if i < b goto loop_start b-i < 0
-	sub RB RD
+	// if i < b goto loop_start
+	sub RD RB
 	jmpn loop_start
 
 psh RC
