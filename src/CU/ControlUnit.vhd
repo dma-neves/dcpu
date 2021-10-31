@@ -15,6 +15,7 @@ Port(
 	ICM_S : OUT STD_LOGIC_VECTOR(1 downto 0);
 	AM_S : OUT STD_LOGIC_VECTOR(1 downto 0);
 	AXM_S : OUT STD_LOGIC;
+	AYM_S : out STD_LOGIC;
 	DOM_S : OUT STD_LOGIC_VECTOR(1 downto 0);
 	AOM_S : OUT STD_LOGIC;
 	RED_S : OUT STD_LOGIC_VECTOR(2 downto 0);
@@ -122,6 +123,7 @@ Port(
 	ICM_S : OUT STD_LOGIC_VECTOR(1 downto 0);
 	AM_S : OUT STD_LOGIC_VECTOR(1 downto 0);
 	AXM_S : OUT STD_LOGIC;
+	AYM_S : out STD_LOGIC;
 	DOM_S : OUT STD_LOGIC_VECTOR(1 downto 0);
 	AOM_S : OUT STD_LOGIC;
 	RED_S : OUT STD_LOGIC_VECTOR(2 downto 0);
@@ -174,6 +176,7 @@ signal RYM_S_aux : STD_LOGIC_VECTOR(2 downto 0);
 signal ICM_S_aux : STD_LOGIC_VECTOR(1 downto 0);
 signal AM_S_aux : STD_LOGIC_VECTOR(1 downto 0);
 signal AXM_S_aux : STD_LOGIC;
+signal AYM_S_aux : STD_LOGIC;
 signal DOM_S_aux : STD_LOGIC_VECTOR(1 downto 0);
 signal AOM_S_aux : STD_LOGIC;
 signal RED_S_aux : STD_LOGIC_VECTOR(2 downto 0);
@@ -296,6 +299,7 @@ OD: OpDecoder port map(
 	ICM_S_aux,
 	AM_S_aux,
 	AXM_S_aux,
+	AYM_S_aux,
 	DOM_S_aux,
 	AOM_S_aux,
 	RED_S_aux,
@@ -332,6 +336,7 @@ RYM_S <= RYM_S_aux;
 ICM_S <= ICM_S_aux;
 AM_S <= AM_S_aux;
 AXM_S <= AXM_S_aux or incIC;
+AYM_S <= AYM_S_aux;
 DOM_S <= DOM_S_aux;
 AOM_S <= AOM_S_aux;
 RED_S <= RED_S_aux;

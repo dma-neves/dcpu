@@ -38,6 +38,7 @@ Port(
 	ICM_S : OUT STD_LOGIC_VECTOR(1 downto 0);
 	AM_S : OUT STD_LOGIC_VECTOR(1 downto 0);
 	AXM_S : OUT STD_LOGIC;
+	AYM_S : OUT STD_LOGIC;
 	DOM_S : OUT STD_LOGIC_VECTOR(1 downto 0);
 	AOM_S : OUT STD_LOGIC;
 	RED_S : OUT STD_LOGIC_VECTOR(2 downto 0);
@@ -167,7 +168,9 @@ signal AOM_S : STD_LOGIC;
 signal RM_S : STD_LOGIC;
 signal RM_o : STD_LOGIC_VECTOR(7 downto 0);
 signal AXM_S : STD_LOGIC;
+signal AYM_S : STD_LOGIC;
 signal AXM_o : STD_LOGIC_VECTOR(7 downto 0);
+signal AYM_o : STD_LOGIC_VECTOR(7 downto 0);
 signal ICM_S : STD_LOGIC_VECTOR(1 downto 0);
 signal DOM_S : STD_LOGIC_VECTOR(1 downto 0);
 signal AM_S : STD_LOGIC_VECTOR(1 downto 0);
@@ -204,6 +207,7 @@ CU: ControlUnit port map(
 	ICM_S => ICM_S,
 	AM_S => AM_S,
 	AXM_S => AXM_S,
+	AYM_S => AYM_S,
 	DOM_S => DOM_S,
 	AOM_S => AOM_S,
 	RED_S => RED_S,
@@ -342,7 +346,7 @@ RH: Register_8bit port map(
 
 ALU_M: ALU port map(
 	a => AXM_o,
-	b => RYM_o,
+	b => AYM_o,
 	opc => opc,
 	
 	result => result,
@@ -421,6 +425,13 @@ AXM: Mux2 port map(
 	I1 => IC_out,
 	sel => AXM_S,
 	o => AXM_o
+);
+
+AYM : Mux2 port map(
+	I0 => RYM_o,
+	I1 => IDR_out,
+	sel => AYM_S,
+	o => AYM_o
 );
 	
 DOM: Mux4 port map(

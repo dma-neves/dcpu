@@ -1,0 +1,2 @@
+- The sign bit (the most significant bit) is often ignored to allow for bigger numbers than 2^7 to be expressed
+- ALU's overflow flag

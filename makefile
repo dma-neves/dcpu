@@ -14,6 +14,7 @@ clean:
 	rm *.cf
 	rm *.ghw
 	rm main_test
+	rm controlunit_test
 
 cl:
 	rm *.o

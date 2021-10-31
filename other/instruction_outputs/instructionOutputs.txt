@@ -1,5 +1,6 @@
 add_RX_RY:
 	# ALU_X = RX      -> AXM_S = 0
+	# ALU_Y = RY      -> AYM_S = 0 
 	# ALU_opc = "000" -> opc = "000"
 	# ACR_En = 1      -> ACR_En = 1
 
@@ -7,6 +8,7 @@ add_RX_RY:
 
 sub_RX_RY:
 	# ALU_X = RX      -> AXM_S = 0
+	# ALU_Y = RY      -> AYM_S = 0 
 	# ALU_opc = "001" -> opc = "001"
 	# ACR_En = 1      -> ACR_En = 1
 
@@ -14,11 +16,13 @@ sub_RX_RY:
 	ACR_En
 
 ssp_V:
-	# ALU_X = RX      -> AXM_S = 0
-	# ALU_opc = "010" -> opc = "010"
+	# ALU_X = RH      -> hadled manually
+	# ALU_Y = IDR     -> AYM_S = 1
+	# ALU_opc = "001" -> opc = "001"
 	# ACR_En = 1      -> ACR_En = 1
 
-	opc(1)
+	AYM_S
+	opc(0)
 	ACR_En
 
 inc_RX:
@@ -57,6 +61,7 @@ not_RX:
 
 and_RX_RY:
 	# ALU_X = RX      -> AXM_S = 0
+	# ALU_Y = RY      -> AYM_S = 0 
 	# ALU_opc = "110" -> opc = "110"
 	# ACR_En = 1      -> ACR_En = 1
 
@@ -66,6 +71,7 @@ and_RX_RY:
 
 or_RX_RY:
 	# ALU_X = RX      -> AXM_S = 0
+	# ALU_Y = RY      -> AYM_S = 0 
 	# ALU_opc = "111" -> opc = "111"
 	# ACR_En = 1      -> ACR_En = 1
 

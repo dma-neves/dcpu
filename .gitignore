@@ -10,4 +10,5 @@
 *.xmsgs
 *.o
 *.cf
+*.gtkw
 src/cpu8bit/iseconfig
