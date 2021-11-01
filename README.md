@@ -23,52 +23,37 @@
 
 	Logic & Arithmetic:
 
-	00 add RA RB
-	01 add RA RC
-	02 add RA $X
-	03 sub RA RB
-	04 sub RA RC
-	05 sub RA $X
-	06 inc RA
-	07 dec RA
-	08 neg RA
-	09 not RA
-	10 and RA RB
-	11 and RA RC
-	12 or  RA RB
-	13 or  RA RC
+	add RX RY
+	sub RX RY
+	ssp $V (subtract V from the stack pointer)
+	inc RX
+	dec RX
+	neg RX
+	not RX
+	and RX RY
+	or  RX RY
 
 	Memory:
 
-	14 lod $X  RA 
-	15 lod $X  RB
-	16 lod $X  RC
-	17 lod $X  ADR
-
-	18 str $X [ADR]
-	19 lod [X] ADR
-
-	20 lod [ADR] RA
-	21 str RA    [ADR]
-	22 lod [ADR] RB
-	23 str RB    [ADR]
-	24 lod [ADR] RC
-	25 str RC    [ADR]
-
-	26 lod ACR RA
-	27 lod ACR ADR
-	28 str ACR [ADR]
-
-	29 str IC [ADR]
+	lod $V ADR
+	str $V [ADR]
+	lod [ADR] RX
+	str RX [ADR]
+	lod RX ADR
+	lod ACR RX
+	lod ACR ADR
+	str ACR [ADR]
+	str IC [ADR]
 
 	Instruction change:
 
-	30 jmp  ADR
-	31 jmp  X
-	32 jmpz X
-	33 jmpn X
-	34 jmpo X
-	35 hlt
+	jmp  ADR
+	jmp  X
+	jmpz X
+	jmpn X
+	jmpo X
+	hlt
+
 
 
 **Programming the ROM**
