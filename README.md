@@ -74,5 +74,5 @@
     <br/>![alt text](https://github.com/dma-neves/8bcpu/blob/main/other/example/averageProgram.png)
   - Given the assembly code we can generate the binary using the assembler. With the binary we can also generate the ROM module using the rom generator.
   <br/>![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/example/averageBinary.png)
-  - Finally, putting the ROM file in the Xilinx project we can simulate the cpu and check the final result stored in rega (register A).
+  - Finally, using ghdl, we can simulate the CPU, with the program loaded in ROM, and check the final result stored in register A which is 5.
   <br/>![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/example/averageResult.png)
