@@ -8,6 +8,9 @@
   - Main:
   <br/>![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/diagrams/cpu.png)
 
+  - ALU:
+  <br/>![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/diagrams/alu.png)
+
   - Control Unit:
   <br/>![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/diagrams/CU.png)
   
@@ -19,7 +22,7 @@
   - The 8bit [ALU](https://github.com/dma-neves/VHDL_ALU) can perform 8 different operations and its flags can be stored in the 3 bit flag register FLAGR.
   - The Control Unit cointains a 7 state SM (state 0 fetches the instruction | state 1 increments the IC | state 2 transfers IACR to IC | state 4 fetches the instruction data | state 4 decodes and executes | state 5 and 6 do the same as 1 and 2) therefore the cpu executes 1 instruction every 7 clock cycles. The instruction decoder and operation decoder activate the correct [operations](https://github.com/dma-neves/8bitCPU/blob/main/other/instruction_outputs/instructionOutputs.txt) for each instruction.
   
-**ISA: (Outdated version)**
+**ISA:**
 
 	Logic & Arithmetic:
 
