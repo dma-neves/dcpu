@@ -2,7 +2,7 @@
 
 **Description:**
   - A simple 8bit cpu devoloped in VHDL explicitly using logic gates and a structural description (instead of a high level behavioral description), with the exception of the memory modules and flip-flops.
-  - This cpu isn't suposso to be in any way revolutionary, efficient or well optimized. I'm only trying to design the simplest possible system that has all the basic features that a cpu needs. The aim of this project is therefore, only, to learn more about cpu/computer architecture and the implementation of digital systems.
+  - This cpu isn't suposso to be in any way revolutionary, efficient or well optimized. I'm only trying to design the simplest possible system that has all the basic features that a cpu needs. The aim of this project is therefore, only, to learn more about cpu/computer architecture and about the implementation of digital systems.
 
 **Schematics:**
   - Main:
@@ -18,9 +18,19 @@
   </br>![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/diagrams/seven_state_sm.png)
 
 **Specifications:**
-  - The CPU contains nine 8-bit registers: 3 general purpose registers RA RB RC, 3 instruction related registers IC (Instruction Counter) IR (Instruction Register) IDR (Instruction Data Register), a address register ADR and two accumulator registers PACR (Program Accomulator) and IACR (Instruction Counter Accomulator).
-  - The 8bit [ALU](https://github.com/dma-neves/VHDL_ALU) can perform 8 different operations and its flags can be stored in the 3 bit flag register FLAGR.
-  - The Control Unit cointains a 7 state SM (state 0 fetches the instruction | state 1 increments the IC | state 2 transfers IACR to IC | state 4 fetches the instruction data | state 4 decodes and executes | state 5 and 6 do the same as 1 and 2) therefore the cpu executes 1 instruction every 7 clock cycles. The instruction decoder and operation decoder activate the correct [operations](https://github.com/dma-neves/8bitCPU/blob/main/other/instruction_outputs/instructionOutputs.txt) for each instruction.
+  - The CPU contains 15 registers: eight 8-bit general purpose registers RA - RH (The register RH is meant to be used as the Stack Pointer); three instruction related registers IC (Instruction Counter) IR (Instruction Register) and IDR (Instruction Data Register); an address register ADR; two accumulator registers PACR (Program Accomulator) and IACR (Instruction Counter Accomulator); and a ALU flag register FLAGR
+  - The 8bit ALU can perform 8 different operations:
+	- opc 000: add (A + B)
+	- opc 001: sub (A - B)
+	- opc 010: inc (A+1)
+	- opc 011: dec (A-1)
+	- opc 100: neg (-A)
+	- opc 101: not (~A)
+	- opc 110: and (A ^ B)
+	- opc 111: or  (A v B)
+  - The Control Unit cointains a 7 state SM (state 0 fetches the instruction; state 1 increments the IC; state 2 loads IACR to IC; state 4 fetches the instruction data ; state 4 decodes and executes ; state 5 and 6 do the same as 1 and 2 respectively). Therefore the cpu executes 1 instruction every 7 clock cycles. The instruction decoder and operation decoder activate the correct [operations](https://github.com/dma-neves/8bitCPU/blob/main/other/instruction_outputs/instructionOutputs.txt) for each instruction.
+  - A program to be executed by the CPU, must be loaded into the 256 byte ROM module that can be generated using the [assembler and rom generator](https://github.com/dma-neves/8bcpuAssembler).
+  - The CPU has access to a 64 byte RAM module. The stack starts at address 0x0 and grows upwards. Address 0x3F (63) is reserved for IO and address 0x3E (62) is reserved as a temporary memory slot used by some assmebly macros. 
   
 **ISA:**
 
@@ -59,11 +69,10 @@
 
 
 
-**Programming the ROM**
-  - To facilitate the programming of the ROM I created a simple assembler and ROM generator (https://github.com/dma-neves/Assembler). An example follows:
-  - I wrote an assembly program that calculates n factorial. In this example n=5 therefore the final result stored in register A will be 5! = 120 = 0b01111000
-  <br/>![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/example/factorialProgram.png)
-  - Given the assembly code we can generate the binary using the assembler and the ROM256.vhd using the romGenerator
-  <br/>![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/example/factorialBinary.png)
+**Simulated Example Using ghdl**
+  - I wrote an assembly program (using some of the assembler's macros) with a main function and a int avg(int* arr, int len) function to calculate the average of a given array of length len. In this example the array was arr = [5, 2, 9] with len = 3. Therefore, the final result stored in register A sould be (5+2+9)/3 = 5. 
+    <br/>![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/example/average.png)
+  - Given the assembly code we can generate the binary using the assembler. With the binary we can also generate the ROM module using the rom generator.
+  <br/>![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/example/averageBinary.png)
   - Finally, putting the ROM file in the Xilinx project we can simulate the cpu and check the final result stored in rega (register A).
-  <br/>![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/example/factorialSimultedResult.png)
+  <br/>![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/example/averageResult.png)
