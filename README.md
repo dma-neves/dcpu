@@ -18,7 +18,7 @@
   </br>![alt text](https://github.com/dma-neves/8bitCPU/blob/main/other/diagrams/seven_state_sm.png)
 
 **Specifications:**
-  - The CPU contains 15 registers: eight 8-bit general purpose registers RA - RH (The register RH is meant to be used as the Stack Pointer); three instruction related registers IC (Instruction Counter) IR (Instruction Register) and IDR (Instruction Data Register); an address register ADR; two accumulator registers PACR (Program Accomulator) and IACR (Instruction Counter Accomulator); and a ALU flag register FLAGR
+  - The CPU contains 15 registers: eight 8-bit general purpose registers RA - RH (The register RH is meant to be used as the Stack Pointer); three instruction related registers IC (Instruction Counter) IR (Instruction Register) and IDR (Instruction Data Register); an address register ADR; two accumulator registers PACR (Program Accumulator) and IACR (Instruction Counter Accumulator); and a ALU flag register FLAGR
   - The 8bit ALU can perform 8 different operations:
 	- opc 000: add (A + B)
 	- opc 001: sub (A - B)
