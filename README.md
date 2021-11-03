@@ -1,8 +1,8 @@
 # Dumb CPU
 
 **Description:**
-  - A simple 16bit cpu devoloped in VHDL using a mostly structural description, using logic gates explicitly, (instead of a high level behavioral description), with the exception of the memory modules and flip-flops.
-  - This CPU isn't suposed to be revolutionary, efficient or well optimized in any way. I'm only trying to design the simplest possible system that has all the basic features that a cpu needs. The CPU is in fact quite slow (executing 1 instruction per 7 clock cycles) and uses only 24 instructions, hence the "dumb" adjective. The aim of this project is therefore, only, to learn more about cpu/computer architecture and about the implementation of digital systems.
+  - A simple 16bit cpu developed in VHDL using a mostly structural description, using logic gates explicitly, (instead of a high level behavioral description), with the exception of the memory modules and flip-flops.
+  - This CPU isn't supposed to be revolutionary, efficient or well optimized in any way. I'm only trying to design the simplest possible system that has all the basic features that a cpu needs. The CPU is in fact quite slow (executing 1 instruction per 7 clock cycles) and uses only 24 instructions, hence the "dumb" adjective. The aim of this project is therefore, only, to learn more about cpu/computer architecture and about the implementation of digital systems.
 
 **Schematics:**
   - Main:
