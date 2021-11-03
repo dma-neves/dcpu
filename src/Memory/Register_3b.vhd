@@ -1,7 +1,7 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
-entity Register_3bit is
+entity Register_3b is
 
 Port(
 	En, R : in STD_LOGIC;
@@ -9,9 +9,9 @@ Port(
 	DOut : out STD_LOGIC_VECTOR(2 downto 0)
 );
 
-end Register_3bit;
+end Register_3b;
 
-architecture Behavioral of Register_3bit is
+architecture Behavioral of Register_3b is
 
 component DFlipFlop
 Port(

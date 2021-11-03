@@ -9,17 +9,17 @@ Port(
 	En : in STD_LOGIC;
 	R : in STD_LOGIC;
 	rw : in STD_LOGIC;
-	DI : in STD_LOGIC_VECTOR(7 downto 0);
-	DO : out STD_LOGIC_VECTOR(7 downto 0)
+	DI : in STD_LOGIC_VECTOR(15 downto 0);
+	DO : out STD_LOGIC_VECTOR(15 downto 0)
 );
 end RAM64;
 
 architecture Behavioral of RAM64 is
 
-type RAM is array (0 to 63) of STD_LOGIC_VECTOR(7 DOWNTO 0);
-SIGNAL ram_block : RAM := (others => "00000000");
+type RAM is array (0 to 63) of STD_LOGIC_VECTOR(15 downto 0);
+SIGNAL ram_block : RAM := (others => "0000000000000000");
 
-SIGNAL DO_aux : STD_LOGIC_VECTOR(7 downto 0);
+SIGNAL DO_aux : STD_LOGIC_VECTOR(15 downto 0);
 
 begin
 
@@ -32,6 +32,14 @@ DO(4) <= DO_aux(4) and En;
 DO(5) <= DO_aux(5) and En;
 DO(6) <= DO_aux(6) and En;
 DO(7) <= DO_aux(7) and En;
+DO(8) <= DO_aux(8) and En;
+DO(9) <= DO_aux(9) and En;
+DO(10) <= DO_aux(10) and En;
+DO(11) <= DO_aux(11) and En;
+DO(12) <= DO_aux(12) and En;
+DO(13) <= DO_aux(13) and En;
+DO(14) <= DO_aux(14) and En;
+DO(15) <= DO_aux(15) and En;
 
 process(rw)
 begin

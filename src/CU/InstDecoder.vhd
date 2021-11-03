@@ -3,7 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity InstDecoder is
 Port(
-	inst : in STD_LOGIC_VECTOR(7 downto 0);
+	inst : in STD_LOGIC_VECTOR(15 downto 0);
 
 	add_RX_RY,
 	sub_RX_RY,
@@ -48,6 +48,7 @@ signal dm_o : STD_LOGIC_VECTOR(31 downto 0);
 
 begin
 
+-- TODO: Check dm_d
 dm_d <= (not inst(5)) and (not inst(6)) and (not inst(7));
 
 DM32: DeMux32_1b port map (

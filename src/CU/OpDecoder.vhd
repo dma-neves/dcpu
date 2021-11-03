@@ -6,7 +6,7 @@ Port(
 	
 	En : in STD_LOGIC;
 	ZF, NF, OVF : in STD_LOGIC;
-	IDR_l, IDR_h : STD_LOGIC_VECTOR(3 downto 0);
+	IDR_l, IDR_h : STD_LOGIC_VECTOR(7 downto 0);
 
 	add_RX_RY,
 	sub_RX_RY,
@@ -56,15 +56,15 @@ end OpDecoder;
 
 architecture Behavioral of OpDecoder is
 
-component Mux2_4b is
+component Mux2_8b is
 Port(
-	I0, I1 : in STD_LOGIC_VECTOR(3 downto 0);
+	I0, I1 : in STD_LOGIC_VECTOR(7 downto 0);
 	sel : in STD_LOGIC;
-	o : out STD_LOGIC_VECTOR(3 downto 0)
+	o : out STD_LOGIC_VECTOR(7 downto 0)
 );
 end component;
 
-signal RXM_S_4b : STD_LOGIC_VECTOR(3 downto 0);
+signal RXM_S_8b : STD_LOGIC_VECTOR(7 downto 0);
 
 begin
 
@@ -86,16 +86,16 @@ begin
 	IC_En <= En and (jmp_ADR or jmp_X or (jmpz_X and ZF) or (jmpn_X and NF) or (jmpo_X and OVF));
 	ICM_S(0) <= En and (jmp_X or (jmpz_X and ZF) or (jmpn_X and NF) or (jmpo_X and OVF));	
 	
-	RXM_S <= RXM_S_4b(2 downto 0);
+	RXM_S <= RXM_S_8b(2 downto 0);
 	RYM_S <= IDR_h(2 downto 0);
 	RED_S <= IDR_l(2 downto 0);
 
 
-	RX_MUX: Mux2_4b port map (
+	RX_MUX: Mux2_8b port map (
 		I0 => IDR_l,
-		I1 => "0111",
+		I1 => "00000111",
 		sel => ssp_V,
-		o => RXM_S_4b
+		o => RXM_S_8b
 	);
 
 	AXM_S <= '0';

@@ -1,0 +1,5 @@
+- switch to 16b
+- negatives
+- IO address
+- ROM256 -> ROM
+- 8bcpu -> dcpu

@@ -4,8 +4,8 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity ControlUnit is
 Port(
 	clk, reset : in STD_LOGIC;
-	inst : in STD_LOGIC_VECTOR(7 downto 0);
-	IDR : in STD_LOGIC_VECTOR(7 downto 0);
+	inst : in STD_LOGIC_VECTOR(15 downto 0);
+	IDR : in STD_LOGIC_VECTOR(15 downto 0);
 	ZF, NF, OVF : in STD_LOGIC;
 
 	opc : OUT STD_LOGIC_VECTOR(2 downto 0);
@@ -56,7 +56,7 @@ end component;
 
 component InstDecoder is
 Port(
-	inst : in STD_LOGIC_VECTOR(7 downto 0);
+	inst : in STD_LOGIC_VECTOR(15 downto 0);
 
 	add_RX_RY,
 	sub_RX_RY,
@@ -89,7 +89,7 @@ component OpDecoder is
 Port(
 	En : in STD_LOGIC;
 	ZF, NF, OVF : in STD_LOGIC;
-	IDR_l, IDR_h : STD_LOGIC_VECTOR(3 downto 0);
+	IDR_l, IDR_h : STD_LOGIC_VECTOR(7 downto 0);
 
 	add_RX_RY,
 	sub_RX_RY,
@@ -140,7 +140,7 @@ end component;
 -- signals
 
 -- Instruction Data Reg low and high word
-signal IDR_l, IDR_h : STD_LOGIC_VECTOR(3 downto 0);
+signal IDR_l, IDR_h : STD_LOGIC_VECTOR(7 downto 0);
 
 -- Instructions
 signal
@@ -312,8 +312,8 @@ OD: OpDecoder port map(
 	rw_aux
 );
 
-IDR_l <= IDR(3 downto 0);
-IDR_h <= IDR(7 downto 4);
+IDR_l <= IDR(7 downto 0);
+IDR_h <= IDR(15 downto 8);
 sm_clk <= clk and (not hlt);
 
 -- states

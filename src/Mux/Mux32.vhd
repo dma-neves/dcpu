@@ -13,9 +13,9 @@ Port(
 	I20, I21, I22, I23,
 	I24, I25, I26, I27,
 	I28, I29, I30, I31 :
-	in STD_LOGIC_VECTOR(7 downto 0);
+	in STD_LOGIC_VECTOR(15 downto 0);
 	
-	d : out STD_LOGIC_VECTOR(7 downto 0)
+	d : out STD_LOGIC_VECTOR(15 downto 0)
 );
 end Mux32;
 
@@ -28,22 +28,22 @@ Port(
 	I4, I5, I6, I7,
 	I8, I9, I10, I11,
 	I12, I13, I14, I15
-	: in STD_LOGIC_VECTOR(7 downto 0);
+	: in STD_LOGIC_VECTOR(15 downto 0);
 	
-	d : out STD_LOGIC_VECTOR(7 downto 0)
+	d : out STD_LOGIC_VECTOR(15 downto 0)
 );
 end component;
 
 component Mux2
 Port(
-	I0, I1 : in STD_LOGIC_VECTOR(7 downto 0);
+	I0, I1 : in STD_LOGIC_VECTOR(15 downto 0);
 	sel : in STD_LOGIC;
-	o : out STD_LOGIC_VECTOR(7 downto 0)
+	o : out STD_LOGIC_VECTOR(15 downto 0)
 );
 end component;
 
 signal l_sel : STD_LOGIC_VECTOR(3 downto 0);
-signal M0_d, M1_d : STD_LOGIC_VECTOR(7 downto 0);
+signal M0_d, M1_d : STD_LOGIC_VECTOR(15 downto 0);
 
 begin
 

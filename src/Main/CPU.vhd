@@ -6,16 +6,16 @@ entity CPU is
 Port(
 	reset : in STD_LOGIC;
 	clk : in STD_LOGIC;
-	dataIn : in STD_LOGIC_VECTOR(7 downto 0);
+	dataIn : in STD_LOGIC_VECTOR(15 downto 0);
 
 	regSel : in STD_LOGIC_VECTOR(2 downto 0);
 	
-	address : out STD_LOGIC_VECTOR(7 downto 0);
-	dataOut : out STD_LOGIC_VECTOR(7 downto 0);
+	address : out STD_LOGIC_VECTOR(15 downto 0);
+	dataOut : out STD_LOGIC_VECTOR(15 downto 0);
 	readWrite : out STD_LOGIC;
 	fetch : out STD_LOGIC; 
 
-	GPR, regIC, regIR, regIDR, regIACR, regPACR, regADR : out STD_LOGIC_VECTOR(7 downto 0);
+	GPR, regIC, regIR, regIDR, regIACR, regPACR, regADR : out STD_LOGIC_VECTOR(15 downto 0);
 	state_0, state_1, state_2, state_3, state_4, state_5, state_6 : out STD_LOGIC
 );
 end CPU;
@@ -27,8 +27,8 @@ architecture Behavioral of CPU is
 component ControlUnit is
 Port(
 	clk, reset : in STD_LOGIC;
-	inst : in STD_LOGIC_VECTOR(7 downto 0);
-	IDR : in STD_LOGIC_VECTOR(7 downto 0);
+	inst : in STD_LOGIC_VECTOR(15 downto 0);
+	IDR : in STD_LOGIC_VECTOR(15 downto 0);
 	ZF, NF, OVF : in STD_LOGIC;
 
 	opc : OUT STD_LOGIC_VECTOR(2 downto 0);
@@ -64,15 +64,15 @@ Port(
 );
 end component;
 
-component Register_8bit is
+component Register_16b is
 Port(
 	En, R : in STD_LOGIC;
-	DIn : in STD_LOGIC_VECTOR(7 downto 0);
-	DOut : out STD_LOGIC_VECTOR(7 downto 0)
+	DIn : in STD_LOGIC_VECTOR(15 downto 0);
+	DOut : out STD_LOGIC_VECTOR(15 downto 0)
 );
 end component;
 
-component Register_3bit is
+component Register_3b is
 Port(
 	En, R : in STD_LOGIC;
 	DIn : in STD_LOGIC_VECTOR(2 downto 0);
@@ -82,11 +82,11 @@ end component;
 
 component ALU is
 Port (
-	a : IN STD_LOGIC_VECTOR(7 downto 0);
-	b : IN STD_LOGIC_VECTOR(7 downto 0);
+	a : IN STD_LOGIC_VECTOR(15 downto 0);
+	b : IN STD_LOGIC_VECTOR(15 downto 0);
 	opc : IN STD_LOGIC_VECTOR(2 downto 0);
 	
-	result : OUT STD_LOGIC_VECTOR(7 downto 0);
+	result : OUT STD_LOGIC_VECTOR(15 downto 0);
 	zeroF : OUT STD_LOGIC;
 	negativeF : OUT STD_LOGIC;
 	overflowF : OUT STD_LOGIC
@@ -104,26 +104,26 @@ end component;
 
 component Mux8 is
 Port(
-	I0, I1, I2, I3, I4, I5, I6, I7 : in STD_LOGIC_VECTOR(7 downto 0);
+	I0, I1, I2, I3, I4, I5, I6, I7 : in STD_LOGIC_VECTOR(15 downto 0);
 	sel : in STD_LOGIC_VECTOR(2 downto 0);
 	
-	o : out STD_LOGIC_VECTOR(7 downto 0)
+	o : out STD_LOGIC_VECTOR(15 downto 0)
 );
 end component;
 
 component Mux4 is
 Port(
-	I0, I1, I2, I3 : in STD_LOGIC_VECTOR(7 downto 0);
+	I0, I1, I2, I3 : in STD_LOGIC_VECTOR(15 downto 0);
 	sel : in STD_LOGIC_VECTOR(1 downto 0);
-	o : out STD_LOGIC_VECTOR(7 downto 0)
+	o : out STD_LOGIC_VECTOR(15 downto 0)
 );
 end component;
 
 component Mux2 is
 Port(
-	I0, I1 : in STD_LOGIC_VECTOR(7 downto 0);
+	I0, I1 : in STD_LOGIC_VECTOR(15 downto 0);
 	sel : in STD_LOGIC;
-	o : out STD_LOGIC_VECTOR(7 downto 0)	
+	o : out STD_LOGIC_VECTOR(15 downto 0)	
 );
 end component;
 
@@ -132,52 +132,52 @@ end component;
 -- Specific registers
 signal FR_in, FR_out : STD_LOGIC_VECTOR(2 downto 0);
 signal FR_en : STD_LOGIC;
-signal IR_in, IR_out : STD_LOGIC_VECTOR(7 downto 0);
+signal IR_in, IR_out : STD_LOGIC_VECTOR(15 downto 0);
 signal IR_en : STD_LOGIC;
-signal IDR_in, IDR_out : STD_LOGIC_VECTOR(7 downto 0);
+signal IDR_in, IDR_out : STD_LOGIC_VECTOR(15 downto 0);
 signal IDR_en : STD_LOGIC;
-signal ADR_in, ADR_out : STD_LOGIC_VECTOR(7 downto 0);
+signal ADR_in, ADR_out : STD_LOGIC_VECTOR(15 downto 0);
 signal ADR_en : STD_LOGIC;
-signal IC_in, IC_out : STD_LOGIC_VECTOR(7 downto 0);
+signal IC_in, IC_out : STD_LOGIC_VECTOR(15 downto 0);
 signal IC_en : STD_LOGIC;
-signal IACR_in, IACR_out : STD_LOGIC_VECTOR(7 downto 0);
+signal IACR_in, IACR_out : STD_LOGIC_VECTOR(15 downto 0);
 signal IACR_en : STD_LOGIC;
-signal PACR_in, PACR_out : STD_LOGIC_VECTOR(7 downto 0);
+signal PACR_in, PACR_out : STD_LOGIC_VECTOR(15 downto 0);
 signal PACR_en : STD_LOGIC;
 
 -- General purpose regsiters
-signal RA_in, RA_out : STD_LOGIC_VECTOR(7 downto 0);
+signal RA_in, RA_out : STD_LOGIC_VECTOR(15 downto 0);
 signal RA_en : STD_LOGIC;
-signal RB_in, RB_out : STD_LOGIC_VECTOR(7 downto 0);
+signal RB_in, RB_out : STD_LOGIC_VECTOR(15 downto 0);
 signal RB_en : STD_LOGIC;
-signal RC_in, RC_out : STD_LOGIC_VECTOR(7 downto 0);
+signal RC_in, RC_out : STD_LOGIC_VECTOR(15 downto 0);
 signal RC_en : STD_LOGIC;
-signal RD_in, RD_out : STD_LOGIC_VECTOR(7 downto 0);
+signal RD_in, RD_out : STD_LOGIC_VECTOR(15 downto 0);
 signal RD_en : STD_LOGIC;
-signal RE_in, RE_out : STD_LOGIC_VECTOR(7 downto 0);
+signal RE_in, RE_out : STD_LOGIC_VECTOR(15 downto 0);
 signal RE_en : STD_LOGIC;
-signal RF_in, RF_out : STD_LOGIC_VECTOR(7 downto 0);
+signal RF_in, RF_out : STD_LOGIC_VECTOR(15 downto 0);
 signal RF_en : STD_LOGIC;
-signal RG_in, RG_out : STD_LOGIC_VECTOR(7 downto 0);
+signal RG_in, RG_out : STD_LOGIC_VECTOR(15 downto 0);
 signal RG_en : STD_LOGIC;
-signal RH_in, RH_out : STD_LOGIC_VECTOR(7 downto 0);
+signal RH_in, RH_out : STD_LOGIC_VECTOR(15 downto 0);
 signal RH_en : STD_LOGIC;
 
 -- Multiplexers
 signal AOM_S : STD_LOGIC;
 signal RM_S : STD_LOGIC;
-signal RM_o : STD_LOGIC_VECTOR(7 downto 0);
+signal RM_o : STD_LOGIC_VECTOR(15 downto 0);
 signal AXM_S : STD_LOGIC;
 signal AYM_S : STD_LOGIC;
-signal AXM_o : STD_LOGIC_VECTOR(7 downto 0);
-signal AYM_o : STD_LOGIC_VECTOR(7 downto 0);
+signal AXM_o : STD_LOGIC_VECTOR(15 downto 0);
+signal AYM_o : STD_LOGIC_VECTOR(15 downto 0);
 signal ICM_S : STD_LOGIC_VECTOR(1 downto 0);
 signal DOM_S : STD_LOGIC_VECTOR(1 downto 0);
 signal AM_S : STD_LOGIC_VECTOR(1 downto 0);
 signal RXM_S : STD_LOGIC_VECTOR(2 downto 0);
 signal RYM_S : STD_LOGIC_VECTOR(2 downto 0);
-signal RXM_o : STD_LOGIC_VECTOR(7 downto 0);
-signal RYM_o : STD_LOGIC_VECTOR(7 downto 0);
+signal RXM_o : STD_LOGIC_VECTOR(15 downto 0);
+signal RYM_o : STD_LOGIC_VECTOR(15 downto 0);
 
 -- DeMultiplexers
 signal RED_S : STD_LOGIC_VECTOR(2 downto 0);
@@ -186,7 +186,7 @@ signal RED_S_4b : STD_LOGIC_VECTOR(3 downto 0);
 
 -- ALU
 signal opc : STD_LOGIC_VECTOR(2 downto 0);
-signal result : STD_LOGIC_VECTOR(7 downto 0);
+signal result : STD_LOGIC_VECTOR(15 downto 0);
 
 begin
 
@@ -235,49 +235,49 @@ CU: ControlUnit port map(
 IR_in <= dataIn;
 IDR_in <= dataIn;
 
-ADR: Register_8bit port map(
+ADR: Register_16b port map(
 	En => ADR_en,
 	R => reset,
 	DIn => ADR_in,
 	DOut => ADR_out
 );
 
-IR: Register_8bit port map(
+IR: Register_16b port map(
 	En => IR_en,
 	R => reset,
 	DIn => IR_in,
 	DOut => IR_out
 );
 
-IDR: Register_8bit port map(
+IDR: Register_16b port map(
 	En => IDR_en,
 	R => reset,
 	DIn => IDR_in,
 	DOut => IDR_out
 );
 
-IC: Register_8bit port map(
+IC: Register_16b port map(
 	En => IC_en,
 	R => reset,
 	DIn => IC_in,
 	DOut => IC_out
 );
 
-IACR: Register_8bit port map(
+IACR: Register_16b port map(
 	En => IACR_en,
 	R => reset,
 	DIn => IACR_in,
 	DOut => IACR_out
 );
 
-PACR: Register_8bit port map(
+PACR: Register_16b port map(
 	En => PACR_en,
 	R => reset,
 	DIn => PACR_in,
 	DOut => PACR_out
 );
 
-FR: Register_3bit port map(
+FR: Register_3b port map(
 	En => FR_en,
 	R => reset,
 	DIn => FR_in,
@@ -286,56 +286,56 @@ FR: Register_3bit port map(
 
 -- General purpose regsiters
 
-RA: Register_8bit port map(
+RA: Register_16b port map(
 	En => RA_en,
 	R => reset,
 	DIn => RA_in,
 	DOut => RA_out
 );
 
-RB: Register_8bit port map(
+RB: Register_16b port map(
 	En => RB_en,
 	R => reset,
 	DIn => RB_in,
 	DOut => RB_out
 );
 
-RC: Register_8bit port map(
+RC: Register_16b port map(
 	En => RC_en,
 	R => reset,
 	DIn => RC_in,
 	DOut => RC_out
 );
 
-RD: Register_8bit port map(
+RD: Register_16b port map(
 	En => RD_en,
 	R => reset,
 	DIn => RD_in,
 	DOut => RD_out
 );
 
-RE: Register_8bit port map(
+RE: Register_16b port map(
 	En => RE_en,
 	R => reset,
 	DIn => RE_in,
 	DOut => RE_out
 );
 
-RF: Register_8bit port map(
+RF: Register_16b port map(
 	En => RF_en,
 	R => reset,
 	DIn => RF_in,
 	DOut => RF_out
 );
 
-RG: Register_8bit port map(
+RG: Register_16b port map(
 	En => RG_en,
 	R => reset,
 	DIn => RG_in,
 	DOut => RG_out
 );
 
-RH: Register_8bit port map(
+RH: Register_16b port map(
 	En => RH_en,
 	R => reset,
 	DIn => RH_in,
@@ -406,7 +406,7 @@ ICM: Mux4 port map(
 	I0 => IACR_out,
 	I1 => IDR_out,
 	I2 =>ADR_out,
-	I3 => "00000000",
+	I3 => "0000000000000000",
 	sel => ICM_S,
 	o => IC_in
 );
@@ -415,7 +415,7 @@ AM: Mux4 port map(
 	I0 => RXM_o,
 	I1 => PACR_out,
 	I2 => IDR_out,
-	I3 => "00000000",
+	I3 => "0000000000000000",
 	sel => AM_S,
 	o => ADR_in
 );
