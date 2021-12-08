@@ -8,14 +8,14 @@ Port(
 	clk : in STD_LOGIC;
 	dataIn : in STD_LOGIC_VECTOR(15 downto 0);
 
-	regSel : in STD_LOGIC_VECTOR(2 downto 0);
+	regSel : in STD_LOGIC_VECTOR(3 downto 0);
 	
 	address : out STD_LOGIC_VECTOR(15 downto 0);
 	dataOut : out STD_LOGIC_VECTOR(15 downto 0);
 	readWrite : out STD_LOGIC;
 	fetch : out STD_LOGIC; 
 
-	GPR, regIC, regIR, regIDR, regIACR, regPACR, regADR : out STD_LOGIC_VECTOR(15 downto 0);
+	reg, regIR, regIC : out STD_LOGIC_VECTOR(15 downto 0);
 	state_0, state_1, state_2, state_3, state_4, state_5, state_6 : out STD_LOGIC
 );
 end CPU;
@@ -127,6 +127,19 @@ Port(
 );
 end component;
 
+component Mux16 is
+    Port(
+        sel : in STD_LOGIC_VECTOR(3 downto 0);
+        I0, I1, I2, I3,
+        I4, I5, I6, I7,
+        I8, I9, I10, I11,
+        I12, I13, I14, I15
+        : in STD_LOGIC_VECTOR(15 downto 0);
+        
+        d : out STD_LOGIC_VECTOR(15 downto 0)
+    );
+end component;
+
 -- Signals
 
 -- Specific registers
@@ -189,6 +202,10 @@ signal opc : STD_LOGIC_VECTOR(2 downto 0);
 signal result : STD_LOGIC_VECTOR(15 downto 0);
 
 begin
+
+-- Outputs
+regIR <= IR_out;
+regIC <= IC_out;
 
 -- Port maps
 CU: ControlUnit port map(
@@ -450,17 +467,26 @@ AOM: Mux2 port map(
 	o => address
 );
 
-GPR_Selector: Mux8 port map(
-	I0 => RA_out,
-	I1 => RB_out,
-	I2 => RC_out,
-	I3 => RD_out,
-	I4 => RE_out,
-	I5 => RF_out,
-	I6 => RG_out,
-	I7 => RH_out,
+GPR_Selector: Mux16 port map(
+	I0 => IC_out,
+	I1 => IDR_out,
+	I2 => ADR_out,
+	I3 => RA_out,
+	I4 => RB_out,
+	I5 => RC_out,
+	I6 => RD_out,
+	I7 => RE_out,
+	I8 => RF_out,
+	I9 => RG_out,
+	I10 => RH_out,
+	I11 => PACR_out,
+	I12 => IACR_out,
+	I13 => "0000000000000000",
+	I14 => "0000000000000000",
+	I15 => "0000000000000000",
 	sel => regSel,
-	o => GPR
+	
+	d => reg
 );
 
 -- DeMultiplexers

@@ -7,9 +7,9 @@ entity Main is
 Port(
 	clk : in STD_LOGIC;
 	reset, run, step : in STD_LOGIC;
-	regSel : in STD_LOGIC_VECTOR(2 downto 0);
+	regSel : in STD_LOGIC_VECTOR(3 downto 0);
 
-	GPR, regIC, regIR, regIDR, regIACR, regPACR, regADR : out STD_LOGIC_VECTOR(15 downto 0);
+	reg, regIR, regIC : out STD_LOGIC_VECTOR(7 downto 0);
 	state_0, state_1, state_2, state_3, state_4, state_5, state_6 : out STD_LOGIC
 );
 end Main;
@@ -24,14 +24,14 @@ Port(
 	clk : in STD_LOGIC;
 	dataIn : in STD_LOGIC_VECTOR(15 downto 0);
 
-	regSel : in STD_LOGIC_VECTOR(2 downto 0);
+	regSel : in STD_LOGIC_VECTOR(3 downto 0);
 	
 	address : out STD_LOGIC_VECTOR(15 downto 0);
 	dataOut : out STD_LOGIC_VECTOR(15 downto 0);
 	readWrite : out STD_LOGIC;
 	fetch : out STD_LOGIC; 
 
-	GPR, regIC, regIR, regIDR, regIACR, regPACR, regADR : out STD_LOGIC_VECTOR(15 downto 0);
+	reg, regIR, regIC : out STD_LOGIC_VECTOR(15 downto 0);
 	state_0, state_1, state_2, state_3, state_4, state_5, state_6 : out STD_LOGIC
 );
 end component;
@@ -72,7 +72,13 @@ signal rw : STD_LOGIC;
 
 signal fetch, ramEn, romEn : STD_LOGIC; 
 
+signal reg_16, regIR_16, regIC_16 : STD_LOGIC_VECTOR(15 downto 0);
+
 begin
+
+reg(7 downto 0) <= reg_16(7 downto 0);
+regIR(7 downto 0) <= regIR_16(7 downto 0);
+regIC(7 downto 0) <= regIC_16(7 downto 0);
 
 romEn <= fetch;
 ramEn <= (not fetch);
@@ -108,8 +114,8 @@ CLKM: ClockManager port map(clk, run, step, clk_aux);
 CPU_M: CPU port map(
 
 	reset, clk_aux, dataToCPU, regSel, adr, dataToMem, 
-	rw, fetch, GPR, regIC, regIR, regIDR, regIACR, 
-	regPACR, regADR, 
+	rw, fetch, 
+    reg_16, regIR_16, regIC_16,
 	state_0, state_1, state_2, state_3, state_4, state_5, state_6
 );
 
