@@ -64,6 +64,14 @@ Port(
 );
 end component;
 
+component debounce is
+PORT(
+    clk     : IN  STD_LOGIC;  --input clock
+    button  : IN  STD_LOGIC;  --input signal to be debounced
+    result  : OUT STD_LOGIC
+);
+end component;
+	 
 -- Signals
 signal clk_aux : STD_LOGIC;
 signal adr, ramData, romData, dataToCPU, dataToMem : STD_LOGIC_VECTOR(15 downto 0);
@@ -73,6 +81,8 @@ signal rw : STD_LOGIC;
 signal fetch, ramEn, romEn : STD_LOGIC; 
 
 signal reg_16, regIR_16, regIC_16 : STD_LOGIC_VECTOR(15 downto 0);
+
+signal step_result : STD_LOGIC;
 
 begin
 
@@ -109,7 +119,7 @@ adr_mem(5) <= adr(5);
 
 -- Port maps
 
-CLKM: ClockManager port map(clk, run, step, clk_aux);
+CLKM: ClockManager port map(clk, run, step_result, clk_aux);
 
 CPU_M: CPU port map(
 
@@ -121,6 +131,13 @@ CPU_M: CPU port map(
 
 RAM64_M: RAM64 port map(adr_mem, ramEn, reset, rw, dataToMem, ramData);
 ROM_M: ROM port map(adr, romEn, romData);
+
+DEBOUNCE_M: debounce port map (
+
+clk,
+step,
+step_result
+);
 
 end Behavioral;
 
