@@ -1,10 +1,11 @@
 # Dumb CPU
 
-**Description:**
+## Description
   - A simple 16bit cpu developed in VHDL using a mostly structural description, using logic gates explicitly, (instead of a high level behavioral description), with the exception of the memory modules and flip-flops.
   - This CPU isn't supposed to be revolutionary, efficient or well optimized in any way. I'm only trying to design the simplest possible system that has all the basic features that a cpu needs. The CPU is in fact quite slow (executing 1 instruction per 7 clock cycles) and uses only 24 instructions, hence the "dumb" adjective. The aim of this project is therefore, only, to learn more about cpu/computer architecture and about the implementation of digital systems.
+  - **Important Note**: The last commit is crucial for programming an FPGA with the VHDL code but breaks some of the tests. For simulating the tests use the previous [commit](https://github.com/dma-neves/dcpu/commit/88553b62cbd5d48a902010da16fbf05984602c07).
 
-**Schematics:**
+## Schematics
   - Main:
   <br/>![alt text](https://github.com/dma-neves/dcpu/blob/main/other/diagrams/cpu.png)
 
@@ -17,7 +18,7 @@
   - Seven State State Machine:
   </br>![alt text](https://github.com/dma-neves/dcpu/blob/main/other/diagrams/seven_state_sm.png)
 
-**Specifications:**
+## Specifications
   - The CPU contains 15 registers: eight 16-bit general purpose registers RA - RH (The register RH is meant to be used as the Stack Pointer); three instruction related registers IC (Instruction Counter) IR (Instruction Register) and IDR (Instruction Data Register); an address register ADR; two accumulator registers PACR (Program Accumulator) and IACR (Instruction Counter Accumulator); and a ALU flag register FLAGR
   - The ALU can perform 8 different operations:
 	- opc 000: add (A + B)
@@ -32,7 +33,7 @@
   - A program to be executed by the CPU, must be loaded into the ROM module that can be generated using the [assembler and rom generator](https://github.com/dma-neves/dcpuAssembler).
   - The CPU has access to a 64 byte RAM module. The stack starts at address 0x0 and grows upwards. Address 0x3E (62) is reserved as a temporary memory slot used by some assmebly macros and address 0xFFFF (not used by the RAM) is reserved for IO.
   
-**ISA:**
+## ISA
 
 	Logic & Arithmetic:
 
@@ -69,7 +70,7 @@
 
 
 
-**Simulated Example Using ghdl**
+## Simulated Example Using ghdl
   - I wrote an assembly program (using some of the assembler's macros) with a `main` function and a `int avg(int* arr, int len)` function to calculate the average of a given array `arr` of length `len`. In this example the array was `arr = [5, 2, 9]` with `len = 3`. Therefore, the final result stored in register A sould be (5+2+9)/3 = 5. 
     <br/>![alt text](https://github.com/dma-neves/8bcpu/blob/main/other/example/averageProgram.png)
   - Given the assembly code we can generate the binary using the assembler. With the binary we can also generate the ROM module using the rom generator.
